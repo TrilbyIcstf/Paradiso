@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Camera_Manager : MonoBehaviour
@@ -30,13 +28,14 @@ public class Camera_Manager : MonoBehaviour
     {
         float aspect = (float)Screen.width / (float)Screen.height;
         float targetAspect = TargetWidth / TargetHeight;
-        Debug.Log(aspect);
-        Debug.Log(targetAspect);
+        //Debug.Log(aspect);
+        //Debug.Log(targetAspect);
 
         if (aspect > targetAspect)
         {
             mainCamera.orthographicSize = TargetWidth;
-        } else
+        }
+        else
         {
             float difference = targetAspect / aspect;
             mainCamera.orthographicSize = TargetWidth * difference;

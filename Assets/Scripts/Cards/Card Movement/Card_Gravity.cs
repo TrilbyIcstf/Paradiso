@@ -1,38 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Card_Gravity : MonoBehaviour
 {
-    private const float MAX_DISTANCE = 0.5f;
+    private const float MAX_DISTANCE = 1.5f;
     private const float SNAP_DISTANCE = 0.005f;
-    private const float FLOAT_DISTANCE = 1.5f;
+    private const float FLOAT_DISTANCE = 3.5f;
 
     /// <summary>
-    /// The point of gravity this card will move towards.
+    /// The point of gravity this card will move towards
     /// </summary>
     private Vector2 gravityPoint = Vector2.zero;
 
     private CardMovementType movementType = CardMovementType.NONE;
 
     /// <summary>
-    /// The strength of the gravity effect acting on this card.
+    /// The strength of the gravity effect acting on this card
     /// </summary>
     private float gravityStrength = 8f;
 
     /// <summary>
-    /// The initial position of the card before being interacted with.
+    /// The initial position of the card before being interacted with
     /// </summary>
     private Vector2 initialPosition = Vector2.zero;
+
+    /// <summary>
+    /// Determines if the card's position is locked
+    /// </summary>
+    private bool isLocked = false;
 
     private void Awake()
     {
         this.gravityPoint = this.transform.position;
+        this.initialPosition = this.gravityPoint;
     }
 
     private void Update()
     {
-        switch(this.movementType)
+        switch (this.movementType)
         {
             case CardMovementType.SNAP:
                 this.SnapMove();
@@ -90,6 +94,11 @@ public class Card_Gravity : MonoBehaviour
         this.gravityPoint = val;
     }
 
+    public void SetPosition(Vector2 val)
+    {
+        this.initialPosition = val;
+    }
+
     public void SetMovementType(CardMovementType movementType)
     {
         this.movementType = movementType;
@@ -109,6 +118,16 @@ public class Card_Gravity : MonoBehaviour
     {
         this.movementType = CardMovementType.FLOAT;
         this.gravityPoint = this.initialPosition;
+    }
+
+    public void SetLocked(bool locked)
+    {
+        this.isLocked = locked;
+    }
+
+    public bool GetLocked()
+    {
+        return this.isLocked;
     }
 }
 

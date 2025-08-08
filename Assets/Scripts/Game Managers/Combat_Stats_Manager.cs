@@ -1,11 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Combat_Stats_Manager : MonoBehaviour
 {
     private float currentEnergy = 36;
     private float maxEnergy = 36;
+
+    private bool regenOn = true;
+    private float energyRegen = 0.06f;
+
+    private void FixedUpdate()
+    {
+        if (regenOn && EnergyFraction() < 1)
+        {
+            AddEnergy(energyRegen);
+        }
+    }
 
     public bool SetEnergy(float val)
     {
@@ -35,11 +44,18 @@ public class Combat_Stats_Manager : MonoBehaviour
 
     public bool CanAffordEnergy(float cost)
     {
-        return cost > this.currentEnergy;
+        return cost <= this.currentEnergy;
     }
 
     private void NotifyEnergyUpdated()
     {
         GameManager.instance.CUI.NotifyEnergyUpdated();
+    }
+
+    public bool ToggleRegen(bool regen)
+    {
+        bool oldRegen = this.regenOn;
+        this.regenOn = regen;
+        return oldRegen == this.regenOn;
     }
 }
