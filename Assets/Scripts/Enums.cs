@@ -6,3 +6,9 @@ public enum CardElement
     Wind,
     Nill
 }
+
+public enum Items
+{
+    Default,
+    DamageTest
+}

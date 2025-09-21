@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Combat_Stats_Manager : MonoBehaviour
@@ -30,10 +31,15 @@ public class Combat_Stats_Manager : MonoBehaviour
         return this.currentEnergy >= this.maxEnergy;
     }
 
-    public bool SubtractEnergy(float val)
+    public bool SubtractEnergy(float val, bool delay)
     {
         this.currentEnergy = Mathf.Max(this.currentEnergy - val, 0);
         NotifyEnergyUpdated();
+        if (delay)
+        {
+            StartCoroutine(RegenDelay());
+        }
+
         return this.currentEnergy <= 0;
     }
 
@@ -45,6 +51,13 @@ public class Combat_Stats_Manager : MonoBehaviour
     public bool CanAffordEnergy(float cost)
     {
         return cost <= this.currentEnergy;
+    }
+
+    private IEnumerator RegenDelay()
+    {
+        ToggleRegen(false);
+        yield return new WaitForSeconds(0.25f);
+        ToggleRegen(true);
     }
 
     private void NotifyEnergyUpdated()

@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public Combat_UI_Manager CUI;
     public Combat_Stats_Manager CS;
     public Combat_Field_Manager CF;
+    public Combat_Player_Hand_Manager CPH;
 
     void Awake()
     {

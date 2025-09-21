@@ -17,16 +17,7 @@ public class Combat_UI_Manager : MonoBehaviour
     /// <param name="card">The card that was held</param>
     public void PlayerReleasesCard(GameObject card)
     {
-        int slotPosition = -1;
-        for (int i = 0; i < this.cardSlots.Length; i++)
-        {
-            if (this.cardSlots[i] == null) { break; }
-            Vector3 mousePosition = Input.mousePosition;
-            if (GetCardHolderScript(i).shouldSnap(Camera.main.ScreenToWorldPoint(mousePosition)) && GameManager.instance.CF.GetPlayerSpace(i).GetCard() == null)
-            {
-                slotPosition = i;
-            }
-        }
+        int slotPosition = CheckSlotSnap(card);
 
         Card_Gravity gravityScript = card.GetComponent<Card_Gravity>();
         Card_Base cardScript = card.GetComponent<Card_Base>();
@@ -41,11 +32,46 @@ public class Combat_UI_Manager : MonoBehaviour
 
             // Assign card stats to field slot
             GameManager.instance.CF.SetPlayerSpace(slotPosition, cardScript);
+            GameManager.instance.CPH.RemoveCard(card);
         }
         else
         {
-            gravityScript.ResetPosition();
+            gravityScript.SetMovementType(CardMovementType.FLOAT);
         }
+    }
+
+    public void ReturnToHand(GameObject card)
+    {
+        Card_Gravity gravityScript = card.GetComponent<Card_Gravity>();
+        gravityScript.SetGravityPoint(this.uiCoordinator.PlayerHandArea().ClosestPoint(card.transform.position));
+    }
+
+    public void DrawToHand(GameObject card)
+    {
+        Card_Gravity gravityScript = card.GetComponent<Card_Gravity>();
+        Vector2 closestPoint = this.uiCoordinator.PlayerHandArea().ClosestPoint(card.transform.position);
+        closestPoint.y += Random.Range(-1.0f,2.5f);
+        gravityScript.SetGravityPoint(closestPoint);
+    }
+
+    /// <summary>
+    /// Checks if a card should snap to a field slot
+    /// </summary>
+    /// <param name="card">The card to check</param>
+    /// <returns>The position of the field slot to snap to, or -1 if none should be snapped to</returns>
+    public int CheckSlotSnap(GameObject card)
+    {
+        int slotPosition = -1;
+        for (int i = 0; i < this.cardSlots.Length; i++)
+        {
+            if (this.cardSlots[i] == null) { break; }
+            Vector3 mousePosition = Input.mousePosition;
+            if (GetCardHolderScript(i).shouldSnap(card.transform.position) && GameManager.instance.CF.GetPlayerSpace(i).GetCard() == null)
+            {
+                slotPosition = i;
+            }
+        }
+        return slotPosition;
     }
 
     public GameObject GetCardHolder(int pos)
