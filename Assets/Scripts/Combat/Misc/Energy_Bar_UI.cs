@@ -17,9 +17,9 @@ public class Energy_Bar_UI : MonoBehaviour
         this.baseColor = this.energyBar.color;
     }
 
-    public void SetEnergyFill()
+    public void SetEnergyFill(float fraction)
     {
-        this.energyBar.fillAmount = GameManager.instance.CS.EnergyFraction();
+        this.energyBar.fillAmount = fraction;
     }
 
     public void FlashRed()

@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Combat_Player_Hand_Manager : MonoBehaviour
+public abstract class Hand_Manager : MonoBehaviour
 {
-    public List<GameObject> playerHand = new List<GameObject>();
-    private Combat_Area_Marker handArea;
+    public List<GameObject> hand = new List<GameObject>();
 
     public float gravityStrength = 5.0f;
     private float maxDist = 4.5f;
 
-    // Update is called once per frame
     void FixedUpdate()
     {
+        // Player's cards
         Vector2[] positions = CardPositions();
         Vector2[] forces = new Vector2[positions.Length];
 
@@ -22,16 +21,16 @@ public class Combat_Player_Hand_Manager : MonoBehaviour
 
         for (int i = 0; i < forces.Length; i++)
         {
-            var gravityScript = this.playerHand[i].GetComponent<Card_Gravity>();
+            var gravityScript = this.hand[i].GetComponent<Card_Gravity>();
             gravityScript.ApplyGravityForce(forces[i]);
         }
     }
 
     private Vector2[] CalculateCardForces(Vector2[] forces, Vector2[] positions)
     {
-        for (int i = 0; i < this.playerHand.Count; i++)
+        for (int i = 0; i < this.hand.Count; i++)
         {
-            for (int j = i + 1; j < this.playerHand.Count; j++)
+            for (int j = i + 1; j < this.hand.Count; j++)
             {
                 Vector2 pos1 = positions[i];
                 Vector2 pos2 = positions[j];
@@ -50,10 +49,16 @@ public class Combat_Player_Hand_Manager : MonoBehaviour
 
     private Vector2[] CalculateHandForces(Vector2[] forces, Vector2[] positions)
     {
-        Combat_Area_Marker playerHand = GameManager.instance.CUI.uiCoordinator.PlayerHandArea();
-        for (int i = 0; i < this.playerHand.Count; i++)
+        Combat_Area_Marker playerHand = GetHandArea();
+
+        if (playerHand == null)
         {
-            
+            return forces;
+        }
+
+        for (int i = 0; i < this.hand.Count; i++)
+        {
+
             Vector2 cardPos = positions[i];
             if (playerHand.DistanceFromHand(cardPos) > 0.25f)
             {
@@ -68,25 +73,22 @@ public class Combat_Player_Hand_Manager : MonoBehaviour
         return forces;
     }
 
+    internal abstract Combat_Area_Marker GetHandArea();
+
     public Vector2[] CardPositions()
     {
-        Vector2[] positions = this.playerHand.Select(c => (Vector2)c.transform.position).ToArray();
+        Vector2[] positions = this.hand.Select(c => (Vector2)c.transform.position).ToArray();
 
         return positions;
     }
 
-    public void SetHandArea(Combat_Area_Marker script)
-    {
-        this.handArea = script;
-    }
-
     public void AddCard(GameObject card)
     {
-        this.playerHand.Add(card);
+        this.hand.Add(card);
     }
 
     public void RemoveCard(GameObject card)
     {
-        this.playerHand.Remove(card);
+        this.hand.Remove(card);
     }
 }

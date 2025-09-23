@@ -4,7 +4,18 @@ using UnityEngine;
 
 public class Combat_Item : MonoBehaviour
 {
-    public Item_Active item;
+    [SerializeField]
+    private Item_Active item;
+    [SerializeField]
+    private SpriteRenderer itemSprite;
+
+    void Start()
+    {
+        if (item != null)
+        {
+            this.itemSprite.sprite = item.sprite;
+        }
+    }
 
     private void OnMouseDown()
     {

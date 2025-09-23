@@ -51,6 +51,16 @@ public class Combat_UI_Manager : MonoBehaviour
         Card_Gravity gravityScript = card.GetComponent<Card_Gravity>();
         Vector2 closestPoint = this.uiCoordinator.PlayerHandArea().ClosestPoint(card.transform.position);
         closestPoint.y += Random.Range(-1.0f,2.5f);
+        closestPoint.x += Random.Range(-1.5f, 0.0f);
+        gravityScript.SetGravityPoint(closestPoint);
+    }
+
+    public void DrawToEnemyHand(GameObject card)
+    {
+        Card_Gravity gravityScript = card.GetComponent<Card_Gravity>();
+        Vector2 closestPoint = this.uiCoordinator.EnemyHandArea().ClosestPoint(card.transform.position);
+        closestPoint.y += Random.Range(-1.0f, 2.5f);
+        closestPoint.x += Random.Range(6.5f, 0.0f);
         gravityScript.SetGravityPoint(closestPoint);
     }
 
@@ -97,9 +107,14 @@ public class Combat_UI_Manager : MonoBehaviour
         this.cardSlots[pos] = cardHolder;
     }
 
-    public void NotifyEnergyUpdated()
+    public void NotifyEnergyUpdated(float fraction)
     {
-        this.uiCoordinator.energyBar.SetEnergyFill();
+        this.uiCoordinator.energyBar.SetEnergyFill(fraction);
+    }
+
+    public void NotifyEnemyEnergyUpdated(float fraction)
+    {
+        this.uiCoordinator.enemyEnergyBar.SetEnergyFill(fraction);
     }
 
     public void InvalidEnergyCost()

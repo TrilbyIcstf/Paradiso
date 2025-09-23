@@ -5,7 +5,7 @@ public class Player_Deck : MonoBehaviour
 {
     public GameObject card;
 
-    public float drawCost = 12;
+    public float drawCost = 10;
 
     private void OnMouseDown()
     {

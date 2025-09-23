@@ -1,0 +1,79 @@
+using System.Collections;
+using UnityEngine;
+
+public class Combat_Stats_Manager : MonoBehaviour
+{
+    private float currentEnergy = 30;
+    private float maxEnergy = 30;
+
+    private bool regenOn = true;
+    private float energyRegen = 0.08f;
+
+    private void FixedUpdate()
+    {
+        if (this.regenOn && EnergyFraction() < 1)
+        {
+            AddEnergy(this.energyRegen);
+        }
+    }
+
+    public bool SetEnergy(float val, bool delay)
+    {
+        this.currentEnergy = Mathf.Min(val, this.maxEnergy);
+        NotifyEnergyUpdated();
+        if (delay)
+        {
+            StartCoroutine(RegenDelay());
+        }
+
+        return this.currentEnergy >= this.maxEnergy;
+    }
+
+    public bool AddEnergy(float val)
+    {
+        this.currentEnergy = Mathf.Min(this.currentEnergy + val, this.maxEnergy);
+        NotifyEnergyUpdated();
+        return this.currentEnergy >= this.maxEnergy;
+    }
+
+    public bool SubtractEnergy(float val, bool delay)
+    {
+        this.currentEnergy = Mathf.Max(this.currentEnergy - val, 0);
+        NotifyEnergyUpdated();
+        if (delay)
+        {
+            StartCoroutine(RegenDelay());
+        }
+
+        return this.currentEnergy <= 0;
+    }
+
+    public float EnergyFraction()
+    {
+        return this.currentEnergy / this.maxEnergy;
+    }
+
+    public bool CanAffordEnergy(float cost)
+    {
+        return cost <= this.currentEnergy;
+    }
+
+    private IEnumerator RegenDelay()
+    {
+        ToggleRegen(false);
+        yield return new WaitForSeconds(0.25f);
+        ToggleRegen(true);
+    }
+
+    private void NotifyEnergyUpdated()
+    {
+        GameManager.instance.CUI.NotifyEnergyUpdated(EnergyFraction());
+    }
+
+    public bool ToggleRegen(bool regen)
+    {
+        bool oldRegen = this.regenOn;
+        this.regenOn = regen;
+        return oldRegen == this.regenOn;
+    }
+}

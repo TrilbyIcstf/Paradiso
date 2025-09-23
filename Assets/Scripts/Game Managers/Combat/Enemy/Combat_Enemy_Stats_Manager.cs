@@ -1,26 +1,54 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Combat_Stats_Manager : MonoBehaviour
+public class Combat_Enemy_Stats_Manager : MonoBehaviour
 {
-    private float currentEnergy = 36;
-    private float maxEnergy = 36;
+    private float currentEnergy = 0;
+    private float maxEnergy = 2.5f;
 
     private bool regenOn = true;
-    private float energyRegen = 0.06f;
+    private float regenMultiplier = 1;
+
+    private GameObject enemyDeck;
+    public GameObject card;
 
     private void FixedUpdate()
     {
-        if (regenOn && EnergyFraction() < 1)
+        if (this.regenOn && EnergyFraction() < 1)
         {
-            AddEnergy(energyRegen);
+            if (AddEnergy(Time.deltaTime * this.regenMultiplier))
+            {
+                DrawCard();
+            }
         }
     }
 
-    public bool SetEnergy(float val)
+    private void DrawCard()
+    {
+        SetEnergy(0, true);
+        if (enemyDeck != null)
+        {
+            GameObject newCard = Instantiate(card, enemyDeck.transform.position, enemyDeck.transform.rotation);
+            GameManager.instance.CUI.DrawToEnemyHand(newCard);
+            GameManager.instance.CEH.AddCard(newCard);
+        }
+    }
+
+    public void SetEnemyDeck(GameObject deck)
+    {
+        this.enemyDeck = deck;
+    }
+
+    public bool SetEnergy(float val, bool delay)
     {
         this.currentEnergy = Mathf.Min(val, this.maxEnergy);
         NotifyEnergyUpdated();
+        if (delay)
+        {
+            StartCoroutine(RegenDelay());
+        }
+
         return this.currentEnergy >= this.maxEnergy;
     }
 
@@ -62,7 +90,7 @@ public class Combat_Stats_Manager : MonoBehaviour
 
     private void NotifyEnergyUpdated()
     {
-        GameManager.instance.CUI.NotifyEnergyUpdated();
+        GameManager.instance.CUI.NotifyEnemyEnergyUpdated(EnergyFraction());
     }
 
     public bool ToggleRegen(bool regen)
