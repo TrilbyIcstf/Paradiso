@@ -22,6 +22,17 @@ public class Combat_Area_Marker : MonoBehaviour
         return new Vector2(clampedX, clampedY);
     }
 
+    public Vector2 RandomPoint()
+    {
+        float halfX = width / 2;
+        float halfY = height / 2;
+
+        float randX = Random.Range(-halfX, halfX);
+        float randY = Random.Range(-halfY, halfY);
+
+        return new Vector2(gameObject.transform.position.x + randX, gameObject.transform.position.y + randY);
+    }
+
     public bool WithinArea(Vector2 pos)
     {
         float halfX = width / 2;

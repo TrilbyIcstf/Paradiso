@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class Combat_Enemy_Stats_Manager : MonoBehaviour
 {
+    [SerializeField]
+    private Enemy_Stats enemy;
+
+    private float maxHealth;
+    private float currentHealth;
+
     private float currentEnergy = 0;
     private float maxEnergy = 2.5f;
 
     private bool regenOn = true;
     private float regenMultiplier = 1;
+
+    private int bonusCardDraw = 0;
+    private Coroutine bonusCardDrawer;
 
     private GameObject enemyDeck;
     public GameObject card;
@@ -17,21 +26,78 @@ public class Combat_Enemy_Stats_Manager : MonoBehaviour
     {
         if (this.regenOn && EnergyFraction() < 1)
         {
-            if (AddEnergy(Time.deltaTime * this.regenMultiplier))
+            AddEnergy(Time.deltaTime * this.regenMultiplier);
+        }
+
+        if (EnergyFraction() >= 1)
+        {
+            if (!GameManager.instance.CEH.AtHandLimit())
             {
                 DrawCard();
             }
         }
+
+        if (this.bonusCardDraw > 0 && this.bonusCardDrawer == null)
+        {
+            this.bonusCardDrawer = StartCoroutine(DealFreeCard());
+        }
     }
 
-    private void DrawCard()
+    public void SetEnemy(Enemy_Stats val)
+    {
+        this.enemy = val;
+        this.maxHealth = val.maxHealth;
+        this.currentHealth = val.maxHealth;
+    }
+
+    public bool DealDamage(float amount)
+    {
+        this.currentHealth -= amount;
+        GameManager.instance.CUI.NotifyEnemyHealthUpdate(this.currentHealth / this.maxHealth);
+
+        return this.currentHealth <= 0;
+    }
+
+    public void DrawCard()
     {
         SetEnergy(0, true);
+        if (this.bonusCardDrawer == null)
+        {
+            FreeDrawCard();
+        } else
+        {
+            AddFreeCards(1);
+        }
+    }
+
+    public void FreeDrawCard()
+    {
         if (enemyDeck != null)
         {
             GameObject newCard = Instantiate(card, enemyDeck.transform.position, enemyDeck.transform.rotation);
             GameManager.instance.CUI.DrawToEnemyHand(newCard);
             GameManager.instance.CEH.AddCard(newCard);
+        }
+    }
+
+    public void AddFreeCards(int val)
+    {
+        this.bonusCardDraw += val;
+    }
+
+    private IEnumerator DealFreeCard()
+    {
+        yield return new WaitForSeconds(0.25f);
+
+        this.bonusCardDraw -= 1;
+        FreeDrawCard();
+
+        if (this.bonusCardDraw > 0)
+        {
+            this.bonusCardDrawer = StartCoroutine(DealFreeCard());
+        } else
+        {
+            this.bonusCardDrawer = null;
         }
     }
 

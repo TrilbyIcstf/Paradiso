@@ -15,4 +15,11 @@ public class Combat_Enemy_Hand_Manager : Hand_Manager
     {
         return this.handArea;
     }
+
+    internal GameObject RandomCard()
+    {
+        if (this.hand.Count == 0) { return null; }
+        int randCard = Random.Range(0, this.hand.Count);
+        return this.hand[randCard];
+    }
 }

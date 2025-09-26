@@ -11,11 +11,14 @@ public class Player_Deck : MonoBehaviour
     {
         if (GameManager.instance.CS.CanAffordEnergy(this.drawCost))
         {
-            GameManager.instance.CS.SubtractEnergy(this.drawCost, true);
+            if (!GameManager.instance.CPH.AtHandLimit())
+            {
+                GameManager.instance.CS.SubtractEnergy(this.drawCost, true);
 
-            GameObject newCard = Instantiate(card, gameObject.transform.position, gameObject.transform.rotation);
-            GameManager.instance.CUI.DrawToHand(newCard);
-            GameManager.instance.CPH.AddCard(newCard);
+                GameObject newCard = Instantiate(card, gameObject.transform.position, gameObject.transform.rotation);
+                GameManager.instance.CUI.DrawToHand(newCard);
+                GameManager.instance.CPH.AddCard(newCard);
+            }
         }
         else
         {

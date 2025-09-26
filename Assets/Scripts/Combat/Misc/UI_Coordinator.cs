@@ -1,11 +1,16 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_Coordinator : MonoBehaviour
 {
     public Energy_Bar_UI energyBar;
     public Energy_Bar_UI enemyEnergyBar;
+
     private GameObject playerHandArea;
     private GameObject enemyHandArea;
+
+    public Player_Health_Bar playerHealth;
+    public Enemy_Health_Bar enemyHealth;
 
     private void Awake()
     {
@@ -30,5 +35,15 @@ public class UI_Coordinator : MonoBehaviour
     public void SetEnemyHandArea(GameObject val)
     {
         this.enemyHandArea = val;
+    }
+
+    public void SetPlayerHealth(Player_Health_Bar val)
+    {
+        this.playerHealth = val;
+    }
+
+    public void SetEnemyHealth(Enemy_Health_Bar val)
+    {
+        this.enemyHealth = val;
     }
 }

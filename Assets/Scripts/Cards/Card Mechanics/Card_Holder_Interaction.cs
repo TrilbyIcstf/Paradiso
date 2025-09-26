@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Card_Holder_Interaction : MonoBehaviour
 {
-    public int position;
+    [SerializeField]
+    private int position;
 
     private float snapDistance = 1.25f;
 

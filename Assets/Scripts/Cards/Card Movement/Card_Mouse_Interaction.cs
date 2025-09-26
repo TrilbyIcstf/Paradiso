@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class Card_Mouse_Interaction : MonoBehaviour
 {
-    private static int baseSortingOrder = 3;
+    private static int baseSortingOrder = 10;
 
     /// <summary>
-    /// Flag marking when this card is currently being held by the mouse.
+    /// Flag marking when this card is currently being held by the mouse
     /// </summary>
     private bool isHoldingCard = false;
 

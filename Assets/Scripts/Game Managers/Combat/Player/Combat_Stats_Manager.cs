@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class Combat_Stats_Manager : MonoBehaviour
 {
+    private float maxHealth;
+    private float currentHealth;
+
     private float currentEnergy = 30;
     private float maxEnergy = 30;
 
@@ -15,6 +18,20 @@ public class Combat_Stats_Manager : MonoBehaviour
         {
             AddEnergy(this.energyRegen);
         }
+    }
+
+    public void InitializeHealth(int max, int current)
+    {
+        this.maxHealth = max;
+        this.currentHealth = current;
+    }
+
+    public bool DealDamage(float amount)
+    {
+        this.currentHealth -= amount;
+        GameManager.instance.CUI.NotifyPlayerHealthUpdate(this.currentHealth / this.maxHealth);
+
+        return this.currentHealth <= 0;
     }
 
     public bool SetEnergy(float val, bool delay)

@@ -10,6 +10,8 @@ public abstract class Hand_Manager : MonoBehaviour
     public float gravityStrength = 5.0f;
     private float maxDist = 4.5f;
 
+    private int handLimit = 8;
+
     void FixedUpdate()
     {
         // Player's cards
@@ -90,5 +92,10 @@ public abstract class Hand_Manager : MonoBehaviour
     public void RemoveCard(GameObject card)
     {
         this.hand.Remove(card);
+    }
+
+    public bool AtHandLimit()
+    {
+        return this.hand.Count >= this.handLimit;
     }
 }

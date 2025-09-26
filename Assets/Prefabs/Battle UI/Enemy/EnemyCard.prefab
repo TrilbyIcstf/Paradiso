@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3070572697564062336}
   - component: {fileID: 6057533329448963260}
   - component: {fileID: 6700893024267469252}
+  - component: {fileID: 2838009574972996797}
   m_Layer: 0
   m_Name: EnemyCard
   m_TagString: Untagged
@@ -59,6 +60,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Card 1
   element: 0
+--- !u!114 &2838009574972996797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8901359444087498146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb10c63c0f1605d45b45d8a0fe499b5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sr: {fileID: 7982583270344874271}
 --- !u!1 &9184728053886002681
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,7 +144,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: a54863f450417144992a7d44e3639b11, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

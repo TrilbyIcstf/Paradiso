@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     }
     private static GameManager _instance;
 
+    public Player_Manager PM;
+
     public Combat_UI_Manager CUI;
     public Combat_Stats_Manager CS;
     public Combat_Enemy_Stats_Manager CES;
@@ -28,5 +30,12 @@ public class GameManager : MonoBehaviour
         {
             Application.Quit();
         }
+    }
+
+    public void InitCombat()
+    {
+        this.CS.InitializeHealth(this.PM.GetMaxHealth(), this.PM.GetCurrentHealth());
+
+        this.CES.AddFreeCards(3);
     }
 }
