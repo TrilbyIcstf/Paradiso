@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class Hand_Manager : MonoBehaviour
 {
-    public List<GameObject> hand = new List<GameObject>();
+    internal List<GameObject> hand = new List<GameObject>();
 
     public float gravityStrength = 5.0f;
     private float maxDist = 4.5f;
@@ -84,14 +84,55 @@ public abstract class Hand_Manager : MonoBehaviour
         return positions;
     }
 
+    public void SetSortingOrder(GameObject topCard)
+    {
+        List<Card_UI> scriptList = GetUIScripts();
+        List<Card_UI> sortedHand = scriptList.OrderBy(c => c.GetSortingOrder()).ToList();
+        Card_UI topScript = topCard.GetComponent<Card_UI>();
+        int oldOrder = topScript.GetSortingOrder();
+
+        int order = 1;
+        foreach (Card_UI card in sortedHand)
+        {
+            if (card.GetSortingOrder() != oldOrder)
+            {
+                card.SetSortingOrder(order);
+                order++;
+            }
+        }
+        topScript.SetSortingOrder(order);
+    }
+
+    private List<Card_UI> GetUIScripts()
+    {
+        return this.hand.Select(c => c.GetComponent<Card_UI>()).ToList();
+    }
+
     public void AddCard(GameObject card)
     {
         this.hand.Add(card);
+        SetSortingOrder(card);
     }
 
     public void RemoveCard(GameObject card)
     {
         this.hand.Remove(card);
+    }
+
+    public GameObject PickRandomCard()
+    {
+        int randomPos = PickRandomCardPos();
+        return this.hand[randomPos];
+    }
+
+    public int PickRandomCardPos()
+    {
+        return Random.Range(0, this.hand.Count);
+    }
+
+    public int HandSize()
+    {
+        return this.hand.Count;
     }
 
     public bool AtHandLimit()

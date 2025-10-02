@@ -1,21 +1,13 @@
 using UnityEngine;
 
-public class Card_Base : MonoBehaviour
+[CreateAssetMenu(fileName = "Card", menuName = "ScriptableObjects/New Card", order = 3)]
+[System.Serializable]
+public class Card_Base : ScriptableObject
 {
     public string cardName;
-    private int power;
+
+    public int power;
+    public int defense;
 
     public CardElement element;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

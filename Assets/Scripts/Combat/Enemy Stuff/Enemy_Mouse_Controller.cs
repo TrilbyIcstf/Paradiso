@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class Enemy_Mouse_Controller : MonoBehaviour
 {
+    public static bool testPause = false;
+
     [SerializeField]
     private MouseMovementState currentState = MouseMovementState.RESTING;
     private EnemyMouseIntent intent = EnemyMouseIntent.PLACE;
 
     // Variables for tracking resting state
     private float restingTime = 0;
-    private float unrestTime = 1.5f;
+    private float unrestTime = 1.0f;
 
     // Variables for tracking chasing state
     private Vector2 startPos = Vector2.zero;
     private float startDist = 0;
-    private float chaseSpeed = 15.0f;
+    private float chaseSpeed = 20.0f;
     private float catchDist = 0.05f;
 
     // Variables for tracking holding state
@@ -23,7 +25,7 @@ public class Enemy_Mouse_Controller : MonoBehaviour
     private float holdDelayTime = 0.25f;
 
     // Variables for tracking placing state
-    private float placeSpeed = 25.0f;
+    private float placeSpeed = 30.0f;
     private Vector2 placePos = Vector2.zero;
     private float placeDist = 0.05f;
 
@@ -44,6 +46,8 @@ public class Enemy_Mouse_Controller : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (testPause) { return; }
+
         Vector2 currPos = gameObject.transform.position;
         float currDist;
         float speed;

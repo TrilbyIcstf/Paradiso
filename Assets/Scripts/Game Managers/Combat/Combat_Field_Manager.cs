@@ -37,26 +37,96 @@ public class Combat_Field_Manager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
 
         // TODO: Special effects of cards doing attacks
-        int enemyDamage = 0;
-        int playerDamage = 0;
+        float damageToEnemy = 0;
+        float damageToPlayer = 0;
+
+        string debugPlayerAttacks = "Player attacks: ";
+        string debugEnemyAttacks = "Enemy attacks: ";
 
         for (int i = 0; i < this.playerSpaces.Length; i++)
         {
-            if (this.playerSpaces[i].GetCard() != null && this.enemySpaces[i].GetCard() == null)
-            {
-                enemyDamage += 10;
-            } else if (this.playerSpaces[i].GetCard() == null && this.enemySpaces[i].GetCard() != null)
-            {
-                playerDamage += 10;
-            }
+            Active_Card playerCard = this.playerSpaces[i].GetCard();
+            Active_Card enemyCard = this.enemySpaces[i].GetCard();
+
+            float playersCardDamage = CalculateDamage(i, this.playerSpaces, this.enemySpaces);
+            float enemysCardDamage = CalculateDamage(i, this.enemySpaces, this.playerSpaces);
+
+            debugPlayerAttacks += $"Card {i} deals {playersCardDamage}, ";
+            debugEnemyAttacks += $"Card {i} deals {enemysCardDamage}, ";
+
+            damageToEnemy += playersCardDamage;
+            damageToPlayer += enemysCardDamage;
         }
 
-        GameManager.instance.CES.DealDamage(enemyDamage);
-        GameManager.instance.CS.DealDamage(playerDamage);
+        debugPlayerAttacks += $"dealing {damageToEnemy} in total.";
+        debugEnemyAttacks += $"dealing {damageToPlayer} in total.";
+
+        Debug.Log(debugPlayerAttacks);
+        Debug.Log(debugEnemyAttacks);
+
+        GameManager.instance.CES.DealDamage(damageToEnemy);
+        GameManager.instance.CS.DealDamage(damageToPlayer);
 
         ResetField();
         this.fieldLocked = false;
         this.fieldProcessing = null;
+    }
+
+    private float CalculateDamage(int pos, Field_Space[] attackingCards, Field_Space[] defendingCards)
+    {
+        float damage = 0;
+
+        Active_Card attackingCard = attackingCards[pos].GetCard();
+        Active_Card defendingCard = defendingCards[pos].GetCard();
+
+        float attackingPower = attackingCard?.GetPower() ?? 0;
+        float defendingDefense = defendingCard?.GetDefense() ?? 0;
+
+        if (attackingPower <= 0) { return 0; }
+
+        attackingPower = ApplyElementalWeakness(attackingPower, attackingCard, defendingCard);
+        attackingPower = ApplyAdjacencyBuffs(attackingPower, pos, attackingCards, attackingCard);
+        attackingPower = Mathf.Ceil(attackingPower);
+
+        defendingDefense = ApplyAdjacencyBuffs(defendingDefense, pos, defendingCards, defendingCard);
+        defendingDefense = Mathf.Ceil(defendingDefense);
+
+        damage = Mathf.Max(0, attackingPower - defendingDefense);
+
+        return damage;
+    }
+
+    private float ApplyElementalWeakness(float baseDamage, Active_Card attacking, Active_Card defending)
+    {
+        CardElement attackingElement = attacking?.GetElement() ?? CardElement.Nill;
+        CardElement defendingElement = defending?.GetElement() ?? CardElement.Nill;
+        return baseDamage * ElementMethods.EffectivenessMult(attackingElement, defendingElement);
+    }
+
+    private float ApplyAdjacencyBuffs(float baseVal, int pos, Field_Space[] cards, Active_Card card)
+    {
+        CardElement cardElement = card?.GetElement() ?? CardElement.Nill;
+        if (cardElement == CardElement.Nill) { return baseVal; }
+
+        if (pos > 0)
+        {
+            CardElement leftElement = cards[pos - 1].GetCard()?.GetElement() ?? CardElement.Nill;
+            if (cardElement == leftElement)
+            {
+                baseVal *= Consts.adj;
+            }
+        }
+
+        if (pos < 3)
+        {
+            CardElement rightElement = cards[pos + 1].GetCard()?.GetElement() ?? CardElement.Nill;
+            if (cardElement == rightElement)
+            {
+                baseVal *= Consts.adj;
+            }
+        }
+
+        return baseVal;
     }
 
     /// <summary>

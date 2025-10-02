@@ -53,7 +53,7 @@ public class Combat_Enemy_Stats_Manager : MonoBehaviour
     public bool DealDamage(float amount)
     {
         this.currentHealth -= amount;
-        GameManager.instance.CUI.NotifyEnemyHealthUpdate(this.currentHealth / this.maxHealth);
+        GameManager.instance.CUI.NotifyEnemyHealthUpdate(this.currentHealth, this.maxHealth);
 
         return this.currentHealth <= 0;
     }
@@ -72,9 +72,10 @@ public class Combat_Enemy_Stats_Manager : MonoBehaviour
 
     public void FreeDrawCard()
     {
-        if (enemyDeck != null)
+        if (this.enemyDeck != null)
         {
-            GameObject newCard = Instantiate(card, enemyDeck.transform.position, enemyDeck.transform.rotation);
+            this.card.GetComponent<Active_Card>().RandomizeStats();
+            GameObject newCard = Instantiate(this.card, enemyDeck.transform.position, enemyDeck.transform.rotation);
             GameManager.instance.CUI.DrawToEnemyHand(newCard);
             GameManager.instance.CEH.AddCard(newCard);
         }

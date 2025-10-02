@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Enemy_Card_Movement : MonoBehaviour
 {
-    private static int baseSortingOrder = 2;
-
     /// <summary>
     /// Flag marking when this card is currently being held by the enemy
     /// </summary>
@@ -37,7 +35,7 @@ public class Enemy_Card_Movement : MonoBehaviour
         {
             this.isHoldingCard = true;
             this.enemyMouse = mouse;
-            this.sr.sortingOrder = baseSortingOrder + 1;
+            GameManager.instance.CEH.SetSortingOrder(gameObject);
             this.cardGravity.SetMovementType(CardMovementType.SNAP);
         }
     }
@@ -45,7 +43,6 @@ public class Enemy_Card_Movement : MonoBehaviour
     public void OnRelease(int position)
     {
         this.isHoldingCard = false;
-        this.sr.sortingOrder = baseSortingOrder;
         GameManager.instance.CUI.EnemyReleasesCard(this.cardGravity.gameObject, position);
     }
 }

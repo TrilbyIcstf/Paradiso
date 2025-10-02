@@ -12,11 +12,22 @@ public class Combat_Stats_Manager : MonoBehaviour
     private bool regenOn = true;
     private float energyRegen = 0.08f;
 
+    private int bonusCardDraw = 0;
+    private Coroutine bonusCardDrawer;
+
+    private GameObject playerDeck;
+    public GameObject card;
+
     private void FixedUpdate()
     {
         if (this.regenOn && EnergyFraction() < 1)
         {
             AddEnergy(this.energyRegen);
+        }
+
+        if (this.bonusCardDraw > 0 && this.bonusCardDrawer == null)
+        {
+            this.bonusCardDrawer = StartCoroutine(DealFreeCard());
         }
     }
 
@@ -29,9 +40,66 @@ public class Combat_Stats_Manager : MonoBehaviour
     public bool DealDamage(float amount)
     {
         this.currentHealth -= amount;
-        GameManager.instance.CUI.NotifyPlayerHealthUpdate(this.currentHealth / this.maxHealth);
+        GameManager.instance.CUI.NotifyPlayerHealthUpdate(this.currentHealth, this.maxHealth);
 
         return this.currentHealth <= 0;
+    }
+
+    public float GetHealth()
+    {
+        return this.currentHealth;
+    }
+
+    public float GetCurrentHealth()
+    {
+        return this.maxHealth;
+    }
+
+    public void DrawCard()
+    {
+        if (this.bonusCardDrawer == null)
+        {
+            FreeDrawCard();
+        }
+        else
+        {
+            AddFreeCards(1);
+        }
+    }
+
+    public void FreeDrawCard()
+    {
+        this.card.GetComponent<Active_Card>().RandomizeStats();
+        GameObject newCard = Instantiate(this.card, this.playerDeck.transform.position, this.playerDeck.transform.rotation);
+        GameManager.instance.CUI.DrawToHand(newCard);
+        GameManager.instance.CPH.AddCard(newCard);
+    }
+
+    public void AddFreeCards(int val)
+    {
+        this.bonusCardDraw += val;
+    }
+
+    private IEnumerator DealFreeCard()
+    {
+        yield return new WaitForSeconds(0.25f);
+
+        this.bonusCardDraw -= 1;
+        FreeDrawCard();
+
+        if (this.bonusCardDraw > 0)
+        {
+            this.bonusCardDrawer = StartCoroutine(DealFreeCard());
+        }
+        else
+        {
+            this.bonusCardDrawer = null;
+        }
+    }
+
+    public void SetPlayerDeck(GameObject deck)
+    {
+        this.playerDeck = deck;
     }
 
     public bool SetEnergy(float val, bool delay)

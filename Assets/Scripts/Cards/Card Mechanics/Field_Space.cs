@@ -3,7 +3,7 @@ using UnityEngine;
 public class Field_Space
 {
     private int position;
-    private Card_Base card;
+    private Active_Card card;
     private GameObject cardObject;
 
     public Field_Space(int position)
@@ -17,7 +17,7 @@ public class Field_Space
         return position;
     }
 
-    public Card_Base GetCard()
+    public Active_Card GetCard()
     {
         return card;
     }
@@ -29,8 +29,8 @@ public class Field_Space
 
     public void SetCard(GameObject card)
     {
-        Card_Base cardBase = card.GetComponent<Card_Base>();
-        this.card = cardBase;
+        Active_Card activeCard = card.GetComponent<Active_Card>();
+        this.card = activeCard;
         this.cardObject = card;
     }
 

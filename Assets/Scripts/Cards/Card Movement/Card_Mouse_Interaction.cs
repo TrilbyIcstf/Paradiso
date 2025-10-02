@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class Card_Mouse_Interaction : MonoBehaviour
 {
-    private static int baseSortingOrder = 10;
-
     /// <summary>
     /// Flag marking when this card is currently being held by the mouse
     /// </summary>
@@ -22,7 +20,6 @@ public class Card_Mouse_Interaction : MonoBehaviour
             if (!Input.GetMouseButton(0))
             {
                 this.isHoldingCard = false;
-                gameObject.GetComponent<SpriteRenderer>().sortingOrder = baseSortingOrder;
                 GameManager.instance.CUI.isHoldingCard = false;
                 GameManager.instance.CUI.PlayerReleasesCard(this.cardGravity.gameObject);
             }
@@ -34,7 +31,7 @@ public class Card_Mouse_Interaction : MonoBehaviour
         if (!GameManager.instance.CUI.isHoldingCard && !this.cardGravity.GetLocked())
         {
             this.isHoldingCard = true;
-            gameObject.GetComponent<SpriteRenderer>().sortingOrder = baseSortingOrder + 1;
+            GameManager.instance.CPH.SetSortingOrder(this.cardGravity.gameObject);
             GameManager.instance.CUI.isHoldingCard = true;
             this.cardGravity.SetMovementType(CardMovementType.LOOSESNAP);
         }

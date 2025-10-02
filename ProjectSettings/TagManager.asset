@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Enemy Cards
+    uniqueID: 3872624295
+    locked: 0
+  - name: Enemy High UI
+    uniqueID: 1968764095
+    locked: 0
+  - name: Player Cards
+    uniqueID: 3248822247
+    locked: 0
+  - name: Player High UI
+    uniqueID: 3480901361
+    locked: 0

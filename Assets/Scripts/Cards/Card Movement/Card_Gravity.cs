@@ -60,42 +60,67 @@ public class Card_Gravity : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Snaps card position to gravity point
+    /// </summary>
     public void SnapMove()
     {
         this.transform.position = this.gravityPoint;
     }
 
+    /// <summary>
+    /// Moves card towards its gravity point, snapping it to a maximum distance if necessary
+    /// </summary>
     public void LooseSnapMove()
     {
         float timeInc = Time.deltaTime;
+
+        // Checks distance to gravity point
         float gravityDistance = Vector2.Distance(this.transform.position, this.gravityPoint);
         if (gravityDistance >= 0.15f)
         {
+            // Calculates distance away from max distance
             float snapForce = gravityDistance - MAX_DISTANCE;
+            
+            // Card further from its gravity point should have a stronger float
             float distanceMargin = Mathf.Max(Mathf.Min(gravityDistance / MAX_DISTANCE, 1.0f), 0.1f);
             float gravityForce = Mathf.Pow(Mathf.Sin(distanceMargin * Mathf.PI / 2), 2) * this.gravityStrength * timeInc;
+            
+            // Determines if the snap or float would move the card further
             float higherForce = Mathf.Max(snapForce, gravityForce);
 
             this.transform.position = Vector2.MoveTowards(this.transform.position, this.gravityPoint, higherForce);
         }
     }
 
+    /// <summary>
+    /// Moves card toward gravity point
+    /// </summary>
     public void FloatMove()
     {
         float timeInc = Time.deltaTime;
+
+        // Checks distance to gravity point
         float gravityDistance = Vector2.Distance(this.transform.position, this.gravityPoint);
+
+        // Simply snap to gravity point if close enough
         if (gravityDistance <= SNAP_DISTANCE)
         {
             this.SnapMove();
             return;
         }
 
+        // Determines float strength based on distance from gravity point
         float distanceMargin = Mathf.Min(Mathf.Max(gravityDistance / FLOAT_DISTANCE, 0.2f), 1.0f);
         float distanceMultiplyer = Mathf.Min(Mathf.Max(gravityDistance / FLOAT_DISTANCE, 1.0f), 3.0f);
         float gravityForce = Mathf.Sin(distanceMargin * Mathf.PI / 2) * this.gravityStrength * distanceMultiplyer * timeInc;
+
         this.transform.position = Vector2.MoveTowards(this.transform.position, this.gravityPoint, gravityForce);
     }
 
+    /// <summary>
+    /// Calculates forces being applied to the card and adjusts the gravity point force
+    /// </summary>
     private void CalculateGravity()
     {
         float timeInc = Time.deltaTime;
@@ -111,6 +136,9 @@ public class Card_Gravity : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Moves the gravity point based on forces applied to the card
+    /// </summary>
     private void MoveGravityPoint()
     {
         float timeInc = Time.deltaTime;
@@ -155,6 +183,10 @@ public class Card_Gravity : MonoBehaviour
         this.initialPosition = this.transform.position;
     }
 
+    /// <summary>
+    /// Determines the closest point to the hand and returns the card to that point
+    /// </summary>
+    /// <param name="handBox">The object used to measure the hand area</param>
     public void ReturnToHand(GameObject handBox)
     {
         Combat_Area_Marker handBoxScript = handBox.GetComponent<Combat_Area_Marker>();

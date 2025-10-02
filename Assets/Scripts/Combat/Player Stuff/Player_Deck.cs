@@ -3,9 +3,12 @@ using UnityEngine;
 
 public class Player_Deck : MonoBehaviour
 {
-    public GameObject card;
-
     public float drawCost = 10;
+
+    private void Awake()
+    {
+        GameManager.instance.CS.SetPlayerDeck(gameObject);
+    }
 
     private void OnMouseDown()
     {
@@ -15,9 +18,7 @@ public class Player_Deck : MonoBehaviour
             {
                 GameManager.instance.CS.SubtractEnergy(this.drawCost, true);
 
-                GameObject newCard = Instantiate(card, gameObject.transform.position, gameObject.transform.rotation);
-                GameManager.instance.CUI.DrawToHand(newCard);
-                GameManager.instance.CPH.AddCard(newCard);
+                GameManager.instance.CS.DrawCard();
             }
         }
         else

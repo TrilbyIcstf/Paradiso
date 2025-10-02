@@ -38,6 +38,9 @@ public class Combat_UI_Manager : MonoBehaviour
             gravityScript.SetPosition(GetCardHolder(spacePosition).transform.position);
             gravityScript.SetLocked(true);
 
+            // Alter card UI as necessary
+            card.GetComponent<Card_UI>().SetSortingOrder(0);
+
             // Assign card stats to field space
             GameManager.instance.CF.SetPlayerSpace(spacePosition, card);
             GameManager.instance.CPH.RemoveCard(card);
@@ -52,13 +55,16 @@ public class Combat_UI_Manager : MonoBehaviour
     {
         Card_Gravity gravityScript = card.GetComponent<Card_Gravity>();
 
-        if (position >= 0)
+        if (position >= 0 && !GameManager.instance.CF.FieldLocked())
         {
             // Set card's resting position to field space
             gravityScript.SetMovementType(CardMovementType.SNAP);
             gravityScript.SetGravityPoint(GetEnemyHolder(position).transform.position);
             gravityScript.SetPosition(GetEnemyHolder(position).transform.position);
             gravityScript.SetLocked(true);
+
+            // Alter card UI as necessary
+            card.GetComponent<Card_UI>().SetSortingOrder(0);
 
             // Assign card stats to field space
             GameManager.instance.CF.SetEnemySpace(position, card);
@@ -169,20 +175,26 @@ public class Combat_UI_Manager : MonoBehaviour
         this.uiCoordinator.enemyEnergyBar.SetEnergyFill(fraction);
     }
 
-    public void NotifyPlayerHealthUpdate(float fraction)
+    public void NotifyPlayerHealthUpdate(float current, float max)
     {
+        float fraction = current / max;
+
         float incremented = Mathf.Ceil(fraction * (healthMaxSize / healthIncrement));
         int maskAmount = healthMaxSize - (int)(incremented * (healthIncrement));
 
         this.uiCoordinator.playerHealth.SetMaskAmount(maskAmount);
+        this.uiCoordinator.playerHealth.UpdateHealthText((int)current, (int)max);
     }
     
-    public void NotifyEnemyHealthUpdate(float fraction)
+    public void NotifyEnemyHealthUpdate(float current, float max)
     {
+        float fraction = current / max;
+
         float incremented = Mathf.Ceil(fraction * (healthMaxSize / healthIncrement));
         int maskAmount = healthMaxSize - (int)(incremented * (healthIncrement));
 
         this.uiCoordinator.enemyHealth.SetMaskAmount(maskAmount);
+        this.uiCoordinator.enemyHealth.UpdateHealthText((int)current, (int)max);
     }
 
     public void InvalidEnergyCost()

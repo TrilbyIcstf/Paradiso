@@ -37,5 +37,6 @@ public class GameManager : MonoBehaviour
         this.CS.InitializeHealth(this.PM.GetMaxHealth(), this.PM.GetCurrentHealth());
 
         this.CES.AddFreeCards(3);
+        this.CS.AddFreeCards(3);
     }
 }
