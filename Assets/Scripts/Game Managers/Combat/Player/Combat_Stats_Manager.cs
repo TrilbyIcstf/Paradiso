@@ -15,8 +15,8 @@ public class Combat_Stats_Manager : MonoBehaviour
     private int bonusCardDraw = 0;
     private Coroutine bonusCardDrawer;
 
-    private GameObject playerDeck;
-    public GameObject card;
+    [SerializeField]
+    private GameObject card;
 
     private void FixedUpdate()
     {
@@ -57,6 +57,8 @@ public class Combat_Stats_Manager : MonoBehaviour
 
     public void DrawCard()
     {
+        if (GameManager.instance.CPD.DeckIsEmpty()) { return; }
+
         if (this.bonusCardDrawer == null)
         {
             FreeDrawCard();
@@ -69,10 +71,16 @@ public class Combat_Stats_Manager : MonoBehaviour
 
     public void FreeDrawCard()
     {
-        this.card.GetComponent<Active_Card>().RandomizeStats();
-        GameObject newCard = Instantiate(this.card, this.playerDeck.transform.position, this.playerDeck.transform.rotation);
+        Transform deckPosition = GameManager.instance.CUI.GetPlayerDeck().transform;
+        this.card.GetComponent<Active_Card>().SetStats(GameManager.instance.CPD.DrawTopCard());
+        GameObject newCard = Instantiate(this.card, deckPosition.position, deckPosition.rotation);
         GameManager.instance.CUI.DrawToHand(newCard);
         GameManager.instance.CPH.AddCard(newCard);
+
+        if (GameManager.instance.CPD.DeckIsEmpty())
+        {
+            GameManager.instance.CUI.SetDeckEmpty();
+        }
     }
 
     public void AddFreeCards(int val)
@@ -95,11 +103,6 @@ public class Combat_Stats_Manager : MonoBehaviour
         {
             this.bonusCardDrawer = null;
         }
-    }
-
-    public void SetPlayerDeck(GameObject deck)
-    {
-        this.playerDeck = deck;
     }
 
     public bool SetEnergy(float val, bool delay)

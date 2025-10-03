@@ -11,11 +11,30 @@ public class Item_Behavior
             case Items.Default:
                 return;
             case Items.DamageTest:
-                Active_Card randCard = GameManager.instance.CPH.PickRandomCard().GetComponent<Active_Card>();
+                Active_Card randCard = GameManager.instance.CPH.PickRandomCard()?.GetComponent<Active_Card>();
+                if (randCard == null) { return; }
                 randCard.AddMultPower(0.2f);
+                return;
+            case Items.CheapDrawTest:
+                GameManager.instance.CS.DrawCard();
                 return;
             default:
                 return;
+        }
+    }
+
+    public static bool CanTriggerActive(Items item)
+    {
+        switch (item)
+        {
+            case Items.Default:
+                return true;
+            case Items.DamageTest:
+                return GameManager.instance.CPH.hand.Count > 0;
+            case Items.CheapDrawTest:
+                return !GameManager.instance.CPD.DeckIsEmpty() && !GameManager.instance.CPH.AtHandLimit();
+            default:
+                return true;
         }
     }
 }

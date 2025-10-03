@@ -49,5 +49,6 @@ public static class ElementMethods
 public enum Items
 {
     Default,
-    DamageTest
+    DamageTest,
+    CheapDrawTest
 }

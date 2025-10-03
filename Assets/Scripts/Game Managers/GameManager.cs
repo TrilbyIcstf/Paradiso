@@ -12,11 +12,13 @@ public class GameManager : MonoBehaviour
     public Player_Manager PM;
 
     public Combat_UI_Manager CUI;
+    public Combat_Field_Manager CF;
     public Combat_Stats_Manager CS;
     public Combat_Enemy_Stats_Manager CES;
-    public Combat_Field_Manager CF;
     public Combat_Player_Hand_Manager CPH;
     public Combat_Enemy_Hand_Manager CEH;
+    public Combat_Player_Deck_Manager CPD;
+    public Combat_Player_Item_Manager CPI;
 
     void Awake()
     {
@@ -35,6 +37,9 @@ public class GameManager : MonoBehaviour
     public void InitCombat()
     {
         this.CS.InitializeHealth(this.PM.GetMaxHealth(), this.PM.GetCurrentHealth());
+        this.CPI.SetPlayersItems();
+
+        this.CPD.TestRandomDeck(10);
 
         this.CES.AddFreeCards(3);
         this.CS.AddFreeCards(3);

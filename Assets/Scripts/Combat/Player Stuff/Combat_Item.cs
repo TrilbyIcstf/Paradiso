@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Combat_Item : MonoBehaviour
 {
@@ -8,30 +9,79 @@ public class Combat_Item : MonoBehaviour
     private Item_Active item;
     [SerializeField]
     private SpriteRenderer itemSprite;
+    [SerializeField]
+    private Image cooldownOverlay;
+
+    private bool inCooldown = false;
+    private float cooldownTime = 0;
+    private float cooldownTimer = 0;
 
     void Start()
     {
-        if (item != null)
+        if (this.item != null)
         {
-            this.itemSprite.sprite = item.sprite;
+            this.itemSprite.sprite = this.item.sprite;
+        }
+    }
+
+    private void Update()
+    {
+        if (this.inCooldown)
+        {
+            this.cooldownTimer += Time.deltaTime;
+            this.cooldownOverlay.fillAmount = 1 - (this.cooldownTimer / this.cooldownTime);
+            if (this.cooldownTimer >= this.cooldownTime)
+            {
+                this.inCooldown = false;
+                this.cooldownOverlay.enabled = false;
+            }
         }
     }
 
     private void OnMouseDown()
     {
-        if (item == null)
+        if (this.item == null)
         {
             return;
         }
 
-        if (GameManager.instance.CS.CanAffordEnergy(this.item.energyCost))
+        if (this.inCooldown) { return; }
+
+        if (this.item.CanActivate())
         {
-            GameManager.instance.CS.SubtractEnergy(this.item.energyCost, true);
-            item.Activate();
+            if (GameManager.instance.CS.CanAffordEnergy(this.item.energyCost))
+            {
+                GameManager.instance.CS.SubtractEnergy(this.item.energyCost, true);
+                this.item.Activate();
+
+                if (this.item.GetCooldown() > 0)
+                {
+                    StartCooldown();
+                }
+            }
+            else
+            {
+                GameManager.instance.CUI.InvalidEnergyCost();
+            }
         }
-        else
+    }
+
+    private void StartCooldown()
+    {
+        this.cooldownTime = this.item.GetCooldown();
+        this.cooldownTimer = 0;
+        this.inCooldown = true;
+        this.cooldownOverlay.enabled = true;
+        this.cooldownOverlay.fillAmount = 1;
+    }
+
+    public void SetItem(Item_Active val)
+    {
+        this.item = val;
+
+        if (this.item != null)
         {
-            GameManager.instance.CUI.InvalidEnergyCost();
+            this.itemSprite.sprite = this.item.sprite;
         }
     }
 }

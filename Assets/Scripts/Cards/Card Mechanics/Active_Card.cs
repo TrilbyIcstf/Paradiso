@@ -26,40 +26,6 @@ public class Active_Card : MonoBehaviour
         this.ui.SetElement(GetElement());
     }
 
-    /// <summary>
-    /// Randomizes a card's stats for testing
-    /// </summary>
-    /// <returns>The randomized stats</returns>
-    public Card_Base RandomizeStats()
-    {
-        Card_Base cardBase = ScriptableObject.CreateInstance<Card_Base>();
-        cardBase.cardName = "Random Card";
-        cardBase.power = Random.Range(5, 20);
-        cardBase.defense = Random.Range(5, 20);
-        cardBase.element = RandomElement();
-        this.cardStats = cardBase;
-
-        return cardBase;
-    }
-
-    /// <summary>
-    /// Generates a random element for testing
-    /// </summary>
-    /// <returns>A random element</returns>
-    private CardElement RandomElement()
-    {
-        int elementIndex = Random.Range(0, 5);
-        return elementIndex switch
-        {
-            0 => CardElement.Nill,
-            1 => CardElement.Fire,
-            2 => CardElement.Wind,
-            3 => CardElement.Earth,
-            4 => CardElement.Water,
-            _ => CardElement.Nill,
-        };
-    }
-
     public void AddMultPower(float val)
     {
         this.powerMult += val;
@@ -86,5 +52,10 @@ public class Active_Card : MonoBehaviour
     public CardElement GetElement()
     {
         return this.cardStats.element;
+    }
+
+    public void SetStats(Card_Base stats)
+    {
+        this.cardStats = stats;
     }
 }

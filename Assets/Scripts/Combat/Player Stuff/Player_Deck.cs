@@ -7,11 +7,13 @@ public class Player_Deck : MonoBehaviour
 
     private void Awake()
     {
-        GameManager.instance.CS.SetPlayerDeck(gameObject);
+        GameManager.instance.CUI.SetPlayerDeck(gameObject);
     }
 
     private void OnMouseDown()
     {
+        if (GameManager.instance.CPD.DeckIsEmpty()) { return; }
+
         if (GameManager.instance.CS.CanAffordEnergy(this.drawCost))
         {
             if (!GameManager.instance.CPH.AtHandLimit())

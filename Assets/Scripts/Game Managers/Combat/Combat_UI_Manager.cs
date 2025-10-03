@@ -13,6 +13,12 @@ public class Combat_UI_Manager : MonoBehaviour
     /// </summary>
     private GameObject[] enemySpace = new GameObject[4];
 
+    /// <summary>
+    /// The deck object the player uses
+    /// </summary>
+    [SerializeField]
+    private GameObject playerDeck;
+
     private static int healthMaxSize = 400;
     private static int healthIncrement = 5;
 
@@ -155,6 +161,11 @@ public class Combat_UI_Manager : MonoBehaviour
         return this.cardSpace[pos].GetComponent<Card_Holder_Interaction>();
     }
 
+    public GameObject GetPlayerDeck()
+    {
+        return this.playerDeck;
+    }
+
     public void SetCardHolder(GameObject cardHolder, int pos)
     {
         this.cardSpace[pos] = cardHolder;
@@ -163,6 +174,11 @@ public class Combat_UI_Manager : MonoBehaviour
     public void SetEnemyHolder(GameObject cardHolder, int pos)
     {
         this.enemySpace[pos] = cardHolder;
+    }
+
+    public void SetPlayerDeck(GameObject deck)
+    {
+        this.playerDeck = deck;
     }
 
     public void NotifyEnergyUpdated(float fraction)
@@ -195,6 +211,11 @@ public class Combat_UI_Manager : MonoBehaviour
 
         this.uiCoordinator.enemyHealth.SetMaskAmount(maskAmount);
         this.uiCoordinator.enemyHealth.UpdateHealthText((int)current, (int)max);
+    }
+
+    public void SetDeckEmpty()
+    {
+        this.playerDeck.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     public void InvalidEnergyCost()

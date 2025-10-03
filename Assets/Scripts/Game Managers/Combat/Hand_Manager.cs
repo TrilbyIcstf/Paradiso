@@ -122,11 +122,13 @@ public abstract class Hand_Manager : MonoBehaviour
     public GameObject PickRandomCard()
     {
         int randomPos = PickRandomCardPos();
+        if (randomPos == -1) { return null; }
         return this.hand[randomPos];
     }
 
     public int PickRandomCardPos()
     {
+        if (this.hand.Count == 0) { return -1; }
         return Random.Range(0, this.hand.Count);
     }
 

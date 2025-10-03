@@ -74,7 +74,7 @@ public class Combat_Enemy_Stats_Manager : MonoBehaviour
     {
         if (this.enemyDeck != null)
         {
-            this.card.GetComponent<Active_Card>().RandomizeStats();
+            this.card.GetComponent<Active_Card>().SetStats(Card_Base.RandomizeStats());
             GameObject newCard = Instantiate(this.card, enemyDeck.transform.position, enemyDeck.transform.rotation);
             GameManager.instance.CUI.DrawToEnemyHand(newCard);
             GameManager.instance.CEH.AddCard(newCard);
