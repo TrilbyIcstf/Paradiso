@@ -7,7 +7,9 @@ public abstract class Hand_Manager : MonoBehaviour
 {
     internal List<GameObject> hand = new List<GameObject>();
 
-    public float gravityStrength = 5.0f;
+    private const float HandGravityForce = 10.0f;
+    private const float CardGravityForce = 8.0f;
+
     private float maxDist = 4.5f;
 
     private int handLimit = 8;
@@ -40,8 +42,8 @@ public abstract class Hand_Manager : MonoBehaviour
 
                 if (distance < this.maxDist)
                 {
-                    forces[i] += (pos1 - pos2).normalized * (1 - (distance / this.maxDist)) * this.gravityStrength;
-                    forces[j] += (pos2 - pos1).normalized * (1 - (distance / this.maxDist)) * this.gravityStrength;
+                    forces[i] += (pos1 - pos2).normalized * (1 - (distance / this.maxDist)) * CardGravityForce;
+                    forces[j] += (pos2 - pos1).normalized * (1 - (distance / this.maxDist)) * CardGravityForce;
                 }
             }
         }
@@ -67,7 +69,7 @@ public abstract class Hand_Manager : MonoBehaviour
                 Vector2 closestPos = playerHand.ClosestPoint(cardPos);
                 float distance = Vector2.Distance(cardPos, closestPos);
                 Vector2 handDirection = (closestPos - cardPos).normalized;
-                Vector2 gravityForce = handDirection * Mathf.Max((distance / 7), 0.5f) * this.gravityStrength * 2;
+                Vector2 gravityForce = handDirection * Mathf.Max((distance / 7), 0.5f) * HandGravityForce;
                 forces[i] += gravityForce;
             }
         }

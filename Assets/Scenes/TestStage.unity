@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &51200961 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4005221019885760040, guid: 7d990f7042626f244add67e157b911e4, type: 3}
+  m_PrefabInstance: {fileID: 1454331923}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &51200965 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4329366668725369207, guid: 7d990f7042626f244add67e157b911e4, type: 3}
@@ -298,6 +303,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85d4568642af0b0418503e52517b6550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &316244464 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4005221019885760040, guid: 7d990f7042626f244add67e157b911e4, type: 3}
+  m_PrefabInstance: {fileID: 2036097646}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &316244468 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4329366668725369207, guid: 7d990f7042626f244add67e157b911e4, type: 3}
@@ -898,6 +908,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b9acf74408bad34fa46bf00f63d2130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemSlots:
+  - {fileID: 51200961}
+  - {fileID: 316244464}
+  - {fileID: 2105724393}
 --- !u!1 &847693091
 GameObject:
   m_ObjectHideFlags: 0
@@ -2358,10 +2372,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7260759823728518020, guid: 7d990f7042626f244add67e157b911e4, type: 3}
-      propertyPath: item
-      value: 
-      objectReference: {fileID: 11400000, guid: fd936005e531b2048a683f3b064bacb3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d990f7042626f244add67e157b911e4, type: 3}
 --- !u!1 &1456348527
@@ -2943,12 +2953,13 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7260759823728518020, guid: 7d990f7042626f244add67e157b911e4, type: 3}
-      propertyPath: item
-      value: 
-      objectReference: {fileID: 11400000, guid: b39581442c869b04c9b6500b1aefecb3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d990f7042626f244add67e157b911e4, type: 3}
+--- !u!1 &2105724393 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4005221019885760040, guid: 7d990f7042626f244add67e157b911e4, type: 3}
+  m_PrefabInstance: {fileID: 1235058069}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2105724397 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4329366668725369207, guid: 7d990f7042626f244add67e157b911e4, type: 3}

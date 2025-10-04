@@ -11,10 +11,10 @@ public class Combat_Enemy_Stats_Manager : MonoBehaviour
     private float currentHealth;
 
     private float currentEnergy = 0;
-    private float maxEnergy = 2.5f;
+    private float maxEnergy = 3.0f;
 
     private bool regenOn = true;
-    private float regenMultiplier = 1;
+    private float regenMultiplier = 1.0f;
 
     private int bonusCardDraw = 0;
     private Coroutine bonusCardDrawer;
@@ -46,14 +46,19 @@ public class Combat_Enemy_Stats_Manager : MonoBehaviour
     public void SetEnemy(Enemy_Stats val)
     {
         this.enemy = val;
-        this.maxHealth = val.maxHealth;
-        this.currentHealth = val.maxHealth;
+        this.maxHealth = this.enemy.maxHealth;
+        this.currentHealth = this.enemy.maxHealth;
     }
 
     public bool DealDamage(float amount)
     {
         this.currentHealth -= amount;
         GameManager.instance.CUI.NotifyEnemyHealthUpdate(this.currentHealth, this.maxHealth);
+
+        if (this.currentHealth <= 0)
+        {
+            Enemy_Mouse_Controller.testPause = true;
+        }
 
         return this.currentHealth <= 0;
     }

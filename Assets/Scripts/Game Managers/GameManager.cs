@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         this.CS.InitializeHealth(this.PM.GetMaxHealth(), this.PM.GetCurrentHealth());
         this.CPI.SetPlayersItems();
 
-        this.CPD.TestRandomDeck(10);
+        this.CPD.TestRandomDeck(30);
 
         this.CES.AddFreeCards(3);
         this.CS.AddFreeCards(3);

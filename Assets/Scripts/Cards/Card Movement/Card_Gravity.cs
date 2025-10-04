@@ -5,7 +5,7 @@ public class Card_Gravity : MonoBehaviour
     private const float MAX_DISTANCE = 2.5f;
     private const float SNAP_DISTANCE = 0.005f;
     private const float FLOAT_DISTANCE = 3.5f;
-    private const float DRAG = 1.0f;
+    private const float DRAG = 3.0f;
 
     /// <summary>
     /// The point of gravity this card will move towards
@@ -17,6 +17,7 @@ public class Card_Gravity : MonoBehaviour
     /// </summary>
     private Vector2 gravityPointForce = Vector2.zero;
 
+    [SerializeField]
     private CardMovementType movementType = CardMovementType.FLOAT;
 
     /// <summary>
@@ -40,7 +41,7 @@ public class Card_Gravity : MonoBehaviour
         this.initialPosition = this.gravityPoint;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         switch (this.movementType)
         {
@@ -124,12 +125,22 @@ public class Card_Gravity : MonoBehaviour
     private void CalculateGravity()
     {
         float timeInc = Time.deltaTime;
-        if (this.gravityPointForce.magnitude >= 0.01f)
+
+        // Apply drag
+        if (this.gravityPointForce.magnitude >= 1.5f)
         {
-            var currentForceDrag = this.gravityPointForce.magnitude * 0.02f;
-            var oppositeForce = (this.gravityPointForce.normalized * -1) * DRAG * timeInc;
-            oppositeForce += (oppositeForce.normalized * currentForceDrag);
-            this.gravityPointForce += oppositeForce;
+            float currentVelocity = this.gravityPointForce.magnitude;
+            Vector2 oppositeDirection = this.gravityPointForce.normalized * -1;
+            Vector2 oppositeVelocityDrag = oppositeDirection * (0.5f) * Mathf.Pow(currentVelocity, 2) * DRAG;
+            Vector2 oppositeForce = oppositeVelocityDrag * timeInc;
+            if (oppositeForce.magnitude > currentVelocity)
+            {
+                this.gravityPointForce = Vector2.zero;
+            } else
+            {
+                //Debug.Log($"Adding drag force {oppositeForce}");
+                this.gravityPointForce += oppositeForce;
+            }
         } else
         {
             this.gravityPointForce = Vector2.zero;
@@ -160,6 +171,7 @@ public class Card_Gravity : MonoBehaviour
 
     public void ApplyGravityForce(Vector2 val)
     {
+        //Debug.Log($"Adding forces {val}");
         if (this.movementType != CardMovementType.FLOAT)
         {
             return;
