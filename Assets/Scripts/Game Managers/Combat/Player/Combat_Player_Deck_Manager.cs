@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Combat_Player_Deck_Manager : MonoBehaviour
+public class Combat_Player_Deck_Manager : ManagerBehavior
 {
     [SerializeField]
     private Queue<Card_Base> playerDeck = new Queue<Card_Base>();

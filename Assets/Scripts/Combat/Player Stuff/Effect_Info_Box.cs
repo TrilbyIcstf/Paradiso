@@ -1,11 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Effect_Info_Box : MonoBehaviour
 {
     [SerializeField]
     private SpriteRenderer sr;
+    [SerializeField]
+    private SpriteRenderer effectIcon;
+
+    [SerializeField]
+    private Text title;
+    [SerializeField]
+    private Text Description;
 
     private void Update()
     {
@@ -16,5 +24,12 @@ public class Effect_Info_Box : MonoBehaviour
         adjustedMousePos.x += halfWidth + 0.5f;
 
         gameObject.transform.position = adjustedMousePos;
+    }
+
+    public void UpdateText(Card_Effect_Description eff)
+    {
+        this.effectIcon.sprite = eff.effectSprite;
+        this.title.text = eff.title;
+        this.Description.text = eff.description;
     }
 }

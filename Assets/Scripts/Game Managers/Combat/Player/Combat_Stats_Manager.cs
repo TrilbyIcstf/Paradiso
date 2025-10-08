@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Combat_Stats_Manager : MonoBehaviour
+public class Combat_Stats_Manager : ManagerBehavior
 {
     private float maxHealth;
     private float currentHealth;
@@ -40,7 +40,7 @@ public class Combat_Stats_Manager : MonoBehaviour
     public bool DealDamage(float amount)
     {
         this.currentHealth -= amount;
-        GameManager.instance.CUI.NotifyPlayerHealthUpdate(this.currentHealth, this.maxHealth);
+        GM.CUI.NotifyPlayerHealthUpdate(this.currentHealth, this.maxHealth);
 
         return this.currentHealth <= 0;
     }
@@ -57,7 +57,7 @@ public class Combat_Stats_Manager : MonoBehaviour
 
     public void DrawCard()
     {
-        if (GameManager.instance.CPD.DeckIsEmpty()) { return; }
+        if (GM.CPD.DeckIsEmpty()) { return; }
 
         if (this.bonusCardDrawer == null)
         {
@@ -71,14 +71,14 @@ public class Combat_Stats_Manager : MonoBehaviour
 
     public void FreeDrawCard()
     {
-        Transform deckPosition = GameManager.instance.CUI.GetPlayerDeck().transform;
-        this.card.GetComponent<Active_Card>().SetStats(GameManager.instance.CPD.DrawTopCard());
+        Transform deckPosition = GM.CUI.GetPlayerDeck().transform;
+        this.card.GetComponent<Active_Card>().SetStats(GM.CPD.DrawTopCard());
         GameObject newCard = Instantiate(this.card, deckPosition.position, deckPosition.rotation);
-        GameManager.instance.CPH.DrawToHand(newCard);
+        GM.CPH.DrawToHand(newCard);
 
-        if (GameManager.instance.CPD.DeckIsEmpty())
+        if (GM.CPD.DeckIsEmpty())
         {
-            GameManager.instance.CUI.SetDeckEmpty();
+            GM.CUI.SetDeckEmpty();
         }
     }
 
@@ -89,7 +89,7 @@ public class Combat_Stats_Manager : MonoBehaviour
 
     private IEnumerator DealFreeCard()
     {
-        if (GameManager.instance.CPD.DeckIsEmpty()) {
+        if (GM.CPD.DeckIsEmpty()) {
             this.bonusCardDraw = 0;
             this.bonusCardDrawer = null;
             yield break; 
@@ -113,7 +113,7 @@ public class Combat_Stats_Manager : MonoBehaviour
     {
         this.card.GetComponent<Active_Card>().SetStats(cardStats);
         GameObject newCard = Instantiate(this.card, pos.position, pos.rotation);
-        GameManager.instance.CPH.DrawToHand(newCard);
+        GM.CPH.DrawToHand(newCard);
     }
 
     public bool SetEnergy(float val, bool delay)
@@ -166,7 +166,7 @@ public class Combat_Stats_Manager : MonoBehaviour
 
     private void NotifyEnergyUpdated()
     {
-        GameManager.instance.CUI.NotifyEnergyUpdated(EnergyFraction());
+        GM.CUI.NotifyEnergyUpdated(EnergyFraction());
     }
 
     public bool ToggleRegen(bool regen)

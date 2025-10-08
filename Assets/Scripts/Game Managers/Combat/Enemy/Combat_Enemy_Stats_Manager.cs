@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Combat_Enemy_Stats_Manager : MonoBehaviour
+public class Combat_Enemy_Stats_Manager : ManagerBehavior
 {
     [SerializeField]
     private Enemy_Stats enemy;
@@ -33,7 +33,7 @@ public class Combat_Enemy_Stats_Manager : MonoBehaviour
 
         if (EnergyFraction() >= 1)
         {
-            if (!GameManager.instance.CEH.AtHandLimit())
+            if (!GM.CEH.AtHandLimit())
             {
                 DrawCard();
             }
@@ -55,7 +55,7 @@ public class Combat_Enemy_Stats_Manager : MonoBehaviour
     public bool DealDamage(float amount)
     {
         this.currentHealth -= amount;
-        GameManager.instance.CUI.NotifyEnemyHealthUpdate(this.currentHealth, this.maxHealth);
+        GM.CUI.NotifyEnemyHealthUpdate(this.currentHealth, this.maxHealth);
 
         if (this.currentHealth <= 0)
         {
@@ -84,7 +84,7 @@ public class Combat_Enemy_Stats_Manager : MonoBehaviour
         {
             this.card.GetComponent<Active_Card>().SetStats(Card_Base.RandomizeStats());
             GameObject newCard = Instantiate(this.card, enemyDeck.transform.position, enemyDeck.transform.rotation);
-            GameManager.instance.CEH.DrawToEnemyHand(newCard);
+            GM.CEH.DrawToEnemyHand(newCard);
         }
     }
 
@@ -179,7 +179,7 @@ public class Combat_Enemy_Stats_Manager : MonoBehaviour
 
     private void NotifyEnergyUpdated()
     {
-        GameManager.instance.CUI.NotifyEnemyEnergyUpdated(EnergyFraction());
+        GM.CUI.NotifyEnemyEnergyUpdated(EnergyFraction());
     }
 
     public bool ToggleRegen(bool regen)

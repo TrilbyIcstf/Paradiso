@@ -14,6 +14,7 @@ public class Item_Behavior
                 Active_Card randCard = GameManager.instance.CPH.PickRandomCard()?.GetComponent<Active_Card>();
                 if (randCard == null) { return; }
                 randCard.AddMultPower(0.2f);
+                randCard.GetComponent<Card_UI>().EmphasizeCardCo();
                 return;
             case Items.CheapDrawTest:
                 GameManager.instance.CS.DrawCard();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Combat_Item : MonoBehaviour
+public class Combat_Item : ManagerBehavior
 {
     [SerializeField]
     private Item_Active item;
@@ -49,9 +49,9 @@ public class Combat_Item : MonoBehaviour
 
         if (this.item.CanActivate())
         {
-            if (GameManager.instance.CS.CanAffordEnergy(this.item.energyCost))
+            if (GM.CS.CanAffordEnergy(this.item.energyCost))
             {
-                GameManager.instance.CS.SubtractEnergy(this.item.energyCost, true);
+                GM.CS.SubtractEnergy(this.item.energyCost, true);
                 this.item.Activate();
 
                 if (this.item.GetCooldown() > 0)
@@ -61,7 +61,7 @@ public class Combat_Item : MonoBehaviour
             }
             else
             {
-                GameManager.instance.CUI.InvalidEnergyCost();
+                GM.CUI.InvalidEnergyCost();
             }
         }
     }

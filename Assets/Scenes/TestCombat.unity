@@ -1076,6 +1076,7 @@ GameObject:
   - component: {fileID: 749237605}
   - component: {fileID: 749237606}
   - component: {fileID: 749237607}
+  - component: {fileID: 749237608}
   m_Layer: 0
   m_Name: GameManagerHolder
   m_TagString: Untagged
@@ -1105,6 +1106,7 @@ MonoBehaviour:
   CEH: {fileID: 749237603}
   CPD: {fileID: 749237605}
   CPI: {fileID: 749237606}
+  STR: {fileID: 749237608}
 --- !u!4 &749237597
 Transform:
   m_ObjectHideFlags: 0
@@ -1253,6 +1255,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   QuillCard: {fileID: 11400000, guid: c777f88b95af01d47a0e190cf5c2a35e, type: 2}
+--- !u!114 &749237608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749237595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67ecc73e5ffe7624488606590e2bd4f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardEffects:
+    _serializableList:
+    - Key: 1
+      Value: {fileID: 11400000, guid: f5089d8165c82c444bca2faa34a3c26b, type: 2}
+    - Key: 2
+      Value: {fileID: 11400000, guid: ad5624e706152e24aa8d48ce97f822a6, type: 2}
+    - Key: 3
+      Value: {fileID: 11400000, guid: 108e30beb184c6844b52dfc4988ba40c, type: 2}
+    - Key: 4
+      Value: {fileID: 11400000, guid: 9a2ec4973cfe92946a211f1dceec300b, type: 2}
 --- !u!1 &752229904
 GameObject:
   m_ObjectHideFlags: 0

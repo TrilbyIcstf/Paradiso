@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     public Combat_Player_Deck_Manager CPD;
     public Combat_Player_Item_Manager CPI;
 
+    public String_List STR;
+
     void Awake()
     {
         DontDestroyOnLoad(gameObject);

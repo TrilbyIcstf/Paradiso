@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Linq;
 using System.Collections;
 
-public class Combat_Field_Manager : MonoBehaviour
+public class Combat_Field_Manager : ManagerBehavior
 {
     private Player_Field_Space[] playerSpaces = new Player_Field_Space[4];
     private Enemy_Field_Space[] enemySpaces = new Enemy_Field_Space[4];
@@ -47,7 +47,7 @@ public class Combat_Field_Manager : MonoBehaviour
         {
             (Field_Card_Results playerResults, Field_Card_Results enemyResults) = CalculatePosition(i, this.playerSpaces, this.enemySpaces);
 
-            yield return StartCoroutine(GameManager.instance.CUI.PlayFieldResultAnimations(i, playerResults, enemyResults));
+            yield return StartCoroutine(GM.CUI.PlayFieldResultAnimations(i, playerResults, enemyResults));
 
             debugPlayerAttacks += $"Card {i} deals {playerResults.totalDamage}, ";
             debugEnemyAttacks += $"Card {i} deals {enemyResults.totalDamage}, ";
@@ -62,8 +62,8 @@ public class Combat_Field_Manager : MonoBehaviour
         Debug.Log(debugPlayerAttacks);
         Debug.Log(debugEnemyAttacks);
 
-        GameManager.instance.CES.DealDamage(damageToEnemy);
-        GameManager.instance.CS.DealDamage(damageToPlayer);
+        GM.CES.DealDamage(damageToEnemy);
+        GM.CS.DealDamage(damageToPlayer);
 
         ResetField();
         this.fieldLocked = false;
@@ -186,8 +186,8 @@ public class Combat_Field_Manager : MonoBehaviour
 
     private (Field_Card_Results, Field_Card_Results) CalculateEffectParametersShared(Field_Card_Results playerResults, Field_Card_Results enemyResults)
     {
-        int playerHandSize = GameManager.instance.CPH.HandSize();
-        int enemyHandSize = GameManager.instance.CEH.HandSize();
+        int playerHandSize = GM.CPH.HandSize();
+        int enemyHandSize = GM.CEH.HandSize();
 
         playerResults.effParams.handSize = playerHandSize;
         playerResults.effParams.opponentHandSize = enemyHandSize;

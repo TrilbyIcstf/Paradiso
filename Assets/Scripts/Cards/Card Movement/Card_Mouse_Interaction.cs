@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Card_Mouse_Interaction : MonoBehaviour
+public class Card_Mouse_Interaction : ManagerBehavior
 {
     /// <summary>
     /// Flag marking when this card is currently being held by the mouse
@@ -20,19 +20,19 @@ public class Card_Mouse_Interaction : MonoBehaviour
             if (!Input.GetMouseButton(0))
             {
                 this.isHoldingCard = false;
-                GameManager.instance.CUI.isHoldingCard = false;
-                GameManager.instance.CUI.PlayerReleasesCard(this.cardGravity.gameObject);
+                GM.CUI.isHoldingCard = false;
+                GM.CUI.PlayerReleasesCard(this.cardGravity.gameObject);
             }
         }
     }
 
     private void OnMouseDown()
     {
-        if (!GameManager.instance.CUI.isHoldingCard && !this.cardGravity.GetLocked())
+        if (!GM.CUI.isHoldingCard && !this.cardGravity.GetLocked())
         {
             this.isHoldingCard = true;
-            GameManager.instance.CPH.SetSortingOrder(this.cardGravity.gameObject);
-            GameManager.instance.CUI.isHoldingCard = true;
+            GM.CPH.SetSortingOrder(this.cardGravity.gameObject);
+            GM.CUI.isHoldingCard = true;
             this.cardGravity.SetMovementType(CardMovementType.LOOSESNAP);
         }
     }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mouse_Hover_Card : MonoBehaviour
+public class Mouse_Hover_Card : ManagerBehavior
 {
     [SerializeField]
     private GameObject infoBox;
@@ -12,28 +12,41 @@ public class Mouse_Hover_Card : MonoBehaviour
 
     private GameObject tempInfoBox;
 
-    private float hoverDuration = 0.75f;
+    private float hoverDuration = 0.5f;
     private Coroutine hoverCoroutine;
+
+    private void Update()
+    {
+        if (GM.CUI.isHoldingCard)
+        {
+            DestroyBox();
+        }
+    }
 
     private void OnMouseEnter()
     {
-        if (cardStats.GetEffect() == CardEffects.None) { return; }
+        if (this.cardStats.GetEffect() == CardEffects.None) { return; }
         if (this.hoverCoroutine != null)
         {
             StopCoroutine(hoverCoroutine);
         }
-        hoverCoroutine = StartCoroutine(DisplayInfoOnHover());
+        this.hoverCoroutine = StartCoroutine(DisplayInfoOnHover());
     }
 
     private void OnMouseExit()
     {
+        DestroyBox();
+    }
+
+    private void DestroyBox()
+    {
         if (this.hoverCoroutine != null)
         {
-            StopCoroutine(hoverCoroutine);
+            StopCoroutine(this.hoverCoroutine);
         }
         if (this.tempInfoBox != null)
         {
-            Destroy(tempInfoBox);
+            Destroy(this.tempInfoBox);
         }
     }
 
@@ -43,5 +56,8 @@ public class Mouse_Hover_Card : MonoBehaviour
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
         this.tempInfoBox = Instantiate(infoBox, mousePos, Quaternion.identity);
+        Effect_Info_Box boxScript = this.tempInfoBox.GetComponent<Effect_Info_Box>();
+        Card_Effect_Description eff = GameManager.instance.STR.GetCardEffectDescription(this.cardStats.GetEffect());
+        boxScript.UpdateText(eff);
     }
 }

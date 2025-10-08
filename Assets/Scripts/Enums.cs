@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 
 public enum CardElement
 {
@@ -53,6 +54,7 @@ public enum Items
     CheapDrawTest
 }
 
+[Serializable]
 public enum CardEffects
 {
     None,

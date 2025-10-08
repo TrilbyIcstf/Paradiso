@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Mouse_Controller : MonoBehaviour
+public class Enemy_Mouse_Controller : ManagerBehavior
 {
     public static bool testPause = false;
 
@@ -143,10 +143,10 @@ public class Enemy_Mouse_Controller : MonoBehaviour
                 this.currentState = MouseMovementState.PLACING;
                 if (this.intent == EnemyMouseIntent.PLACE)
                 {
-                    this.placePos = GameManager.instance.CUI.GetEnemyHolder(this.targetSpace).transform.position;
+                    this.placePos = GM.CUI.GetEnemyHolder(this.targetSpace).transform.position;
                 } else
                 {
-                    this.placePos = GameManager.instance.CUI.uiCoordinator.EnemyHandArea().RandomPoint();
+                    this.placePos = GM.CUI.uiCoordinator.EnemyHandArea().RandomPoint();
                 }
                 return;
             default:
@@ -156,8 +156,8 @@ public class Enemy_Mouse_Controller : MonoBehaviour
 
     private (GameObject, int) DecideNextPlay()
     {
-        GameObject nextCard = GameManager.instance.CEH.RandomCard();
-        int nextSlot = GameManager.instance.CF.NextFreeEnemySpace();
+        GameObject nextCard = GM.CEH.RandomCard();
+        int nextSlot = GM.CF.NextFreeEnemySpace();
         if (nextSlot == -1)
         {
             this.intent = EnemyMouseIntent.SORT;

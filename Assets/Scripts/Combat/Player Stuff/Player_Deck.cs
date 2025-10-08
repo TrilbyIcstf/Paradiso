@@ -1,31 +1,31 @@
 using System.Collections;
 using UnityEngine;
 
-public class Player_Deck : MonoBehaviour
+public class Player_Deck : ManagerBehavior
 {
     public float drawCost = 10;
 
     private void Awake()
     {
-        GameManager.instance.CUI.SetPlayerDeck(gameObject);
+        GM.CUI.SetPlayerDeck(gameObject);
     }
 
     private void OnMouseDown()
     {
-        if (GameManager.instance.CPD.DeckIsEmpty()) { return; }
+        if (GM.CPD.DeckIsEmpty()) { return; }
 
-        if (GameManager.instance.CS.CanAffordEnergy(this.drawCost))
+        if (GM.CS.CanAffordEnergy(this.drawCost))
         {
-            if (!GameManager.instance.CPH.AtHandLimit())
+            if (!GM.CPH.AtHandLimit())
             {
-                GameManager.instance.CS.SubtractEnergy(this.drawCost, true);
+                GM.CS.SubtractEnergy(this.drawCost, true);
 
-                GameManager.instance.CS.DrawCard();
+                GM.CS.DrawCard();
             }
         }
         else
         {
-            GameManager.instance.CUI.InvalidEnergyCost();
+            GM.CUI.InvalidEnergyCost();
         }
     }
 }

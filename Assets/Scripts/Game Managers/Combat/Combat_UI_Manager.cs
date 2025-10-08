@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Combat_UI_Manager : MonoBehaviour
+public class Combat_UI_Manager : ManagerBehavior
 {
     /// <summary>
     /// The card spaces the player can place cards into
@@ -50,8 +50,8 @@ public class Combat_UI_Manager : MonoBehaviour
             card.GetComponent<Card_UI>().SetToDefaultSorting(1);
 
             // Assign card stats to field space
-            GameManager.instance.CF.SetPlayerSpace(spacePosition, card);
-            GameManager.instance.CPH.RemoveCard(card);
+            GM.CF.SetPlayerSpace(spacePosition, card);
+            GM.CPH.RemoveCard(card);
         }
         else
         {
@@ -63,7 +63,7 @@ public class Combat_UI_Manager : MonoBehaviour
     {
         Card_Gravity gravityScript = card.GetComponent<Card_Gravity>();
 
-        if (position >= 0 && !GameManager.instance.CF.FieldLocked())
+        if (position >= 0 && !GM.CF.FieldLocked())
         {
             // Set card's resting position to field space
             gravityScript.SetMovementType(CardMovementType.SNAP);
@@ -75,8 +75,8 @@ public class Combat_UI_Manager : MonoBehaviour
             card.GetComponent<Card_UI>().SetToDefaultSorting(1);
 
             // Assign card stats to field space
-            GameManager.instance.CF.SetEnemySpace(position, card);
-            GameManager.instance.CEH.RemoveCard(card);
+            GM.CF.SetEnemySpace(position, card);
+            GM.CEH.RemoveCard(card);
         }
         else
         {
@@ -121,14 +121,14 @@ public class Combat_UI_Manager : MonoBehaviour
     /// <returns>The position of the field space to snap to, or -1 if none should be snapped to</returns>
     public int CheckSpaceSnap(GameObject card)
     {
-        if (GameManager.instance.CF.FieldLocked()) { return -1; }
+        if (GM.CF.FieldLocked()) { return -1; }
 
         int spacePosition = -1;
         for (int i = 0; i < this.cardSpace.Length; i++)
         {
             if (this.cardSpace[i] == null) { break; }
-            Vector3 mousePosition = Input.mousePosition;
-            if (GetCardHolderScript(i).shouldSnap(card.transform.position) && GameManager.instance.CF.GetPlayerSpace(i).GetCard() == null)
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (GetCardHolderScript(i).shouldSnap(mousePosition) && GM.CF.GetPlayerSpace(i).GetCard() == null)
             {
                 spacePosition = i;
             }

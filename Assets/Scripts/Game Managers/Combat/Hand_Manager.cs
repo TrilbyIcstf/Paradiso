@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public abstract class Hand_Manager : MonoBehaviour
+public abstract class Hand_Manager : ManagerBehavior
 {
     internal List<GameObject> hand = new List<GameObject>();
 
@@ -112,13 +112,13 @@ public abstract class Hand_Manager : MonoBehaviour
 
     public void DrawToHand(GameObject card)
     {
-        GameManager.instance.CUI.DrawToHand(card);
+        GM.CUI.DrawToHand(card);
         AddCard(card);
     }
 
     public void DrawToEnemyHand(GameObject card)
     {
-        GameManager.instance.CUI.DrawToEnemyHand(card);
+        GM.CUI.DrawToEnemyHand(card);
         AddCard(card);
     }
 

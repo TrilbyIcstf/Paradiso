@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 6915156343893323945}
   - component: {fileID: 407264061922379023}
   m_Layer: 0
-  m_Name: Star
+  m_Name: Effect Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -439,3 +439,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sr: {fileID: 4552180020137425205}
+  effectIcon: {fileID: 407264061922379023}
+  title: {fileID: 3916391363717354795}
+  Description: {fileID: 8602070584148184030}

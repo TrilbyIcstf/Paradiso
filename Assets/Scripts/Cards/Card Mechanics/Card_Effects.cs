@@ -22,7 +22,7 @@ public class Card_Effects: MonoBehaviour
                 {
                     GameObject targetCard = GameManager.instance.CEH.GetCard(pos);
                     targetCard.GetComponent<Active_Card>().AddPowerBuff(-5);
-                    targetCard.GetComponent<Card_UI>().EmphasizeCardCo();   
+                    targetCard.GetComponent<Card_UI>().EmphasizeCardCo();
                 }
                 break;
             case CardEffects.Tremor:

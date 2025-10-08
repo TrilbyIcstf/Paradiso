@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Combat_Player_Item_Manager : MonoBehaviour
+public class Combat_Player_Item_Manager : ManagerBehavior
 {
     [SerializeField]
     private GameObject[] itemSlots = new GameObject[3];
 
     public void SetPlayersItems()
     {
-        List<Item_Active> activeItems = GameManager.instance.PM.GetActiveItems();
+        List<Item_Active> activeItems = GM.PM.GetActiveItems();
 
         for (int i = 0; i < activeItems.Count; i++)
         {
