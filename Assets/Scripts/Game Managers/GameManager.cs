@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     }
     private static GameManager _instance;
 
+    public Static_Object_Manager SOM;
+
     public Player_Manager PM;
 
     public Combat_UI_Manager CUI;

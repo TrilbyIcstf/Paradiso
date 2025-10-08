@@ -2,13 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Card_Holder : MonoBehaviour
+public class Enemy_Card_Holder : Card_Holder
 {
-    [SerializeField]
-    private int position;
-
     private void Awake()
     {
-        GameManager.instance.CUI.SetEnemyHolder(this.gameObject, position);
+        GameManager.instance.CUI.SetEnemyHolder(this.gameObject, this.position);
     }
 }

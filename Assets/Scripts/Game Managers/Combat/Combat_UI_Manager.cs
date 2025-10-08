@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,7 +47,7 @@ public class Combat_UI_Manager : MonoBehaviour
             gravityScript.SetLocked(true);
 
             // Alter card UI as necessary
-            card.GetComponent<Card_UI>().SetSortingOrder(0);
+            card.GetComponent<Card_UI>().SetToDefaultSorting(1);
 
             // Assign card stats to field space
             GameManager.instance.CF.SetPlayerSpace(spacePosition, card);
@@ -70,7 +72,7 @@ public class Combat_UI_Manager : MonoBehaviour
             gravityScript.SetLocked(true);
 
             // Alter card UI as necessary
-            card.GetComponent<Card_UI>().SetSortingOrder(0);
+            card.GetComponent<Card_UI>().SetToDefaultSorting(1);
 
             // Assign card stats to field space
             GameManager.instance.CF.SetEnemySpace(position, card);
@@ -134,6 +136,85 @@ public class Combat_UI_Manager : MonoBehaviour
         return spacePosition;
     }
 
+    public IEnumerator PlayFieldResultAnimations(int pos, Combat_Field_Manager.Field_Card_Results playerResults, Combat_Field_Manager.Field_Card_Results enemyResults)
+    {
+        List<Coroutine> animations = new List<Coroutine>();
+        bool emphasizePlayerCard = playerResults.flashLeft || playerResults.flashRight || playerResults.flashMiddle || Card_Effects.EffectIsTriggered(playerResults.effect, playerResults.effParams);
+        bool emphasizeEnemyCard = enemyResults.flashLeft || enemyResults.flashRight || enemyResults.flashMiddle || Card_Effects.EffectIsTriggered(enemyResults.effect, enemyResults.effParams);
+
+        if (playerResults.flashLeft)
+        {
+            animations.Add(StartCoroutine(FlashPlayerLeft(pos)));
+        }
+
+        if (playerResults.flashRight)
+        {
+            animations.Add(StartCoroutine(FlashPlayerRight(pos)));
+        }
+
+        if (enemyResults.flashLeft)
+        {
+            animations.Add(StartCoroutine(FlashEnemyLeft(pos)));
+        }
+
+        if (enemyResults.flashRight)
+        {
+            animations.Add(StartCoroutine(FlashEnemyRight(pos)));
+        }
+
+        if (playerResults.flashMiddle)
+        {
+            animations.Add(StartCoroutine(FlashMiddle(pos, playerResults.advantage)));
+        }
+
+        if (emphasizePlayerCard)
+        {
+            Card_UI cardScript = playerResults.card.GetComponent<Card_UI>();
+            animations.Add(StartCoroutine(cardScript.EmphasizeCard()));
+            cardScript.SetPower((int)playerResults.totalAttack);
+            cardScript.SetDefense((int)playerResults.totalDefense);
+            StartCoroutine(Card_Effects.TriggerCardEffect(playerResults.effect, playerResults.card, playerResults.effParams));
+        }
+
+        if (emphasizeEnemyCard)
+        {
+            Card_UI cardScript = enemyResults.card.GetComponent<Card_UI>();
+            animations.Add(StartCoroutine(cardScript.EmphasizeCard()));
+            cardScript.SetPower((int)enemyResults.totalAttack);
+            cardScript.SetDefense((int)enemyResults.totalDefense);
+        }
+
+        foreach (Coroutine c in animations)
+        {
+            yield return c;
+        }
+    }
+
+    public IEnumerator FlashMiddle(int pos, bool playerAdvantage)
+    {
+        yield return StartCoroutine(GetCardHolderScript(pos).FlashMiddle(playerAdvantage));
+    }
+
+    public IEnumerator FlashPlayerLeft(int pos)
+    {
+        yield return StartCoroutine(GetCardHolderScript(pos).FlashLeft());
+    }
+
+    public IEnumerator FlashPlayerRight(int pos)
+    {
+        yield return StartCoroutine(GetCardHolderScript(pos).FlashRight());
+    }
+
+    public IEnumerator FlashEnemyLeft(int pos)
+    {
+        yield return StartCoroutine(GetEnemyHolderScript(pos).FlashLeft());
+    }
+
+    public IEnumerator FlashEnemyRight(int pos)
+    {
+        yield return StartCoroutine(GetEnemyHolderScript(pos).FlashRight());
+    }
+
     public GameObject GetCardHolder(int pos)
     {
         if (pos < 0 || pos > 4)
@@ -152,13 +233,22 @@ public class Combat_UI_Manager : MonoBehaviour
         return this.enemySpace[pos];
     }
 
-    public Card_Holder_Interaction GetCardHolderScript(int pos)
+    public Player_Card_Holder GetCardHolderScript(int pos)
     {
         if (pos < 0 || pos > 4)
         {
             return null;
         }
-        return this.cardSpace[pos].GetComponent<Card_Holder_Interaction>();
+        return this.cardSpace[pos].GetComponent<Player_Card_Holder>();
+    }
+
+    public Enemy_Card_Holder GetEnemyHolderScript(int pos)
+    {
+        if (pos < 0 || pos > 4)
+        {
+            return null;
+        }
+        return this.enemySpace[pos].GetComponent<Enemy_Card_Holder>();
     }
 
     public GameObject GetPlayerDeck()

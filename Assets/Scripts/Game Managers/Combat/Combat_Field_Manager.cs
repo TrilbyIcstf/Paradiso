@@ -45,17 +45,15 @@ public class Combat_Field_Manager : MonoBehaviour
 
         for (int i = 0; i < this.playerSpaces.Length; i++)
         {
-            Active_Card playerCard = this.playerSpaces[i].GetCard();
-            Active_Card enemyCard = this.enemySpaces[i].GetCard();
+            (Field_Card_Results playerResults, Field_Card_Results enemyResults) = CalculatePosition(i, this.playerSpaces, this.enemySpaces);
 
-            float playersCardDamage = CalculateDamage(i, this.playerSpaces, this.enemySpaces);
-            float enemysCardDamage = CalculateDamage(i, this.enemySpaces, this.playerSpaces);
+            yield return StartCoroutine(GameManager.instance.CUI.PlayFieldResultAnimations(i, playerResults, enemyResults));
 
-            debugPlayerAttacks += $"Card {i} deals {playersCardDamage}, ";
-            debugEnemyAttacks += $"Card {i} deals {enemysCardDamage}, ";
+            debugPlayerAttacks += $"Card {i} deals {playerResults.totalDamage}, ";
+            debugEnemyAttacks += $"Card {i} deals {enemyResults.totalDamage}, ";
 
-            damageToEnemy += playersCardDamage;
-            damageToPlayer += enemysCardDamage;
+            damageToEnemy += playerResults.totalDamage;
+            damageToPlayer += enemyResults.totalDamage;
         }
 
         debugPlayerAttacks += $"dealing {damageToEnemy} in total.";
@@ -72,48 +70,95 @@ public class Combat_Field_Manager : MonoBehaviour
         this.fieldProcessing = null;
     }
 
-    private float CalculateDamage(int pos, Field_Space[] attackingCards, Field_Space[] defendingCards)
+    private (Field_Card_Results, Field_Card_Results) CalculatePosition(int pos, Field_Space[] playerCards, Field_Space[] enemyCards)
     {
-        float damage = 0;
+        Field_Card_Results playerResults = CalculateCard(pos, playerCards, enemyCards);
+        Field_Card_Results enemyResults = CalculateCard(pos, enemyCards, playerCards);
+        (playerResults, enemyResults) = CalculateDamage(playerResults, enemyResults);
+        (playerResults, enemyResults) = CalculateEffectParametersShared(playerResults, enemyResults);
+
+        return (playerResults, enemyResults);
+    }
+
+    private Field_Card_Results CalculateCard(int pos, Field_Space[] attackingCards, Field_Space[] defendingCards)
+    {
+        Field_Card_Results results = new Field_Card_Results();
 
         Active_Card attackingCard = attackingCards[pos].GetCard();
         Active_Card defendingCard = defendingCards[pos].GetCard();
 
-        float attackingPower = attackingCard?.GetPower() ?? 0;
-        float defendingDefense = defendingCard?.GetDefense() ?? 0;
+        results.card = attackingCards[pos].GetCardObject();
+        results.effect = attackingCard?.GetEffect() ?? CardEffects.None;
+        results.effParams = new CardEffectParameters();
+        results.totalAttack = attackingCard?.GetPower() ?? 0;
+        results.totalDefense = attackingCard?.GetDefense() ?? 0;
 
-        if (attackingPower <= 0) { return 0; }
+        results = ApplyElementalWeakness(results, attackingCard, defendingCard);
+        results = ApplyAdjacencyBuffs(results, pos, attackingCards, attackingCard);
 
-        attackingPower = ApplyElementalWeakness(attackingPower, attackingCard, defendingCard);
-        attackingPower = ApplyAdjacencyBuffs(attackingPower, pos, attackingCards, attackingCard);
-        attackingPower = Mathf.Ceil(attackingPower);
+        results.totalAttack = Mathf.Ceil(results.totalAttack);
+        results.totalDefense = Mathf.Ceil(results.totalDefense);
 
-        defendingDefense = ApplyAdjacencyBuffs(defendingDefense, pos, defendingCards, defendingCard);
-        defendingDefense = Mathf.Ceil(defendingDefense);
+        if (results.effect != CardEffects.None)
+        {
+            results = CalculateEffectParametersIndividual(results);
+        }
 
-        damage = Mathf.Max(0, attackingPower - defendingDefense);
-
-        return damage;
+        return results;
     }
 
-    private float ApplyElementalWeakness(float baseDamage, Active_Card attacking, Active_Card defending)
+    private (Field_Card_Results, Field_Card_Results) CalculateDamage(Field_Card_Results playerResults, Field_Card_Results enemyResults)
+    {
+        playerResults.totalDamage = Mathf.Max(0, playerResults.totalAttack - enemyResults.totalDefense);
+        enemyResults.totalDamage = Mathf.Max(0, enemyResults.totalAttack - playerResults.totalDefense);
+        return (playerResults, enemyResults);
+    }
+
+    private Field_Card_Results ApplyElementalWeakness(Field_Card_Results cardResults, Active_Card attacking, Active_Card defending)
+    {
+        (float mult, bool isWeakness, bool advantage) = ElementalMultResults(attacking, defending);
+        cardResults.totalAttack *= mult;
+        cardResults.flashMiddle = isWeakness;
+        cardResults.advantage = advantage;
+        return cardResults;
+    }
+
+    private (float, bool, bool) ElementalMultResults(Active_Card attacking, Active_Card defending)
+    {
+        float mult = ElementalMult(attacking, defending);
+        return (mult, mult != 1.0f, mult > 1);
+    }
+
+    private float ElementalMult(Active_Card attacking, Active_Card defending)
     {
         CardElement attackingElement = attacking?.GetElement() ?? CardElement.Nill;
         CardElement defendingElement = defending?.GetElement() ?? CardElement.Nill;
-        return baseDamage * ElementMethods.EffectivenessMult(attackingElement, defendingElement);
+        return ElementMethods.EffectivenessMult(attackingElement, defendingElement);
     }
 
-    private float ApplyAdjacencyBuffs(float baseVal, int pos, Field_Space[] cards, Active_Card card)
+    private bool IsSuperEffective(Active_Card attacking, Active_Card defending)
+    {
+        return ElementalMult(attacking, defending) > 1;
+    }
+
+    private bool IsNotVeryEffective(Active_Card attacking, Active_Card defending)
+    {
+        return ElementalMult(attacking, defending) < 1;
+    }
+
+    private Field_Card_Results ApplyAdjacencyBuffs(Field_Card_Results cardResults, int pos, Field_Space[] cards, Active_Card card)
     {
         CardElement cardElement = card?.GetElement() ?? CardElement.Nill;
-        if (cardElement == CardElement.Nill) { return baseVal; }
+        if (cardElement == CardElement.Nill) { return cardResults; }
 
         if (pos > 0)
         {
             CardElement leftElement = cards[pos - 1].GetCard()?.GetElement() ?? CardElement.Nill;
             if (cardElement == leftElement)
             {
-                baseVal *= Consts.adj;
+                cardResults.totalAttack *= Consts.adj;
+                cardResults.flashLeft = true;
+                cardResults.effParams.adjacency++;
             }
         }
 
@@ -122,11 +167,35 @@ public class Combat_Field_Manager : MonoBehaviour
             CardElement rightElement = cards[pos + 1].GetCard()?.GetElement() ?? CardElement.Nill;
             if (cardElement == rightElement)
             {
-                baseVal *= Consts.adj;
+                cardResults.totalAttack *= Consts.adj;
+                cardResults.flashRight = true;
+                cardResults.effParams.adjacency++;
             }
         }
 
-        return baseVal;
+        return cardResults;
+    }
+
+    private Field_Card_Results CalculateEffectParametersIndividual(Field_Card_Results results)
+    {
+        results.effParams.power = results.totalAttack;
+        results.effParams.defense = results.totalDefense;
+
+        return results;
+    }
+
+    private (Field_Card_Results, Field_Card_Results) CalculateEffectParametersShared(Field_Card_Results playerResults, Field_Card_Results enemyResults)
+    {
+        int playerHandSize = GameManager.instance.CPH.HandSize();
+        int enemyHandSize = GameManager.instance.CEH.HandSize();
+
+        playerResults.effParams.handSize = playerHandSize;
+        playerResults.effParams.opponentHandSize = enemyHandSize;
+
+        enemyResults.effParams.handSize = enemyHandSize;
+        enemyResults.effParams.opponentHandSize = playerHandSize;
+
+        return (playerResults, enemyResults);
     }
 
     /// <summary>
@@ -283,5 +352,23 @@ public class Combat_Field_Manager : MonoBehaviour
     public bool FieldLocked()
     {
         return this.fieldLocked;
+    }
+
+    public class Field_Card_Results
+    {
+        internal GameObject card;
+
+        internal CardEffects effect;
+        internal CardEffectParameters effParams;
+
+        internal bool flashLeft = false;
+        internal bool flashMiddle = false;
+        internal bool flashRight = false;
+
+        internal bool advantage = false;
+
+        internal float totalDamage = 0;
+        internal float totalAttack = 0;
+        internal float totalDefense = 0;
     }
 }

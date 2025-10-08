@@ -24,12 +24,31 @@ public class Active_Card : MonoBehaviour
         this.ui.SetPower(GetPower());
         this.ui.SetDefense(GetDefense());
         this.ui.SetElement(GetElement());
+        this.ui.SetEffect(GetEffect());
+    }
+
+    public void AddPowerBuff(float val)
+    {
+        this.powerBuff += val;
+        this.ui.SetPower(GetPower());
+    }
+
+    public void AddDefenseBuff(float val)
+    {
+        this.defenseBuff += val;
+        this.ui.SetDefense(GetDefense());
     }
 
     public void AddMultPower(float val)
     {
         this.powerMult += val;
         this.ui.SetPower(GetPower());
+    }
+
+    public void AddMultDefense(float val)
+    {
+        this.defenseBuff += val;
+        this.ui.SetDefense(GetDefense());
     }
 
     public Card_Base GetBase()
@@ -40,18 +59,23 @@ public class Active_Card : MonoBehaviour
     public int GetPower()
     {
         float power = (this.cardStats.power + this.powerBuff) * this.powerMult;
-        return Mathf.CeilToInt(power);
+        return Mathf.Max(0, Mathf.CeilToInt(power));
     }
 
     public int GetDefense()
     {
         float defense = (this.cardStats.defense + this.defenseBuff) * this.defenseMult;
-        return Mathf.CeilToInt(defense);
+        return Mathf.Max(0, Mathf.CeilToInt(defense));
     }
 
     public CardElement GetElement()
     {
         return this.cardStats.element;
+    }
+
+    public CardEffects GetEffect()
+    {
+        return this.cardStats.effect;
     }
 
     public void SetStats(Card_Base stats)

@@ -10,8 +10,10 @@ public class Combat_Enemy_Stats_Manager : MonoBehaviour
     private float maxHealth;
     private float currentHealth;
 
-    private float currentEnergy = 0;
+    private float currentEnergy = 0.0f;
     private float maxEnergy = 3.0f;
+
+    private float energyDelay = 0.0f;
 
     private bool regenOn = true;
     private float regenMultiplier = 1.0f;
@@ -66,6 +68,7 @@ public class Combat_Enemy_Stats_Manager : MonoBehaviour
     public void DrawCard()
     {
         SetEnergy(0, true);
+        ResetDelay();
         if (this.bonusCardDrawer == null)
         {
             FreeDrawCard();
@@ -81,8 +84,7 @@ public class Combat_Enemy_Stats_Manager : MonoBehaviour
         {
             this.card.GetComponent<Active_Card>().SetStats(Card_Base.RandomizeStats());
             GameObject newCard = Instantiate(this.card, enemyDeck.transform.position, enemyDeck.transform.rotation);
-            GameManager.instance.CUI.DrawToEnemyHand(newCard);
-            GameManager.instance.CEH.AddCard(newCard);
+            GameManager.instance.CEH.DrawToEnemyHand(newCard);
         }
     }
 
@@ -114,21 +116,31 @@ public class Combat_Enemy_Stats_Manager : MonoBehaviour
 
     public bool SetEnergy(float val, bool delay)
     {
-        this.currentEnergy = Mathf.Min(val, this.maxEnergy);
+        this.currentEnergy = Mathf.Min(val, RequiredEnergy());
         NotifyEnergyUpdated();
         if (delay)
         {
             StartCoroutine(RegenDelay());
         }
 
-        return this.currentEnergy >= this.maxEnergy;
+        return this.currentEnergy >= RequiredEnergy();
     }
 
     public bool AddEnergy(float val)
     {
-        this.currentEnergy = Mathf.Min(this.currentEnergy + val, this.maxEnergy);
+        this.currentEnergy = Mathf.Min(this.currentEnergy + val, RequiredEnergy());
         NotifyEnergyUpdated();
-        return this.currentEnergy >= this.maxEnergy;
+        return this.currentEnergy >= RequiredEnergy();
+    }
+
+    public void AddEnergyDelay(float val)
+    {
+        this.energyDelay += val;
+    }
+
+    public void ResetDelay()
+    {
+        this.energyDelay = 0.0f;
     }
 
     public bool SubtractEnergy(float val, bool delay)
@@ -143,9 +155,14 @@ public class Combat_Enemy_Stats_Manager : MonoBehaviour
         return this.currentEnergy <= 0;
     }
 
+    public float RequiredEnergy()
+    {
+        return this.maxEnergy + this.energyDelay;
+    }
+
     public float EnergyFraction()
     {
-        return this.currentEnergy / this.maxEnergy;
+        return this.currentEnergy / RequiredEnergy();
     }
 
     public bool CanAffordEnergy(float cost)

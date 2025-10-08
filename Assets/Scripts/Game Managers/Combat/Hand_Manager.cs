@@ -110,6 +110,18 @@ public abstract class Hand_Manager : MonoBehaviour
         return this.hand.Select(c => c.GetComponent<Card_UI>()).ToList();
     }
 
+    public void DrawToHand(GameObject card)
+    {
+        GameManager.instance.CUI.DrawToHand(card);
+        AddCard(card);
+    }
+
+    public void DrawToEnemyHand(GameObject card)
+    {
+        GameManager.instance.CUI.DrawToEnemyHand(card);
+        AddCard(card);
+    }
+
     public void AddCard(GameObject card)
     {
         this.hand.Add(card);
@@ -134,6 +146,27 @@ public abstract class Hand_Manager : MonoBehaviour
         return Random.Range(0, this.hand.Count);
     }
 
+    public List<int> PickRandomCardsPos(int amount)
+    {
+        if (amount > this.hand.Count) { amount = this.hand.Count; }
+        if (amount == this.hand.Count)
+        {
+            return Enumerable.Range(0, amount).ToList();
+        }
+
+        List<int> randList = new List<int>();
+        do
+        {
+            int randInt = Random.Range(0, amount);
+            if (!randList.Contains(randInt))
+            {
+                randList.Add(randInt);
+            }
+        } while (randList.Count < amount);
+
+        return randList;
+    }
+
     public int HandSize()
     {
         return this.hand.Count;
@@ -142,5 +175,11 @@ public abstract class Hand_Manager : MonoBehaviour
     public bool AtHandLimit()
     {
         return this.hand.Count >= this.handLimit;
+    }
+
+    public GameObject GetCard(int pos)
+    {
+        if (pos >= this.hand.Count) { return null; }
+        return this.hand[pos];
     }
 }

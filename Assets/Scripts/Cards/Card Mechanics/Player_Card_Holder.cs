@@ -1,15 +1,12 @@
 using UnityEngine;
 
-public class Card_Holder_Interaction : MonoBehaviour
+public class Player_Card_Holder : Card_Holder
 {
-    [SerializeField]
-    private int position;
-
     private float snapDistance = 1.25f;
 
     private void Awake()
     {
-        GameManager.instance.CUI.SetCardHolder(this.gameObject, position);
+        GameManager.instance.CUI.SetCardHolder(this.gameObject, this.position);
     }
 
     public bool shouldSnap(Vector2 pointPosition)
@@ -20,4 +17,6 @@ public class Card_Holder_Interaction : MonoBehaviour
         }
         return false;
     }
+
+
 }

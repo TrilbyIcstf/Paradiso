@@ -52,3 +52,12 @@ public enum Items
     DamageTest,
     CheapDrawTest
 }
+
+public enum CardEffects
+{
+    None,
+    Quills,
+    Incinerate,
+    Flow,
+    Tremor
+}

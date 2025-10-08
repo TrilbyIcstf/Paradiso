@@ -30,7 +30,7 @@ public class Item_Behavior
             case Items.Default:
                 return true;
             case Items.DamageTest:
-                return GameManager.instance.CPH.hand.Count > 0;
+                return GameManager.instance.CPH.HandSize() > 0;
             case Items.CheapDrawTest:
                 return !GameManager.instance.CPD.DeckIsEmpty() && !GameManager.instance.CPH.AtHandLimit();
             default:

@@ -74,8 +74,7 @@ public class Combat_Stats_Manager : MonoBehaviour
         Transform deckPosition = GameManager.instance.CUI.GetPlayerDeck().transform;
         this.card.GetComponent<Active_Card>().SetStats(GameManager.instance.CPD.DrawTopCard());
         GameObject newCard = Instantiate(this.card, deckPosition.position, deckPosition.rotation);
-        GameManager.instance.CUI.DrawToHand(newCard);
-        GameManager.instance.CPH.AddCard(newCard);
+        GameManager.instance.CPH.DrawToHand(newCard);
 
         if (GameManager.instance.CPD.DeckIsEmpty())
         {
@@ -90,6 +89,11 @@ public class Combat_Stats_Manager : MonoBehaviour
 
     private IEnumerator DealFreeCard()
     {
+        if (GameManager.instance.CPD.DeckIsEmpty()) {
+            this.bonusCardDraw = 0;
+            this.bonusCardDrawer = null;
+            yield break; 
+        }
         yield return new WaitForSeconds(0.25f);
 
         this.bonusCardDraw -= 1;
@@ -103,6 +107,13 @@ public class Combat_Stats_Manager : MonoBehaviour
         {
             this.bonusCardDrawer = null;
         }
+    }
+
+    public void CreateNewCard(Card_Base cardStats, Transform pos)
+    {
+        this.card.GetComponent<Active_Card>().SetStats(cardStats);
+        GameObject newCard = Instantiate(this.card, pos.position, pos.rotation);
+        GameManager.instance.CPH.DrawToHand(newCard);
     }
 
     public bool SetEnergy(float val, bool delay)
