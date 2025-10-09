@@ -43,7 +43,7 @@ public class Card_UI : MonoBehaviour
         yield return new WaitUntilOrTimeout(() =>
         {
             Vector3 localScale = spriteObject.transform.localScale;
-            localScale *= 1.005f;
+            localScale *= 1.0f + (4.0f * Time.deltaTime);
             spriteObject.transform.localScale = localScale;
             return localScale.x >= sizeGoal;
         }, 0.5f);
@@ -51,7 +51,7 @@ public class Card_UI : MonoBehaviour
         yield return new WaitUntilOrTimeout(() =>
         {
             Vector3 localScale = spriteObject.transform.localScale;
-            localScale /= 1.002f;
+            localScale /= 1.0f + (1.5f * Time.deltaTime);
             spriteObject.transform.localScale = localScale;
             return localScale.x <= originalScale.x;
         }, 0.5f);

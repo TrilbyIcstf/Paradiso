@@ -59,5 +59,6 @@ public class Mouse_Hover_Card : ManagerBehavior
         Effect_Info_Box boxScript = this.tempInfoBox.GetComponent<Effect_Info_Box>();
         Card_Effect_Description eff = GameManager.instance.STR.GetCardEffectDescription(this.cardStats.GetEffect());
         boxScript.UpdateText(eff);
+        this.tempInfoBox.SetActive(true);
     }
 }
