@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effect: 2
   title: Incinerate
-  description: Reduce the power of an opponent's card for each adjacent fire card.
+  playerDescription: Decrease the power of an enemy card for each adjacent fire card.
+  EnemyDescription: Decreases the power of one of your cards for each adjacent fire
+    card.
   effectSprite: {fileID: 21300000, guid: f33bf7fe1a359f941bac6d9414e21ccf, type: 3}

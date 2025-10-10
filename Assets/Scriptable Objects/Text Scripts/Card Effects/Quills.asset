@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effect: 1
   title: Quills
-  description: Creates a quill card for each adjacent wind card.
+  playerDescription: Gain a quill card for each adjacent wind card.
+  EnemyDescription: The enemy gains a quill card for each adjacent wind card.
   effectSprite: {fileID: 21300000, guid: f33bf7fe1a359f941bac6d9414e21ccf, type: 3}
