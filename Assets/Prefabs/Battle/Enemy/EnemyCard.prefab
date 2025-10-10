@@ -96,6 +96,10 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: -422343001
       objectReference: {fileID: 0}
+    - target: {fileID: 8913293046133419164, guid: 5a334c0bd759cf144bb4b5935d09d107, type: 3}
+      propertyPath: isPlayerCard
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6907797030461607597, guid: 5a334c0bd759cf144bb4b5935d09d107, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5a334c0bd759cf144bb4b5935d09d107, type: 3}

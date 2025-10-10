@@ -63,7 +63,7 @@ public class Combat_Field_Manager : ManagerBehavior
         Debug.Log(debugEnemyAttacks);
 
         GM.CES.DealDamage(damageToEnemy);
-        GM.CS.DealDamage(damageToPlayer);
+        GM.CPS.DealDamage(damageToPlayer);
 
         ResetField();
         this.fieldLocked = false;

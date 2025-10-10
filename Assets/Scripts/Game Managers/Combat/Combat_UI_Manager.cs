@@ -139,8 +139,8 @@ public class Combat_UI_Manager : ManagerBehavior
     public IEnumerator PlayFieldResultAnimations(int pos, Combat_Field_Manager.Field_Card_Results playerResults, Combat_Field_Manager.Field_Card_Results enemyResults)
     {
         List<Coroutine> animations = new List<Coroutine>();
-        bool emphasizePlayerCard = playerResults.flashLeft || playerResults.flashRight || playerResults.flashMiddle || Card_Effects.EffectIsTriggered(playerResults.effect, playerResults.effParams);
-        bool emphasizeEnemyCard = enemyResults.flashLeft || enemyResults.flashRight || enemyResults.flashMiddle || Card_Effects.EffectIsTriggered(enemyResults.effect, enemyResults.effParams);
+        bool emphasizePlayerCard = playerResults.flashLeft || playerResults.flashRight || playerResults.flashMiddle || GM.CCE.EffectIsTriggered(playerResults.effect, playerResults.effParams);
+        bool emphasizeEnemyCard = enemyResults.flashLeft || enemyResults.flashRight || enemyResults.flashMiddle || GM.CCE.EffectIsTriggered(enemyResults.effect, enemyResults.effParams);
 
         if (playerResults.flashLeft)
         {
@@ -173,7 +173,7 @@ public class Combat_UI_Manager : ManagerBehavior
             animations.Add(StartCoroutine(cardScript.EmphasizeCard()));
             cardScript.SetPower((int)playerResults.totalAttack);
             cardScript.SetDefense((int)playerResults.totalDefense);
-            StartCoroutine(Card_Effects.TriggerCardEffect(playerResults.effect, playerResults.card, playerResults.effParams));
+            StartCoroutine(GM.CCE.TriggerCardEffect(playerResults.effect, playerResults.card, playerResults.effParams, true));
         }
 
         if (emphasizeEnemyCard)
@@ -182,6 +182,7 @@ public class Combat_UI_Manager : ManagerBehavior
             animations.Add(StartCoroutine(cardScript.EmphasizeCard()));
             cardScript.SetPower((int)enemyResults.totalAttack);
             cardScript.SetDefense((int)enemyResults.totalDefense);
+            StartCoroutine(GM.CCE.TriggerCardEffect(enemyResults.effect, enemyResults.card, enemyResults.effParams, false));
         }
 
         foreach (Coroutine c in animations)

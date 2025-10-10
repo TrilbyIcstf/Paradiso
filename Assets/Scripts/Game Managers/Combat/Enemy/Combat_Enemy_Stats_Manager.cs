@@ -2,27 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Combat_Enemy_Stats_Manager : ManagerBehavior
+public class Combat_Enemy_Stats_Manager : Stats_Manager
 {
     [SerializeField]
     private Enemy_Stats enemy;
 
-    private float maxHealth;
-    private float currentHealth;
-
-    private float currentEnergy = 0.0f;
-    private float maxEnergy = 3.0f;
-
     private float energyDelay = 0.0f;
 
-    private bool regenOn = true;
     private float regenMultiplier = 1.0f;
 
-    private int bonusCardDraw = 0;
-    private Coroutine bonusCardDrawer;
-
     private GameObject enemyDeck;
-    public GameObject card;
+
+    public Combat_Enemy_Stats_Manager()
+    {
+        this.currentEnergy = 0.0f;
+        this.maxEnergy = 3.0f;
+    }
 
     private void FixedUpdate()
     {
@@ -52,7 +47,7 @@ public class Combat_Enemy_Stats_Manager : ManagerBehavior
         this.currentHealth = this.enemy.maxHealth;
     }
 
-    public bool DealDamage(float amount)
+    public override bool DealDamage(float amount)
     {
         this.currentHealth -= amount;
         GM.CUI.NotifyEnemyHealthUpdate(this.currentHealth, this.maxHealth);
@@ -65,7 +60,7 @@ public class Combat_Enemy_Stats_Manager : ManagerBehavior
         return this.currentHealth <= 0;
     }
 
-    public void DrawCard()
+    public override void DrawCard()
     {
         SetEnergy(0, true);
         ResetDelay();
@@ -78,7 +73,7 @@ public class Combat_Enemy_Stats_Manager : ManagerBehavior
         }
     }
 
-    public void FreeDrawCard()
+    public override void FreeDrawCard()
     {
         if (this.enemyDeck != null)
         {
@@ -88,12 +83,7 @@ public class Combat_Enemy_Stats_Manager : ManagerBehavior
         }
     }
 
-    public void AddFreeCards(int val)
-    {
-        this.bonusCardDraw += val;
-    }
-
-    private IEnumerator DealFreeCard()
+    protected override IEnumerator DealFreeCard()
     {
         yield return new WaitForSeconds(0.25f);
 
@@ -114,7 +104,14 @@ public class Combat_Enemy_Stats_Manager : ManagerBehavior
         this.enemyDeck = deck;
     }
 
-    public bool SetEnergy(float val, bool delay)
+    public override void CreateNewCard(Card_Base cardStats, Transform pos)
+    {
+        this.card.GetComponent<Active_Card>().SetStats(cardStats);
+        GameObject newCard = Instantiate(this.card, pos.position, pos.rotation);
+        GM.CEH.DrawToHand(newCard);
+    }
+
+    public override bool SetEnergy(float val, bool delay)
     {
         this.currentEnergy = Mathf.Min(val, RequiredEnergy());
         NotifyEnergyUpdated();
@@ -126,7 +123,7 @@ public class Combat_Enemy_Stats_Manager : ManagerBehavior
         return this.currentEnergy >= RequiredEnergy();
     }
 
-    public bool AddEnergy(float val)
+    public override bool AddEnergy(float val)
     {
         this.currentEnergy = Mathf.Min(this.currentEnergy + val, RequiredEnergy());
         NotifyEnergyUpdated();
@@ -143,7 +140,7 @@ public class Combat_Enemy_Stats_Manager : ManagerBehavior
         this.energyDelay = 0.0f;
     }
 
-    public bool SubtractEnergy(float val, bool delay)
+    public override bool SubtractEnergy(float val, bool delay)
     {
         this.currentEnergy = Mathf.Max(this.currentEnergy - val, 0);
         NotifyEnergyUpdated();
@@ -165,27 +162,8 @@ public class Combat_Enemy_Stats_Manager : ManagerBehavior
         return this.currentEnergy / RequiredEnergy();
     }
 
-    public bool CanAffordEnergy(float cost)
-    {
-        return cost <= this.currentEnergy;
-    }
-
-    private IEnumerator RegenDelay()
-    {
-        ToggleRegen(false);
-        yield return new WaitForSeconds(0.25f);
-        ToggleRegen(true);
-    }
-
-    private void NotifyEnergyUpdated()
+    protected override void NotifyEnergyUpdated()
     {
         GM.CUI.NotifyEnemyEnergyUpdated(EnergyFraction());
-    }
-
-    public bool ToggleRegen(bool regen)
-    {
-        bool oldRegen = this.regenOn;
-        this.regenOn = regen;
-        return oldRegen == this.regenOn;
     }
 }

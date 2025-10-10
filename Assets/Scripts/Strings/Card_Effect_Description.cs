@@ -15,7 +15,11 @@ public class Card_Effect_Description: ScriptableObject
 
     [SerializeField]
     [TextArea]
-    public string description;
+    public string playerDescription;
+
+    [SerializeField]
+    [TextArea]
+    public string EnemyDescription;
 
     [SerializeField]
     public Sprite effectSprite;

@@ -10,6 +10,9 @@ public class Mouse_Hover_Card : ManagerBehavior
     [SerializeField]
     private Active_Card cardStats;
 
+    [SerializeField]
+    private bool isPlayerCard;
+
     private GameObject tempInfoBox;
 
     private float hoverDuration = 0.5f;
@@ -58,7 +61,7 @@ public class Mouse_Hover_Card : ManagerBehavior
         this.tempInfoBox = Instantiate(infoBox, mousePos, Quaternion.identity);
         Effect_Info_Box boxScript = this.tempInfoBox.GetComponent<Effect_Info_Box>();
         Card_Effect_Description eff = GameManager.instance.STR.GetCardEffectDescription(this.cardStats.GetEffect());
-        boxScript.UpdateText(eff);
+        boxScript.UpdateText(eff, this.isPlayerCard);
         this.tempInfoBox.SetActive(true);
     }
 }

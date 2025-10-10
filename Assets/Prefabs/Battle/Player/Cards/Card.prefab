@@ -307,6 +307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   infoBox: {fileID: 4552180020137425204, guid: b5719750722d48b45b52db3cdbd0565e, type: 3}
   cardStats: {fileID: 4189466139966896813}
+  isPlayerCard: 1
 --- !u!1 &4397756916184234849
 GameObject:
   m_ObjectHideFlags: 0

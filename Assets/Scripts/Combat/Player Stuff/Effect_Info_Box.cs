@@ -26,10 +26,10 @@ public class Effect_Info_Box : MonoBehaviour
         gameObject.transform.position = adjustedMousePos;
     }
 
-    public void UpdateText(Card_Effect_Description eff)
+    public void UpdateText(Card_Effect_Description eff, bool isPlayerCard)
     {
         this.effectIcon.sprite = eff.effectSprite;
         this.title.text = eff.title;
-        this.Description.text = eff.description;
+        this.Description.text = isPlayerCard ? eff.playerDescription : eff.EnemyDescription;
     }
 }

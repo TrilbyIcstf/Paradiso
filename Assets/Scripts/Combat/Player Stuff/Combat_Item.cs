@@ -49,9 +49,9 @@ public class Combat_Item : ManagerBehavior
 
         if (this.item.CanActivate())
         {
-            if (GM.CS.CanAffordEnergy(this.item.energyCost))
+            if (GM.CPS.CanAffordEnergy(this.item.energyCost))
             {
-                GM.CS.SubtractEnergy(this.item.energyCost, true);
+                GM.CPS.SubtractEnergy(this.item.energyCost, true);
                 this.item.Activate();
 
                 if (this.item.GetCooldown() > 0)

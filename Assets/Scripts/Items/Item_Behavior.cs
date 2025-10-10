@@ -17,7 +17,7 @@ public class Item_Behavior
                 randCard.GetComponent<Card_UI>().EmphasizeCardCo();
                 return;
             case Items.CheapDrawTest:
-                GameManager.instance.CS.DrawCard();
+                GameManager.instance.CPS.DrawCard();
                 return;
             default:
                 return;

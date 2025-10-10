@@ -1,22 +1,15 @@
 using System.Collections;
 using UnityEngine;
 
-public class Combat_Stats_Manager : ManagerBehavior
+public class Combat_Player_Stats_Manager : Stats_Manager
 {
-    private float maxHealth;
-    private float currentHealth;
-
-    private float currentEnergy = 30;
-    private float maxEnergy = 30;
-
-    private bool regenOn = true;
     private float energyRegen = 0.08f;
 
-    private int bonusCardDraw = 0;
-    private Coroutine bonusCardDrawer;
-
-    [SerializeField]
-    private GameObject card;
+    public Combat_Player_Stats_Manager()
+    {
+        this.currentEnergy = 30.0f;
+        this.maxEnergy = 30.0f;
+    }
 
     private void FixedUpdate()
     {
@@ -37,7 +30,7 @@ public class Combat_Stats_Manager : ManagerBehavior
         this.currentHealth = current;
     }
 
-    public bool DealDamage(float amount)
+    public override bool DealDamage(float amount)
     {
         this.currentHealth -= amount;
         GM.CUI.NotifyPlayerHealthUpdate(this.currentHealth, this.maxHealth);
@@ -45,17 +38,7 @@ public class Combat_Stats_Manager : ManagerBehavior
         return this.currentHealth <= 0;
     }
 
-    public float GetHealth()
-    {
-        return this.currentHealth;
-    }
-
-    public float GetCurrentHealth()
-    {
-        return this.maxHealth;
-    }
-
-    public void DrawCard()
+    public override void DrawCard()
     {
         if (GM.CPD.DeckIsEmpty()) { return; }
 
@@ -69,7 +52,7 @@ public class Combat_Stats_Manager : ManagerBehavior
         }
     }
 
-    public void FreeDrawCard()
+    public override void FreeDrawCard()
     {
         Transform deckPosition = GM.CUI.GetPlayerDeck().transform;
         this.card.GetComponent<Active_Card>().SetStats(GM.CPD.DrawTopCard());
@@ -82,12 +65,7 @@ public class Combat_Stats_Manager : ManagerBehavior
         }
     }
 
-    public void AddFreeCards(int val)
-    {
-        this.bonusCardDraw += val;
-    }
-
-    private IEnumerator DealFreeCard()
+    protected override IEnumerator DealFreeCard()
     {
         if (GM.CPD.DeckIsEmpty()) {
             this.bonusCardDraw = 0;
@@ -109,14 +87,14 @@ public class Combat_Stats_Manager : ManagerBehavior
         }
     }
 
-    public void CreateNewCard(Card_Base cardStats, Transform pos)
+    public override void CreateNewCard(Card_Base cardStats, Transform pos)
     {
         this.card.GetComponent<Active_Card>().SetStats(cardStats);
         GameObject newCard = Instantiate(this.card, pos.position, pos.rotation);
         GM.CPH.DrawToHand(newCard);
     }
 
-    public bool SetEnergy(float val, bool delay)
+    public override bool SetEnergy(float val, bool delay)
     {
         this.currentEnergy = Mathf.Min(val, this.maxEnergy);
         NotifyEnergyUpdated();
@@ -128,14 +106,14 @@ public class Combat_Stats_Manager : ManagerBehavior
         return this.currentEnergy >= this.maxEnergy;
     }
 
-    public bool AddEnergy(float val)
+    public override bool AddEnergy(float val)
     {
         this.currentEnergy = Mathf.Min(this.currentEnergy + val, this.maxEnergy);
         NotifyEnergyUpdated();
         return this.currentEnergy >= this.maxEnergy;
     }
 
-    public bool SubtractEnergy(float val, bool delay)
+    public override bool SubtractEnergy(float val, bool delay)
     {
         this.currentEnergy = Mathf.Max(this.currentEnergy - val, 0);
         NotifyEnergyUpdated();
@@ -152,27 +130,8 @@ public class Combat_Stats_Manager : ManagerBehavior
         return this.currentEnergy / this.maxEnergy;
     }
 
-    public bool CanAffordEnergy(float cost)
-    {
-        return cost <= this.currentEnergy;
-    }
-
-    private IEnumerator RegenDelay()
-    {
-        ToggleRegen(false);
-        yield return new WaitForSeconds(0.25f);
-        ToggleRegen(true);
-    }
-
-    private void NotifyEnergyUpdated()
+    protected override void NotifyEnergyUpdated()
     {
         GM.CUI.NotifyEnergyUpdated(EnergyFraction());
-    }
-
-    public bool ToggleRegen(bool regen)
-    {
-        bool oldRegen = this.regenOn;
-        this.regenOn = regen;
-        return oldRegen == this.regenOn;
     }
 }

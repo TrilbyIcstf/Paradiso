@@ -14,13 +14,13 @@ public class Player_Deck : ManagerBehavior
     {
         if (GM.CPD.DeckIsEmpty()) { return; }
 
-        if (GM.CS.CanAffordEnergy(this.drawCost))
+        if (GM.CPS.CanAffordEnergy(this.drawCost))
         {
             if (!GM.CPH.AtHandLimit())
             {
-                GM.CS.SubtractEnergy(this.drawCost, true);
+                GM.CPS.SubtractEnergy(this.drawCost, true);
 
-                GM.CS.DrawCard();
+                GM.CPS.DrawCard();
             }
         }
         else
