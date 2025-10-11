@@ -28,8 +28,6 @@ public class Camera_Manager : MonoBehaviour
     {
         float aspect = (float)Screen.width / (float)Screen.height;
         float targetAspect = TargetWidth / TargetHeight;
-        //Debug.Log(aspect);
-        //Debug.Log(targetAspect);
 
         if (aspect > targetAspect)
         {

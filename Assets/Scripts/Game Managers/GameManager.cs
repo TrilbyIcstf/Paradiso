@@ -39,14 +39,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ToggleCombatUpdates(bool val)
+    {
+        this.CPS.enabled = val;
+        this.CPH.enabled = val;
+        this.CES.enabled = val;
+        this.CEH.enabled = val;
+    }
+
     public void InitCombat()
     {
-        this.CPS.InitializeHealth(this.PM.GetMaxHealth(), this.PM.GetCurrentHealth());
-        this.CPI.SetPlayersItems();
+        //this.CPS.InitializeHealth(this.PM.GetMaxHealth(), this.PM.GetCurrentHealth());
+        //this.CPI.SetPlayersItems();
 
-        this.CPD.TestRandomDeck(30);
+        //this.CPD.TestRandomDeck(30);
 
-        this.CES.AddFreeCards(3);
-        this.CPS.AddFreeCards(3);
+        //this.CES.AddFreeCards(3);
+        //this.CPS.AddFreeCards(3);
     }
 }
