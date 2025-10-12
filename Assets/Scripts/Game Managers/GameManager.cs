@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     public Combat_Player_Item_Manager CPI;
     public Combat_Card_Effect_Manager CCE;
 
+    public Exploration_Layout_Manager EL;
+
     public String_List STR;
 
     void Awake()
@@ -49,12 +51,18 @@ public class GameManager : MonoBehaviour
 
     public void InitCombat()
     {
-        //this.CPS.InitializeHealth(this.PM.GetMaxHealth(), this.PM.GetCurrentHealth());
-        //this.CPI.SetPlayersItems();
+        this.CPS.InitializeHealth(this.PM.GetMaxHealth(), this.PM.GetCurrentHealth());
+        this.CPI.SetPlayersItems();
 
-        //this.CPD.TestRandomDeck(30);
+        this.CPD.TestRandomDeck(30);
 
-        //this.CES.AddFreeCards(3);
-        //this.CPS.AddFreeCards(3);
+        this.CES.AddFreeCards(3);
+        this.CPS.AddFreeCards(3);
+    }
+
+    public void InitFloor()
+    {
+        this.EL.RandomizeFloor(5, 5);
+        this.EL.SetupCurrentRoom();
     }
 }

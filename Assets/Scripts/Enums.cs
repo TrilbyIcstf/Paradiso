@@ -63,3 +63,34 @@ public enum CardEffects
     Flow,
     Tremor
 }
+
+public enum Directions
+{
+    None,
+    Up,
+    Left,
+    Right,
+    Down
+}
+
+public static class DirectionMethods
+{
+    public static (int, int) NumericalDirection(this Directions dir)
+    {
+        switch(dir)
+        {
+            case Directions.None:
+                return (0, 0);
+            case Directions.Up:
+                return (0, 1);
+            case Directions.Left:
+                return (-1, 0);
+            case Directions.Right:
+                return (1, 0);
+            case Directions.Down:
+                return (0, -1);
+            default:
+                return (0, 0);
+        }
+    }
+}

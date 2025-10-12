@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 3555046578125482720}
   - component: {fileID: 3555046578125482733}
   - component: {fileID: 3555046578125482734}
+  - component: {fileID: 717222405218251421}
   - component: {fileID: 3555046578125482721}
   m_Layer: 0
   m_Name: GameManagerHolder
@@ -66,6 +67,7 @@ MonoBehaviour:
   CPD: {fileID: 3555046578125482732}
   CPI: {fileID: 3555046578125482735}
   CCE: {fileID: 3555046578125482720}
+  EL: {fileID: 717222405218251421}
   STR: {fileID: 3555046578125482721}
 --- !u!114 &3555046578125482711
 MonoBehaviour:
@@ -213,6 +215,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   QuillCard: {fileID: 11400000, guid: c777f88b95af01d47a0e190cf5c2a35e, type: 2}
+--- !u!114 &717222405218251421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3555046578125482706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6fdda6ad439d6147a49e8fecbd885d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3555046578125482721
 MonoBehaviour:
   m_ObjectHideFlags: 0
