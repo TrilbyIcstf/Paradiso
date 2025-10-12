@@ -53,3 +53,6 @@ TagManager:
   - name: Player High UI
     uniqueID: 3480901361
     locked: 0
+  - name: Overlay
+    uniqueID: 1852328031
+    locked: 0

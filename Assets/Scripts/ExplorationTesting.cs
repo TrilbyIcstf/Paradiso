@@ -7,6 +7,6 @@ public class ExplorationTesting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.instance.InitFloor();
+        GameManager.instance.ER.SetupCurrentRoom();
     }
 }

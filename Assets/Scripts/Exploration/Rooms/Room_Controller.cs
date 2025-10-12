@@ -2,19 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Room_Controller : MonoBehaviour
+public class Room_Controller : ManagerBehavior
 {
     [SerializeField]
     private SerializableDictionary<Directions, GameObject> doorGrids;
 
     private void Awake()
     {
-        GameManager.instance.EL.SetCurrentRoom(this);
+        GM.ER.SetCurrentRoom(this);
+        GM.ER.SetupCurrentRoom();
     }
 
-    public void SetupRoom()
+    public void SetupRoom(Room_Object room)
     {
-        Room_Object thisRoom = GameManager.instance.EL.GetStartingRoom();
+        Room_Object thisRoom = room;
 
         foreach (var conn in thisRoom.GetConnections())
         {

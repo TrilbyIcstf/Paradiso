@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
 
     public Static_Object_Manager SOM;
+    public Transition_Manager TR;
 
     public Player_Manager PM;
 
@@ -24,6 +25,9 @@ public class GameManager : MonoBehaviour
     public Combat_Card_Effect_Manager CCE;
 
     public Exploration_Layout_Manager EL;
+    public Exploration_Room_Manager ER;
+
+    public Screen_Fade SF;
 
     public String_List STR;
 
@@ -58,11 +62,5 @@ public class GameManager : MonoBehaviour
 
         this.CES.AddFreeCards(3);
         this.CPS.AddFreeCards(3);
-    }
-
-    public void InitFloor()
-    {
-        this.EL.RandomizeFloor(5, 5);
-        this.EL.SetupCurrentRoom();
     }
 }

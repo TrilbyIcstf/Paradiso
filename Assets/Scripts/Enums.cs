@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System;
+using UnityEngine;
 
 public enum CardElement
 {
@@ -75,22 +76,39 @@ public enum Directions
 
 public static class DirectionMethods
 {
-    public static (int, int) NumericalDirection(this Directions dir)
+    public static Vector2Int NumericalDirection(this Directions dir)
     {
         switch(dir)
         {
             case Directions.None:
-                return (0, 0);
+                return new Vector2Int(0, 0);
             case Directions.Up:
-                return (0, 1);
+                return new Vector2Int(0, 1);
             case Directions.Left:
-                return (-1, 0);
+                return new Vector2Int(-1, 0);
             case Directions.Right:
-                return (1, 0);
+                return new Vector2Int(1, 0);
             case Directions.Down:
-                return (0, -1);
+                return new Vector2Int(0, -1);
             default:
-                return (0, 0);
+                return new Vector2Int(0, 0);
+        }
+    }
+
+    public static Directions OppositeDirection(this Directions dir)
+    {
+        switch(dir)
+        {
+            case Directions.Up:
+                return Directions.Down;
+            case Directions.Down:
+                return Directions.Up;
+            case Directions.Left:
+                return Directions.Right;
+            case Directions.Right:
+                return Directions.Left;
+            default:
+                return Directions.None;
         }
     }
 }
