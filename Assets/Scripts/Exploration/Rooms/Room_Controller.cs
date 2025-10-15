@@ -6,6 +6,10 @@ public class Room_Controller : ManagerBehavior
 {
     [SerializeField]
     private SerializableDictionary<Directions, GameObject> doorGrids;
+    [SerializeField]
+    private SerializableDictionary<Directions, GameObject> playerSpawns;
+    [SerializeField]
+    private GameObject player;
 
     private void Awake()
     {
@@ -13,7 +17,7 @@ public class Room_Controller : ManagerBehavior
         GM.ER.SetupCurrentRoom();
     }
 
-    public void SetupRoom(Room_Object room)
+    public void SetupRoom(Room_Object room, Directions enteredDirection)
     {
         Room_Object thisRoom = room;
 
@@ -21,6 +25,11 @@ public class Room_Controller : ManagerBehavior
         {
             if (conn.Key == Directions.None) { continue; }
             this.doorGrids[conn.Key].SetActive(conn.Value == null);
+        }
+
+        if (this.playerSpawns.ContainsKey(enteredDirection))
+        {
+            this.player.transform.position = this.playerSpawns[enteredDirection].transform.position;
         }
     }
 }

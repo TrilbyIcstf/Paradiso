@@ -118,6 +118,7 @@ public class Exploration_Layout_Manager : ManagerBehavior
     {
         Vector2Int dirVect = dir.NumericalDirection();
         this.currentPos += dirVect;
+        GM.ER.EnteredDirection = dir;
         return this.floorLayout[this.currentPos.x, this.currentPos.y] != null;
     }
 
