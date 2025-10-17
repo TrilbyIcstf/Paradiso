@@ -55,12 +55,23 @@ public class GameManager : MonoBehaviour
 
     public void InitCombat()
     {
+        ToggleCombatUpdates(true);
         this.CPS.InitializeHealth(this.PM.GetMaxHealth(), this.PM.GetCurrentHealth());
-        this.CPI.SetPlayersItems();
 
         this.CPD.TestRandomDeck(30);
 
         this.CES.AddFreeCards(3);
         this.CPS.AddFreeCards(3);
+    }
+
+    public void EndCombat()
+    {
+        this.PM.SetCurrentHealth((int)this.CPS.GetCurrentHealth());
+        ToggleCombatUpdates(false);
+        this.TR.UnloadScene("TestCombat", () => {
+            this.CPH.ResetHand();
+            this.CEH.ResetHand();
+            this.ER.SetRoomActive(true);
+        });
     }
 }

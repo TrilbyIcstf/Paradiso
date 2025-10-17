@@ -111,6 +111,7 @@ GameObject:
   - component: {fileID: 4329366668725369207}
   - component: {fileID: 862742541471705660}
   - component: {fileID: 7260759823728518020}
+  - component: {fileID: 2952637484826211588}
   - component: {fileID: -4368750447256910921}
   m_Layer: 0
   m_Name: ItemHolder
@@ -199,8 +200,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
+  position: 0
   itemSprite: {fileID: 6273587547466059023}
   cooldownOverlay: {fileID: 3942592502029167695}
+--- !u!114 &2952637484826211588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4005221019885760040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10e91fd67dddcbf4098b8f8b88c46993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  infoBox: {fileID: 4552180020137425204, guid: b5719750722d48b45b52db3cdbd0565e, type: 3}
+  itemHolder: {fileID: 7260759823728518020}
 --- !u!58 &-4368750447256910921
 CircleCollider2D:
   m_ObjectHideFlags: 0

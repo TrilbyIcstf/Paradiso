@@ -112,3 +112,12 @@ public static class DirectionMethods
         }
     }
 }
+
+public enum RoomTypes
+{
+    Empty,
+    Starting,
+    Enemy,
+    Item,
+    Stairs
+}

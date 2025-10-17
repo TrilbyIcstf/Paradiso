@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestMovementRoom.unity
     guid: 5153c35d7198fee48bf373e4f7215f8b
+  - enabled: 1
+    path: Assets/Scenes/EnemyRoom.unity
+    guid: ec1b99e13d2dde44f92ab7961f8621dd
   m_configObjects: {}

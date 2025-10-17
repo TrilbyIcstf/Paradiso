@@ -19,9 +19,13 @@ public class Effect_Info_Box : MonoBehaviour
     {
         float halfWidth = sr.bounds.size.x / 2;
 
-        Vector3 adjustedMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mousePos = Input.mousePosition;
+        float screenCenter = Screen.width / 2;
+        bool mouseLeftHalf = mousePos.x < screenCenter;
+
+        Vector3 adjustedMousePos = Camera.main.ScreenToWorldPoint(mousePos);
         adjustedMousePos.z = 0;
-        adjustedMousePos.x += halfWidth + 0.5f;
+        adjustedMousePos.x += (halfWidth + 0.5f) * (mouseLeftHalf ? 1.0f : -1.0f);
 
         gameObject.transform.position = adjustedMousePos;
     }
@@ -31,5 +35,12 @@ public class Effect_Info_Box : MonoBehaviour
         this.effectIcon.sprite = eff.effectSprite;
         this.title.text = eff.title;
         this.Description.text = isPlayerCard ? eff.playerDescription : eff.EnemyDescription;
+    }
+
+    public void UpdateText(Item_Description item)
+    {
+        this.effectIcon.sprite = item.itemSprite;
+        this.title.text = item.title;
+        this.Description.text = item.description;
     }
 }

@@ -21,4 +21,9 @@ public class Exploration_Room_Manager : ManagerBehavior
     {
         this.currentRoom = val;
     }
+
+    public void SetRoomActive(bool val)
+    {
+        currentRoom.gameObject.SetActive(val);
+    }
 }

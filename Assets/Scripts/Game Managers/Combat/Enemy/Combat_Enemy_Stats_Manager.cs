@@ -55,9 +55,22 @@ public class Combat_Enemy_Stats_Manager : Stats_Manager
         if (this.currentHealth <= 0)
         {
             Enemy_Mouse_Controller.testPause = true;
+            GM.EndCombat();
         }
 
         return this.currentHealth <= 0;
+    }
+
+    public override void HealDamage(float amount)
+    {
+        this.currentHealth += amount;
+        this.currentHealth = Mathf.Min(this.currentHealth, this.maxHealth);
+        HealthUpdate();
+    }
+
+    public override void HealthUpdate()
+    {
+        GM.CUI.NotifyEnemyHealthUpdate(this.currentHealth, this.maxHealth);
     }
 
     public override void DrawCard()

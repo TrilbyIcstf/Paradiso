@@ -133,6 +133,16 @@ public abstract class Hand_Manager : ManagerBehavior
         this.hand.Remove(card);
     }
 
+    public void ResetHand()
+    {
+        foreach (GameObject card in this.hand)
+        {
+            Destroy(card);
+        }
+
+        this.hand = new List<GameObject>();
+    }
+
     public GameObject PickRandomCard()
     {
         int randomPos = PickRandomCardPos();

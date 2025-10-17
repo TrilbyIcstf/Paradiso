@@ -10,12 +10,14 @@ public class Exploration_Layout_Manager : ManagerBehavior
 
     private Vector2Int currentPos;
 
+    private int enemyCount = 0;
+
     public void RandomizeFloor(int width, int height)
     {
         this.floorLayout = new Room_Object[width, height];
         this.startingPos = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
         this.currentPos = this.startingPos;
-        float startingContinuePower = ((width + height) / 2) * 50;
+        float startingContinuePower = GetAverageFloorSize() * 50;
         RecursiveAddRoom(this.startingPos, startingContinuePower, 80.0f);
 
         for (int i = floorLayout.GetLength(1) - 1; i >= 0; i--)
@@ -23,12 +25,21 @@ public class Exploration_Layout_Manager : ManagerBehavior
             string mapRow = "";
             for (int j = 0; j < floorLayout.GetLength(0); j++)
             {
-                if (i == this.startingPos.y && j == this.startingPos.x)
+                if (this.floorLayout[j, i] != null)
                 {
-                    mapRow += "V";
-                } else if (this.floorLayout[j, i] != null)
-                {
-                    mapRow += "O";
+                    RoomTypes type = this.floorLayout[j, i].GetRoomType();
+                    switch (type)
+                    {
+                        case RoomTypes.Starting:
+                            mapRow += "V";
+                            break;
+                        case RoomTypes.Enemy:
+                            mapRow += "F";
+                            break;
+                        default:
+                            mapRow += "O";
+                            break;
+                    }
                 } else
                 {
                     mapRow += "X";
@@ -78,7 +89,14 @@ public class Exploration_Layout_Manager : ManagerBehavior
             }
         } while (false);
 
-        return this.floorLayout[pos.x, pos.y];
+        RoomTypes roomType = DetermineRoomType(pos);
+        thisRoom.SetRoomType(roomType);
+        if (roomType == RoomTypes.Enemy)
+        {
+            this.floorLayout[pos.x, pos.y] = Enemy_Room_Object.ConvertToEnemyRoom(thisRoom);
+        }
+
+        return GetRoom(pos);
     }
 
     private Directions GetEmptyDirection(Vector2Int pos)
@@ -114,12 +132,31 @@ public class Exploration_Layout_Manager : ManagerBehavior
         return directions[randDir];
     }
 
-    public bool MoveInDirection(Directions dir)
+    public Room_Object MoveInDirection(Directions dir)
     {
         Vector2Int dirVect = dir.NumericalDirection();
         this.currentPos += dirVect;
         GM.ER.EnteredDirection = dir;
-        return this.floorLayout[this.currentPos.x, this.currentPos.y] != null;
+        return GetCurrentRoom();
+    }
+
+    private RoomTypes DetermineRoomType(Vector2Int pos)
+    {
+        if (pos == this.startingPos) { return RoomTypes.Starting; }
+        if (GetRoom(pos).GetConnectionCount() <= 1) {
+            return RoomTypes.Empty;
+        }
+        float enemyFillRatio = 1.0f - (this.enemyCount / GetAverageFloorSize());
+        float enemyChance = 80.0f * enemyFillRatio;
+        float randAmount = Random.Range(0.0f, 100.0f);
+        if (randAmount <= enemyChance)
+        {
+            this.enemyCount++;
+            return RoomTypes.Enemy;
+        } else
+        {
+            return RoomTypes.Empty;
+        }
     }
 
     public Vector2Int GetStartingCoords()
@@ -127,19 +164,29 @@ public class Exploration_Layout_Manager : ManagerBehavior
         return this.startingPos;
     }
 
+    public Room_Object GetRoom(Vector2Int pos)
+    {
+        return this.floorLayout[pos.x, pos.y];
+    }
+
     public Room_Object GetStartingRoom()
     {
-        return this.floorLayout[this.startingPos.x, this.startingPos.y];
+        return GetRoom(this.startingPos);
     }
 
     public Room_Object GetCurrentRoom()
     {
-        return this.floorLayout[this.currentPos.x, this.currentPos.y];
+        return GetRoom(this.currentPos);
     }
 
     public Room_Object GetRoomInDirection(Directions dir)
     {
         Vector2Int dirVect = dir.NumericalDirection();
         return this.floorLayout[this.currentPos.x + dirVect.x, this.currentPos.y + dirVect.y];
+    }
+
+    private float GetAverageFloorSize()
+    {
+        return (this.floorLayout.GetLength(0) + this.floorLayout.GetLength(1)) / 2;
     }
 }

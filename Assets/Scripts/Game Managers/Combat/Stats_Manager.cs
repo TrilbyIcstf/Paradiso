@@ -19,6 +19,8 @@ public abstract class Stats_Manager : ManagerBehavior
     protected GameObject card;
 
     public abstract bool DealDamage(float amount);
+    public abstract void HealDamage(float amount);
+    public abstract void HealthUpdate();
     public abstract void DrawCard();
     public abstract void FreeDrawCard();
     protected abstract IEnumerator DealFreeCard();
@@ -47,14 +49,14 @@ public abstract class Stats_Manager : ManagerBehavior
         ToggleRegen(true);
     }
 
-    public float GetHealth()
+    public float GetMaxHealth()
     {
-        return this.currentHealth;
+        return this.maxHealth;
     }
 
     public float GetCurrentHealth()
     {
-        return this.maxHealth;
+        return this.currentHealth;
     }
 
     public void AddFreeCards(int val)

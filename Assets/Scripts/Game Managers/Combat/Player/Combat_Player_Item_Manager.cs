@@ -19,4 +19,14 @@ public class Combat_Player_Item_Manager : ManagerBehavior
             this.itemSlots[i].GetComponent<Combat_Item>().SetItem(activeItems[i]);
         }
     }
+
+    public void SetItemSlot(GameObject slot, int pos)
+    {
+        List<Item_Active> activeItems = GM.PM.GetActiveItems();
+        this.itemSlots[pos] = slot;
+        if (pos < activeItems.Count)
+        {
+            slot.GetComponent<Combat_Item>().SetItem(activeItems[pos]);
+        }
+    }
 }

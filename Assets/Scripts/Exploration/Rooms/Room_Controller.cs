@@ -31,5 +31,16 @@ public class Room_Controller : ManagerBehavior
         {
             this.player.transform.position = this.playerSpawns[enteredDirection].transform.position;
         }
+
+        if (room is Enemy_Room_Object)
+        {
+            Enemy_Room_Object enemyRoom = (Enemy_Room_Object)room;
+            
+            if (enemyRoom.IsEnemyDefeated())
+            {
+                GameObject enemyObj = GameObject.FindGameObjectWithTag("Enemy");
+                Destroy(enemyObj);
+            }
+        }
     }
 }

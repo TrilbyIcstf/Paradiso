@@ -8,6 +8,8 @@ public class Combat_Item : ManagerBehavior
     [SerializeField]
     private Item_Active item;
     [SerializeField]
+    private int position;
+    [SerializeField]
     private SpriteRenderer itemSprite;
     [SerializeField]
     private Image cooldownOverlay;
@@ -18,6 +20,7 @@ public class Combat_Item : ManagerBehavior
 
     void Start()
     {
+        GameManager.instance.CPI.SetItemSlot(gameObject, this.position);
         if (this.item != null)
         {
             this.itemSprite.sprite = this.item.sprite;
@@ -73,6 +76,11 @@ public class Combat_Item : ManagerBehavior
         this.inCooldown = true;
         this.cooldownOverlay.enabled = true;
         this.cooldownOverlay.fillAmount = 1;
+    }
+
+    public Item_Base GetItem()
+    {
+        return this.item;
     }
 
     public void SetItem(Item_Active val)

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Player_Manager : MonoBehaviour
 {
-    private int maxHealth = 100;
-    private int currentHealth = 100;
+    private int maxHealth = 300;
+    private int currentHealth = 300;
 
     [SerializeField]
     private List<Item_Base> playerItems = new List<Item_Base>();

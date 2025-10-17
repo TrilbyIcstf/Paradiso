@@ -33,9 +33,26 @@ public class Combat_Player_Stats_Manager : Stats_Manager
     public override bool DealDamage(float amount)
     {
         this.currentHealth -= amount;
-        GM.CUI.NotifyPlayerHealthUpdate(this.currentHealth, this.maxHealth);
+        HealthUpdate();   
+
+        if (this.currentHealth <= 0)
+        {
+            Application.Quit();
+        }
 
         return this.currentHealth <= 0;
+    }
+
+    public override void HealDamage(float amount)
+    {
+        this.currentHealth += amount;
+        this.currentHealth = Mathf.Min(this.currentHealth, this.maxHealth);
+        HealthUpdate();
+    }
+
+    public override void HealthUpdate()
+    {
+        GM.CUI.NotifyPlayerHealthUpdate(this.currentHealth, this.maxHealth);
     }
 
     public override void DrawCard()

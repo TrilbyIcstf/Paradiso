@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Room_Object
 {
-    private Dictionary<Directions, Room_Object> connections = new Dictionary<Directions, Room_Object>();
+    protected Dictionary<Directions, Room_Object> connections = new Dictionary<Directions, Room_Object>();
+
+    protected RoomTypes roomType;
 
     public Room_Object()
     {
@@ -19,5 +21,20 @@ public class Room_Object
     public Dictionary<Directions, Room_Object> GetConnections()
     {
         return this.connections;
+    }
+
+    public int GetConnectionCount()
+    {
+        return this.connections.Count;
+    }
+
+    public RoomTypes GetRoomType()
+    {
+        return this.roomType;
+    }
+
+    public void SetRoomType(RoomTypes val)
+    {
+        this.roomType = val;
     }
 }

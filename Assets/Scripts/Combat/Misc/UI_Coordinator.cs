@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_Coordinator : MonoBehaviour
+public class UI_Coordinator : ManagerBehavior
 {
     public Energy_Bar_UI energyBar;
     public Energy_Bar_UI enemyEnergyBar;
@@ -40,10 +40,12 @@ public class UI_Coordinator : MonoBehaviour
     public void SetPlayerHealth(Player_Health_Bar val)
     {
         this.playerHealth = val;
+        GM.CPS.HealthUpdate();
     }
 
     public void SetEnemyHealth(Enemy_Health_Bar val)
     {
         this.enemyHealth = val;
+        GM.CES.HealthUpdate();
     }
 }
