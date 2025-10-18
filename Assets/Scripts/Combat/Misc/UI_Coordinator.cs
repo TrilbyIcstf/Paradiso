@@ -6,6 +6,9 @@ public class UI_Coordinator : ManagerBehavior
     public Energy_Bar_UI energyBar;
     public Energy_Bar_UI enemyEnergyBar;
 
+    [SerializeField]
+    private Image previewBar;
+
     private GameObject playerHandArea;
     private GameObject enemyHandArea;
 
@@ -15,6 +18,11 @@ public class UI_Coordinator : ManagerBehavior
     private void Awake()
     {
         GameManager.instance.CUI.uiCoordinator = this;
+    }
+
+    public void SetPreviewFill(float val)
+    {
+        this.previewBar.fillAmount = val;
     }
 
     public Combat_Area_Marker PlayerHandArea()

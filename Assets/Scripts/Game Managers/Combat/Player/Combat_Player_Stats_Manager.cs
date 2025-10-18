@@ -13,7 +13,7 @@ public class Combat_Player_Stats_Manager : Stats_Manager
 
     private void FixedUpdate()
     {
-        if (this.regenOn && EnergyFraction() < 1)
+        if (this.regenOn && !this.energyLock && EnergyFraction() < 1)
         {
             AddEnergy(this.energyRegen);
         }

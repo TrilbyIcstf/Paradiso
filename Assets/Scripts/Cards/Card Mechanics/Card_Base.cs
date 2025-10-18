@@ -48,6 +48,9 @@ public class Card_Base : ScriptableObject
             {
                 cardBase.effect = CardEffects.None;
             }
+        } else if (effectChance == 7 && cardBase.element != CardElement.Nill)
+        {
+            cardBase.effect = CardEffects.Spread;
         } else
         {
             cardBase.effect = CardEffects.None;

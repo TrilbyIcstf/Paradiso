@@ -15,8 +15,10 @@ public class Combat_Item : ManagerBehavior
     private Image cooldownOverlay;
 
     private bool inCooldown = false;
-    private float cooldownTime = 0;
+    private float cooldownTime = 1;
     private float cooldownTimer = 0;
+
+    private bool itemLocked = false;
 
     void Start()
     {
@@ -29,16 +31,7 @@ public class Combat_Item : ManagerBehavior
 
     private void Update()
     {
-        if (this.inCooldown)
-        {
-            this.cooldownTimer += Time.deltaTime;
-            this.cooldownOverlay.fillAmount = 1 - (this.cooldownTimer / this.cooldownTime);
-            if (this.cooldownTimer >= this.cooldownTime)
-            {
-                this.inCooldown = false;
-                this.cooldownOverlay.enabled = false;
-            }
-        }
+        UpdateCooldown();
     }
 
     private void OnMouseDown()
@@ -48,7 +41,7 @@ public class Combat_Item : ManagerBehavior
             return;
         }
 
-        if (this.inCooldown) { return; }
+        if (this.inCooldown || this.itemLocked) { return; }
 
         if (this.item.CanActivate())
         {
@@ -74,11 +67,29 @@ public class Combat_Item : ManagerBehavior
         this.cooldownTime = this.item.GetCooldown();
         this.cooldownTimer = 0;
         this.inCooldown = true;
-        this.cooldownOverlay.enabled = true;
         this.cooldownOverlay.fillAmount = 1;
     }
 
-    public Item_Base GetItem()
+    private void UpdateCooldown()
+    {
+        if (this.itemLocked)
+        {
+            this.cooldownOverlay.fillAmount = 1;
+        } else if (this.inCooldown)
+        {
+            this.cooldownTimer += Time.deltaTime;
+            this.cooldownOverlay.fillAmount = 1 - (this.cooldownTimer / this.cooldownTime);
+            if (this.cooldownTimer >= this.cooldownTime)
+            {
+                this.inCooldown = false;
+            }
+        } else
+        {
+            this.cooldownOverlay.fillAmount = 0;
+        }
+    }
+
+    public Item_Active GetItem()
     {
         return this.item;
     }
@@ -90,6 +101,14 @@ public class Combat_Item : ManagerBehavior
         if (this.item != null)
         {
             this.itemSprite.sprite = this.item.sprite;
+        }
+    }
+
+    public void SetLock(bool val)
+    {
+        if (this.item != null)
+        {
+            this.itemLocked = val;
         }
     }
 }

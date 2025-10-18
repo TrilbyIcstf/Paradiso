@@ -17,6 +17,9 @@ public class Active_Card : MonoBehaviour
     private float powerMult = 1;
     private float defenseMult = 1;
 
+    // Element override
+    private CardElement? elementOverride;
+
     private void Awake()
     {
         this.ui = GetComponent<Card_UI>();
@@ -51,6 +54,12 @@ public class Active_Card : MonoBehaviour
         this.ui.SetDefense(GetDefense());
     }
 
+    public void AddElementOverride(CardElement val)
+    {
+        this.elementOverride = val;
+        this.ui.SetElement(GetElement());
+    }
+
     public Card_Base GetBase()
     {
         return this.cardStats;
@@ -70,7 +79,7 @@ public class Active_Card : MonoBehaviour
 
     public CardElement GetElement()
     {
-        return this.cardStats.element;
+        return this.elementOverride ?? this.cardStats.element;
     }
 
     public CardEffects GetEffect()

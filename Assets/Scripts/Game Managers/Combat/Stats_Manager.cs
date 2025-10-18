@@ -12,6 +12,8 @@ public abstract class Stats_Manager : ManagerBehavior
 
     protected bool regenOn = true;
 
+    protected bool energyLock = false;
+
     protected int bonusCardDraw = 0;
     protected Coroutine bonusCardDrawer;
     
@@ -32,21 +34,27 @@ public abstract class Stats_Manager : ManagerBehavior
 
     public bool CanAffordEnergy(float cost)
     {
+        if (this.energyLock) { return false; }
         return cost <= this.currentEnergy;
     }
 
-    public bool ToggleRegen(bool regen)
+    public bool SetRegen(bool regen)
     {
         bool oldRegen = this.regenOn;
         this.regenOn = regen;
         return oldRegen == this.regenOn;
     }
 
+    public void SetEnergyLock(bool val)
+    {
+        this.energyLock = val;
+    }
+
     public IEnumerator RegenDelay(float delay = 0.25f)
     {
-        ToggleRegen(false);
+        SetRegen(false);
         yield return new WaitForSeconds(delay);
-        ToggleRegen(true);
+        SetRegen(true);
     }
 
     public float GetMaxHealth()
@@ -62,5 +70,10 @@ public abstract class Stats_Manager : ManagerBehavior
     public void AddFreeCards(int val)
     {
         this.bonusCardDraw += val;
+    }
+
+    public float GetEnergyFraction(float energy)
+    {
+        return energy / this.maxEnergy;
     }
 }

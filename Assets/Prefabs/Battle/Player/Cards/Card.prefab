@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 903933270379617033}
   - component: {fileID: 3744987974435520194}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ElementIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 3810450706737755012}
   - component: {fileID: 4189466139966896813}
   - component: {fileID: 4318016338627221015}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 6721900094121818936}
   - component: {fileID: 6907797030461607597}
   - component: {fileID: 8913293046133419164}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SpriteHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -318,7 +318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 135737281821228410}
   - component: {fileID: 3709550749614353277}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: EffectIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -400,6 +400,10 @@ PrefabInstance:
     - target: {fileID: 940597068441558547, guid: 3b4e6707504d1cb4287b43a2644151e1, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.561
+      objectReference: {fileID: 0}
+    - target: {fileID: 2395720597533095618, guid: 3b4e6707504d1cb4287b43a2644151e1, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3532573951803512912, guid: 3b4e6707504d1cb4287b43a2644151e1, type: 3}
       propertyPath: m_Pivot.x
@@ -485,6 +489,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3713802137470361120, guid: 3b4e6707504d1cb4287b43a2644151e1, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4071688596097349037, guid: 3b4e6707504d1cb4287b43a2644151e1, type: 3}
       propertyPath: m_FontData.m_Alignment
       value: 0
@@ -492,6 +500,10 @@ PrefabInstance:
     - target: {fileID: 5050226904510309725, guid: 3b4e6707504d1cb4287b43a2644151e1, type: 3}
       propertyPath: m_Name
       value: CardCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5050226904510309725, guid: 3b4e6707504d1cb4287b43a2644151e1, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5277329263829536479, guid: 3b4e6707504d1cb4287b43a2644151e1, type: 3}
       propertyPath: m_SortingOrder

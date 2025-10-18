@@ -18,10 +18,16 @@ public class Item_Hover : MonoBehaviour
     private void OnMouseDown()
     {
         DestroyBox();
+        if (this.hoverCoroutine != null)
+        {
+            StopCoroutine(hoverCoroutine);
+        }
+        this.hoverCoroutine = StartCoroutine(DisplayInfoOnHover());
     }
 
     private void OnMouseEnter()
     {
+        CostPreviewOn();
         if (this.hoverCoroutine != null)
         {
             StopCoroutine(hoverCoroutine);
@@ -31,6 +37,7 @@ public class Item_Hover : MonoBehaviour
 
     private void OnMouseExit()
     {
+        CostPreviewOff();
         DestroyBox();
     }
 
@@ -56,5 +63,15 @@ public class Item_Hover : MonoBehaviour
         Item_Description item = GameManager.instance.STR.GetItemDescription(this.itemHolder.GetItem().item);
         boxScript.UpdateText(item);
         this.tempInfoBox.SetActive(true);
+    }
+
+    private void CostPreviewOn()
+    {
+        GameManager.instance.CUI.SetEnergyPreview(this.itemHolder.GetItem().energyCost);
+    }
+
+    private void CostPreviewOff()
+    {
+        GameManager.instance.CUI.RemoveEnergyPreview();
     }
 }

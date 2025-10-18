@@ -10,6 +10,16 @@ public class Player_Deck : ManagerBehavior
         GM.CUI.SetPlayerDeck(gameObject);
     }
 
+    private void OnMouseEnter()
+    {
+        CostPreviewOn();
+    }
+
+    private void OnMouseExit()
+    {
+        CostPreviewOff();
+    }
+
     private void OnMouseDown()
     {
         if (GM.CPD.DeckIsEmpty()) { return; }
@@ -27,5 +37,15 @@ public class Player_Deck : ManagerBehavior
         {
             GM.CUI.InvalidEnergyCost();
         }
+    }
+
+    private void CostPreviewOn()
+    {
+        GM.CUI.SetEnergyPreview(this.drawCost);
+    }
+
+    private void CostPreviewOff()
+    {
+        GM.CUI.RemoveEnergyPreview();
     }
 }

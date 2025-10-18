@@ -52,7 +52,8 @@ public enum Items
 {
     Default,
     DamageTest,
-    CheapDrawTest
+    CheapDrawTest,
+    AGun
 }
 
 [Serializable]
@@ -62,7 +63,8 @@ public enum CardEffects
     Quills,
     Incinerate,
     Flow,
-    Tremor
+    Tremor,
+    Spread
 }
 
 public enum Directions

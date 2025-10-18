@@ -35,6 +35,21 @@ public class Card_UI : MonoBehaviour
 
     private int sortingOrder = -1;
 
+    private void Awake()
+    {
+        StartCoroutine(OnSpawnInteractionDelay());
+    }
+
+    private IEnumerator OnSpawnInteractionDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Transform[] cardObjects = gameObject.GetComponentsInChildren<Transform>(true);
+        foreach (Transform obj in cardObjects)
+        {
+            obj.gameObject.layer = 0;
+        }
+    }
+
     public IEnumerator EmphasizeCard()
     {
         GameObject spriteObject = cardSprite.gameObject;
@@ -95,6 +110,8 @@ public class Card_UI : MonoBehaviour
                 break;
             default:
                 this.effectIcon.enabled = true;
+                Sprite effectSprite = GameManager.instance.STR.GetCardEffectDescription(val).effectSprite;
+                this.effectIcon.sprite = effectSprite;
                 break;
         }
     }

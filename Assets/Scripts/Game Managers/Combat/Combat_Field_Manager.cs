@@ -7,6 +7,8 @@ public class Combat_Field_Manager : ManagerBehavior
     private Player_Field_Space[] playerSpaces = new Player_Field_Space[4];
     private Enemy_Field_Space[] enemySpaces = new Enemy_Field_Space[4];
 
+    private Field_Timer fieldTimer;
+
     private bool fieldLocked = false;
 
     private Coroutine fieldProcessing;
@@ -26,8 +28,19 @@ public class Combat_Field_Manager : ManagerBehavior
 
     private IEnumerator DelayedLockField()
     {
-        yield return new WaitForSeconds(1.0f);
-        this.fieldLocked = true;
+        yield return StartCoroutine(this.fieldTimer.RunTimer());
+        SetFieldLock(true);
+    }
+
+    public void SetFieldLock(bool val)
+    {
+        this.fieldLocked = val;
+        foreach(Combat_Item item in GM.CPI.GetPlayerItems())
+        {
+            item.SetLock(val);
+        }
+        GM.CPS.SetEnergyLock(val);
+        GM.CES.SetEnergyLock(val);
     }
 
     private IEnumerator ProcessField()
@@ -66,7 +79,7 @@ public class Combat_Field_Manager : ManagerBehavior
         GM.CPS.DealDamage(damageToPlayer);
 
         ResetField();
-        this.fieldLocked = false;
+        SetFieldLock(false);
         this.fieldProcessing = null;
     }
 
@@ -347,6 +360,11 @@ public class Combat_Field_Manager : ManagerBehavior
                 this.fieldProcessing = StartCoroutine(ProcessField());
             }
         }
+    }
+
+    public void SetFieldTimer(Field_Timer val)
+    {
+        this.fieldTimer = val;
     }
 
     public bool FieldLocked()

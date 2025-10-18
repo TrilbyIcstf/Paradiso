@@ -35,6 +35,7 @@ public class Screen_Fade : MonoBehaviour
     {
         int fadeDirection = fadeIn ? 2 : -2;
         Color srColor = this.sr.color;
+        srColor.a = fadeIn ? 0.0f : 1.0f;
         yield return new WaitUntil(() =>
         {
             srColor.a += Time.deltaTime * fadeDirection;

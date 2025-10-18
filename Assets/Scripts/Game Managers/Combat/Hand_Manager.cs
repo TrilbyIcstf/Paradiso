@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -153,24 +154,39 @@ public abstract class Hand_Manager : ManagerBehavior
     public int PickRandomCardPos()
     {
         if (this.hand.Count == 0) { return -1; }
-        return Random.Range(0, this.hand.Count);
+        return UnityEngine.Random.Range(0, this.hand.Count);
     }
 
-    public List<int> PickRandomCardsPos(int amount)
+    public List<int> PickRandomCardsPos(int amount, Predicate<GameObject> filter = null)
     {
-        if (amount > this.hand.Count) { amount = this.hand.Count; }
-        if (amount == this.hand.Count)
+        List<int> indexList = new List<int>();
+        if (filter != null)
         {
-            return Enumerable.Range(0, amount).ToList();
+            for (int i = 0; i < this.hand.Count; i++)
+            {
+                if (filter(this.hand[i]))
+                {
+                    indexList.Add(i);
+                }
+            }
+        } else
+        {
+            indexList = Enumerable.Range(0, this.hand.Count).ToList();
+        }
+        if (amount > indexList.Count) { amount = indexList.Count; }
+        if (amount == indexList.Count)
+        {
+            return indexList;
         }
 
         List<int> randList = new List<int>();
         do
         {
-            int randInt = Random.Range(0, amount);
-            if (!randList.Contains(randInt))
+            int randInt = UnityEngine.Random.Range(0, amount);
+            int randIndex = indexList[randInt];
+            if (!randList.Contains(randIndex))
             {
-                randList.Add(randInt);
+                randList.Add(randIndex);
             }
         } while (randList.Count < amount);
 

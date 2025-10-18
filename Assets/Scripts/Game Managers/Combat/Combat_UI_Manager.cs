@@ -309,6 +309,17 @@ public class Combat_UI_Manager : ManagerBehavior
         this.playerDeck.GetComponent<SpriteRenderer>().enabled = false;
     }
 
+    public void SetEnergyPreview(float energyCost)
+    {
+        float fillAmount = GM.CPS.GetEnergyFraction(energyCost);
+        this.uiCoordinator.SetPreviewFill(fillAmount);
+    }
+
+    public void RemoveEnergyPreview()
+    {
+        this.uiCoordinator.SetPreviewFill(0);
+    }
+
     public void InvalidEnergyCost()
     {
         this.uiCoordinator.energyBar.FlashRed();

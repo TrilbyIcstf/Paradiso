@@ -26,4 +26,9 @@ public class Combat_Player_Deck_Manager : ManagerBehavior
             this.playerDeck.Enqueue(Card_Base.RandomizeStats());
         }
     }
+
+    public void SetDeck(Queue<Card_Base> val)
+    {
+        this.playerDeck = val;
+    }
 }

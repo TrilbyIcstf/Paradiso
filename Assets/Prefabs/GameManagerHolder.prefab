@@ -219,6 +219,7 @@ MonoBehaviour:
   playerItems:
   - {fileID: 11400000, guid: fd936005e531b2048a683f3b064bacb3, type: 2}
   - {fileID: 11400000, guid: b39581442c869b04c9b6500b1aefecb3, type: 2}
+  - {fileID: 11400000, guid: 2ad6f9c8438f93245b4b167eb795b991, type: 2}
 --- !u!114 &717222405218251421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,9 +279,13 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 108e30beb184c6844b52dfc4988ba40c, type: 2}
     - Key: 4
       Value: {fileID: 11400000, guid: 9a2ec4973cfe92946a211f1dceec300b, type: 2}
+    - Key: 5
+      Value: {fileID: 11400000, guid: 8eec9d6ace6df8f42b1d2ef1274f9dc2, type: 2}
   items:
     _serializableList:
     - Key: 1
       Value: {fileID: 11400000, guid: d43b1b0bca72f7f498a987cbf0420a3e, type: 2}
     - Key: 2
       Value: {fileID: 11400000, guid: 178dfbcc5a9c77b49ac0bb4ab07cace6, type: 2}
+    - Key: 3
+      Value: {fileID: 11400000, guid: 1d720362f2cbaf9469541e0350b7f1cd, type: 2}

@@ -26,6 +26,11 @@ public class Mouse_Hover_Card : ManagerBehavior
         }
     }
 
+    private void OnDestroy()
+    {
+        DestroyBox();
+    }
+
     private void OnMouseEnter()
     {
         if (this.cardStats.GetEffect() == CardEffects.None) { return; }

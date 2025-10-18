@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class Transition_Manager : ManagerBehavior
 {
+    private Coroutine activeFade;
+    private Action storedAction;
+
     public void InstantTransmission(string sceneName, bool additive = false)
     {
         SceneManager.LoadScene(sceneName, additive ? LoadSceneMode.Additive : LoadSceneMode.Single);
@@ -13,12 +16,28 @@ public class Transition_Manager : ManagerBehavior
 
     public void FadeTransition(string sceneName, bool additive = false, Action fadeAction = null)
     {
-        StartCoroutine(PrivFadeTransition(sceneName, additive, fadeAction));
+        StopCurrentFade();
+        this.storedAction = fadeAction;
+        this.activeFade = StartCoroutine(PrivFadeTransition(sceneName, additive, fadeAction));
     }
 
     public void UnloadScene(string sceneName, Action fadeAction = null)
     {
-        StartCoroutine(PrivUnloadScene(sceneName, fadeAction));
+        StopCurrentFade();
+        this.storedAction = fadeAction;
+        this.activeFade = StartCoroutine(PrivUnloadScene(sceneName, fadeAction));
+    }
+
+    private void StopCurrentFade()
+    {
+        if (this.activeFade != null)
+        {
+            StopCoroutine(this.activeFade);
+            if (this.storedAction != null)
+            {
+                this.storedAction();
+            }
+        }
     }
 
     private IEnumerator PrivFadeTransition(string sceneName, bool additive = false, Action fadeAction = null)
@@ -34,6 +53,7 @@ public class Transition_Manager : ManagerBehavior
         if (fadeAction != null)
         {
             fadeAction();
+            this.storedAction = null;
         }
         yield return StartCoroutine(GM.SF.ScreenFade(false));
     }
@@ -46,6 +66,7 @@ public class Transition_Manager : ManagerBehavior
         if (fadeAction != null)
         {
             fadeAction();
+            this.storedAction = null;
         }
         yield return StartCoroutine(GM.SF.ScreenFade(false));
     }
