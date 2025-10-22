@@ -19,6 +19,7 @@ public class Exploration_Enemy_Contact : MonoBehaviour
                 Destroy(gameObject);
                 Enemy_Room_Object currentRoom = (Enemy_Room_Object)GameManager.instance.EL.GetCurrentRoom();
                 currentRoom.SetEnemyDefeated(true);
+                GameManager.instance.ER.GetCurrentRoom().UnlockRoom(currentRoom);
                 GameManager.instance.ER.SetRoomActive(false);
             });
         }

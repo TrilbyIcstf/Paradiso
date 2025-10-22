@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Room_Controller : ManagerBehavior
 {
@@ -19,13 +20,7 @@ public class Room_Controller : ManagerBehavior
 
     public void SetupRoom(Room_Object room, Directions enteredDirection)
     {
-        Room_Object thisRoom = room;
-
-        foreach (var conn in thisRoom.GetConnections())
-        {
-            if (conn.Key == Directions.None) { continue; }
-            this.doorGrids[conn.Key].SetActive(conn.Value == null);
-        }
+        UnlockRoom(room);
 
         if (this.playerSpawns.ContainsKey(enteredDirection))
         {
@@ -35,12 +30,33 @@ public class Room_Controller : ManagerBehavior
         if (room is Enemy_Room_Object)
         {
             Enemy_Room_Object enemyRoom = (Enemy_Room_Object)room;
-            
+
+            TileBase oldWall = GM.SOM.GetWallTile(GM.EL.GetFloor());
+            TileBase newWall = GM.SOM.GetLockTile(GM.EL.GetFloor());
+
             if (enemyRoom.IsEnemyDefeated())
             {
                 GameObject enemyObj = GameObject.FindGameObjectWithTag("Enemy");
                 Destroy(enemyObj);
+            } else
+            {
+                foreach (var conn in room.GetConnections())
+                {
+                    if (conn.Key == Directions.None) { continue; }
+                    if (conn.Key == room.GetEntranceDirection() || conn.Value == null) { continue; }
+                    this.doorGrids[conn.Key].SetActive(true);
+                    this.doorGrids[conn.Key].GetComponent<Tilemap>().SwapTile(oldWall, newWall);
+                }
             }
+        }
+    }
+
+    public void UnlockRoom(Room_Object room)
+    {
+        foreach (var conn in room.GetConnections())
+        {
+            if (conn.Key == Directions.None) { continue; }
+            this.doorGrids[conn.Key].SetActive(conn.Value == null);
         }
     }
 }

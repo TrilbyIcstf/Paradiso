@@ -155,3 +155,8 @@ public enum RoomTypes
     Item,
     Stairs
 }
+
+public enum Floors
+{
+    Demo
+}

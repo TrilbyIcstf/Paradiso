@@ -8,10 +8,14 @@ public class Room_Object
 
     protected RoomTypes roomType;
 
-    protected int distance = 0;
+    protected Directions entranceDirection;
+    protected int distance;
 
-    public Room_Object()
+    public Room_Object(Directions entranceDirection, int distance)
     {
+        this.entranceDirection = entranceDirection;
+        this.distance = distance;
+
         this.connections[Directions.None] = this;
     }
 
@@ -33,6 +37,16 @@ public class Room_Object
     public RoomTypes GetRoomType()
     {
         return this.roomType;
+    }
+
+    public Directions GetEntranceDirection()
+    {
+        return this.entranceDirection;
+    }
+
+    public int GetDistance()
+    {
+        return this.distance;
     }
 
     public void SetRoomType(RoomTypes val)

@@ -272,6 +272,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   QuillCard: {fileID: 11400000, guid: c777f88b95af01d47a0e190cf5c2a35e, type: 2}
+  wallTiles:
+    _serializableList:
+    - Key: 0
+      Value: {fileID: 11400000, guid: 16c31dca73dd8c94a81e9841f39c915d, type: 2}
+  floorTiles:
+    _serializableList:
+    - Key: 0
+      Value: {fileID: 11400000, guid: 9cb3d91816705fd49bf2cc9a6db4148b, type: 2}
+  lockTiles:
+    _serializableList:
+    - Key: 0
+      Value: {fileID: 11400000, guid: 9eba4dbfd322f894f8ce5a7dc0ae877c, type: 2}
 --- !u!114 &3555046578125482721
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -27,4 +27,9 @@ public class Exploration_Room_Manager : ManagerBehavior
     {
         currentRoom.gameObject.SetActive(val);
     }
+
+    public Room_Controller GetCurrentRoom()
+    {
+        return this.currentRoom;
+    }
 }
