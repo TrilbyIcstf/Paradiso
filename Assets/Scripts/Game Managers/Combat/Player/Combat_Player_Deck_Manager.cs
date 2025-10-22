@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Combat_Player_Deck_Manager : ManagerBehavior
@@ -17,18 +18,29 @@ public class Combat_Player_Deck_Manager : ManagerBehavior
         return this.playerDeck.Count <= 0;
     }
 
-    public void TestRandomDeck(int size)
+    public void SetDeck(List<Card_Base> val)
     {
-        this.playerDeck = new Queue<Card_Base>();
-
-        for (int i = 0; i < size; i++)
-        {
-            this.playerDeck.Enqueue(Card_Base.RandomizeStats());
-        }
+        this.playerDeck = new Queue<Card_Base>(val);
     }
 
-    public void SetDeck(Queue<Card_Base> val)
+    public int DeckSize()
     {
-        this.playerDeck = val;
+        return this.playerDeck.Count;
+    }
+
+    public void ShuffleDeck()
+    {
+        List<Card_Base> deck = this.playerDeck.ToList();
+        int count = DeckSize();
+
+        for (int i = 0; i < count - 1; i++)
+        {
+            int r = Random.Range(i, count);
+            Card_Base tempCard = deck[i];
+            deck[i] = deck[r];
+            deck[r] = tempCard;
+        }
+
+        this.playerDeck = new Queue<Card_Base>(deck);
     }
 }

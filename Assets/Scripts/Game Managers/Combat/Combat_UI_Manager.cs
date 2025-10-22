@@ -139,7 +139,9 @@ public class Combat_UI_Manager : ManagerBehavior
     public IEnumerator PlayFieldResultAnimations(int pos, Combat_Field_Manager.Field_Card_Results playerResults, Combat_Field_Manager.Field_Card_Results enemyResults)
     {
         List<Coroutine> animations = new List<Coroutine>();
-        bool emphasizePlayerCard = playerResults.flashLeft || playerResults.flashRight || playerResults.flashMiddle || GM.CCE.EffectIsTriggered(playerResults.effect, playerResults.effParams);
+
+        PassiveEffectParameters passParams = PassiveEffectParameters.TriggeredCard(playerResults.card);
+        bool emphasizePlayerCard = playerResults.flashLeft || playerResults.flashRight || playerResults.flashMiddle || GM.CCE.EffectIsTriggered(playerResults.effect, playerResults.effParams) || GM.PM.WillPassiveTrigger(EffectTiming.CardScoredBefore, passParams) || GM.PM.WillPassiveTrigger(EffectTiming.CardScoredAfter, passParams);
         bool emphasizeEnemyCard = enemyResults.flashLeft || enemyResults.flashRight || enemyResults.flashMiddle || GM.CCE.EffectIsTriggered(enemyResults.effect, enemyResults.effParams);
 
         if (playerResults.flashLeft)

@@ -30,7 +30,7 @@ public abstract class Stats_Manager : ManagerBehavior
     public abstract bool AddEnergy(float val);
     public abstract bool SubtractEnergy(float val, bool delay);
     protected abstract void NotifyEnergyUpdated();
-    public abstract void CreateNewCard(Card_Base cardStats, Transform pos);
+    public abstract Active_Card CreateNewCard(Card_Base cardStats, Transform pos);
 
     public bool CanAffordEnergy(float cost)
     {

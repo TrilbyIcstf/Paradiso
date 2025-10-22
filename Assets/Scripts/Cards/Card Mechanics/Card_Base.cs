@@ -4,6 +4,8 @@ using UnityEngine;
 [System.Serializable]
 public class Card_Base : ScriptableObject
 {
+    private string deckID;
+
     public string cardName;
 
     public int power;
@@ -12,6 +14,26 @@ public class Card_Base : ScriptableObject
     public CardElement element;
 
     public CardEffects effect;
+
+    public void BuffPower(int buff)
+    {
+        this.power += buff;
+    }
+
+    public void BuffDefense(int buff)
+    {
+        this.defense += buff;
+    }
+
+    public string GetID()
+    {
+        return this.deckID;
+    }
+
+    public void SetID(string val)
+    {
+        this.deckID = val;
+    }
 
     /// <summary>
     /// Randomizes a card's stats for testing

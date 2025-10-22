@@ -9,19 +9,17 @@ public class Active_Card : MonoBehaviour
 
     private Card_UI ui;
 
-    // Additive buffs to a card's stats
-    private float powerBuff = 0;
-    private float defenseBuff = 0;
-
-    // Multiplicative buffs to add to a card's stats
-    private float powerMult = 1;
-    private float defenseMult = 1;
+    private float activePower = 0;
+    private float activeDefense = 0;
 
     // Element override
     private CardElement? elementOverride;
 
     private void Awake()
     {
+        this.activePower = this.cardStats.power;
+        this.activeDefense = this.cardStats.defense;
+
         this.ui = GetComponent<Card_UI>();
 
         this.ui.SetPower(GetPower());
@@ -30,27 +28,39 @@ public class Active_Card : MonoBehaviour
         this.ui.SetEffect(GetEffect());
     }
 
+    public void SetPower(float val)
+    {
+        this.activePower = val;
+        this.ui.SetPower(GetPower());
+    }
+
+    public void SetDefense(float val)
+    {
+        this.activeDefense = val;
+        this.ui.SetDefense(GetDefense());
+    }
+
     public void AddPowerBuff(float val)
     {
-        this.powerBuff += val;
+        this.activePower += val;
         this.ui.SetPower(GetPower());
     }
 
     public void AddDefenseBuff(float val)
     {
-        this.defenseBuff += val;
+        this.activeDefense += val;
         this.ui.SetDefense(GetDefense());
     }
 
     public void AddMultPower(float val)
     {
-        this.powerMult += val;
+        this.activePower *= val;
         this.ui.SetPower(GetPower());
     }
 
     public void AddMultDefense(float val)
     {
-        this.defenseBuff += val;
+        this.activeDefense *= val;
         this.ui.SetDefense(GetDefense());
     }
 
@@ -67,14 +77,12 @@ public class Active_Card : MonoBehaviour
 
     public int GetPower()
     {
-        float power = (this.cardStats.power + this.powerBuff) * this.powerMult;
-        return Mathf.Max(0, Mathf.CeilToInt(power));
+        return Mathf.Max(0, Mathf.CeilToInt(this.activePower));
     }
 
     public int GetDefense()
     {
-        float defense = (this.cardStats.defense + this.defenseBuff) * this.defenseMult;
-        return Mathf.Max(0, Mathf.CeilToInt(defense));
+        return Mathf.Max(0, Mathf.CeilToInt(this.activeDefense));
     }
 
     public CardElement GetElement()

@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 3555046578125482732}
   - component: {fileID: 3555046578125482735}
   - component: {fileID: 3555046578125482720}
+  - component: {fileID: 7010220958928871138}
   - component: {fileID: 3555046578125482733}
   - component: {fileID: 717222405218251421}
   - component: {fileID: 3558180179293404840}
@@ -61,6 +62,7 @@ MonoBehaviour:
   SOM: {fileID: 3555046578125482734}
   TR: {fileID: 5069544072207160086}
   PM: {fileID: 3555046578125482733}
+  IBM: {fileID: 7010220958928871138}
   CUI: {fileID: 3555046578125482711}
   CF: {fileID: 3555046578125482729}
   CPS: {fileID: 3555046578125482710}
@@ -204,6 +206,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20ba2429c434d5439c0649f3bf90eea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7010220958928871138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3555046578125482706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac93ce6b7a836a34f8b4b251567a14ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3555046578125482733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,6 +233,7 @@ MonoBehaviour:
   playerItems:
   - {fileID: 11400000, guid: fd936005e531b2048a683f3b064bacb3, type: 2}
   - {fileID: 11400000, guid: b39581442c869b04c9b6500b1aefecb3, type: 2}
+  - {fileID: 11400000, guid: 23593d8b14cad4f4ebee1bcfafa7197f, type: 2}
   - {fileID: 11400000, guid: 2ad6f9c8438f93245b4b167eb795b991, type: 2}
 --- !u!114 &717222405218251421
 MonoBehaviour:
@@ -289,3 +304,9 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 178dfbcc5a9c77b49ac0bb4ab07cace6, type: 2}
     - Key: 3
       Value: {fileID: 11400000, guid: 1d720362f2cbaf9469541e0350b7f1cd, type: 2}
+    - Key: 4
+      Value: {fileID: 11400000, guid: 43774272246d97e44a15adf93012c27b, type: 2}
+    - Key: 5
+      Value: {fileID: 11400000, guid: 8f7f9ad461f98fd43892d86545e42388, type: 2}
+    - Key: 6
+      Value: {fileID: 11400000, guid: c67105a61c2ead7468b8c32dfc69b0da, type: 2}

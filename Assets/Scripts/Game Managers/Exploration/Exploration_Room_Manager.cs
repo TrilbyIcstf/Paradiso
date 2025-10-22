@@ -6,6 +6,7 @@ public class Exploration_Room_Manager : ManagerBehavior
 {
     private Room_Controller currentRoom;
     private Directions enteredDirection = Directions.None;
+
     public Directions EnteredDirection
     {
         get { return enteredDirection; }

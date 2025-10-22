@@ -58,7 +58,11 @@ public class Combat_Field_Manager : ManagerBehavior
 
         for (int i = 0; i < this.playerSpaces.Length; i++)
         {
+            PassiveEffectParameters passParams = PassiveEffectParameters.TriggeredCard(this.playerSpaces[i].GetCardObject());
+
+            GM.PM.ActivatePassiveItems(EffectTiming.CardScoredBefore, passParams);
             (Field_Card_Results playerResults, Field_Card_Results enemyResults) = CalculatePosition(i, this.playerSpaces, this.enemySpaces);
+            GM.PM.ActivatePassiveItems(EffectTiming.CardScoredAfter, passParams);
 
             yield return StartCoroutine(GM.CUI.PlayFieldResultAnimations(i, playerResults, enemyResults));
 
@@ -68,6 +72,8 @@ public class Combat_Field_Manager : ManagerBehavior
             damageToEnemy += playerResults.totalDamage;
             damageToPlayer += enemyResults.totalDamage;
         }
+
+        yield return new WaitForSeconds(0.25f);
 
         debugPlayerAttacks += $"dealing {damageToEnemy} in total.";
         debugEnemyAttacks += $"dealing {damageToPlayer} in total.";

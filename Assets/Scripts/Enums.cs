@@ -48,12 +48,44 @@ public static class ElementMethods
     }
 }
 
+public enum EffectTiming
+{
+    Draw,
+    CardScoredBefore,
+    CardScoredAfter,
+    ItemUsed,
+    DamageDealt,
+    DamageTaken
+}
+
 public enum Items
 {
     Default,
     DamageTest,
     CheapDrawTest,
-    AGun
+    AGun,
+    PageRipper,
+    Antiquifier,
+    Solidifier
+}
+
+public static class ItemMethods { 
+    public static bool IsActive(this Items item)
+    {
+        switch (item)
+        {
+            case Items.DamageTest:
+            case Items.CheapDrawTest:
+            case Items.AGun:
+            case Items.PageRipper:
+                return true;
+            case Items.Antiquifier:
+            case Items.Solidifier:
+                return false;
+            default:
+                return false;
+        }
+    }
 }
 
 [Serializable]

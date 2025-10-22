@@ -104,11 +104,12 @@ public class Combat_Player_Stats_Manager : Stats_Manager
         }
     }
 
-    public override void CreateNewCard(Card_Base cardStats, Transform pos)
+    public override Active_Card CreateNewCard(Card_Base cardStats, Transform pos)
     {
         this.card.GetComponent<Active_Card>().SetStats(cardStats);
         GameObject newCard = Instantiate(this.card, pos.position, pos.rotation);
         GM.CPH.DrawToHand(newCard);
+        return newCard.GetComponent<Active_Card>();
     }
 
     public override bool SetEnergy(float val, bool delay)

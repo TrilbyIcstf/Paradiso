@@ -8,6 +8,8 @@ public class Room_Object
 
     protected RoomTypes roomType;
 
+    protected int distance = 0;
+
     public Room_Object()
     {
         this.connections[Directions.None] = this;

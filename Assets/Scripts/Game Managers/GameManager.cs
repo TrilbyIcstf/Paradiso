@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public Transition_Manager TR;
 
     public Player_Manager PM;
+    public Item_Behavior_Manager IBM;
 
     public Combat_UI_Manager CUI;
     public Combat_Field_Manager CF;
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         GameManager.instance = this;
+        this.PM.TestRandomDeck(15);
     }
 
     private void Update()
@@ -57,8 +59,8 @@ public class GameManager : MonoBehaviour
     {
         ToggleCombatUpdates(true);
         this.CPS.InitializeHealth(this.PM.GetMaxHealth(), this.PM.GetCurrentHealth());
-
-        this.CPD.TestRandomDeck(30);
+        this.CPD.SetDeck(this.PM.GetDeck());
+        this.CPD.ShuffleDeck();
 
         this.CES.AddFreeCards(3);
         this.CPS.AddFreeCards(3);
