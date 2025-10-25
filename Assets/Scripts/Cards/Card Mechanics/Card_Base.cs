@@ -1,19 +1,29 @@
 using UnityEngine;
+using System.Collections.Generic;
 
+/// <summary>
+/// Base stats and effects for a card. Used to track contents in a deck.
+/// </summary>
 [CreateAssetMenu(fileName = "Card", menuName = "ScriptableObjects/New Card", order = 3)]
 [System.Serializable]
 public class Card_Base : ScriptableObject
 {
-    private string deckID;
+    // Unique ID used when making changes to the content of a deck.
+    private string cardID;
 
-    public string cardName;
+    [SerializeField]
+    private string cardName;
 
-    public int power;
-    public int defense;
+    [SerializeField]
+    private int power;
+    [SerializeField]
+    private int defense;
 
-    public CardElement element;
+    [SerializeField]
+    private CardElement element;
 
-    public CardEffects effect;
+    [SerializeField]
+    private List<CardEffects> effects = new List<CardEffects>();
 
     public void BuffPower(int buff)
     {
@@ -27,12 +37,12 @@ public class Card_Base : ScriptableObject
 
     public string GetID()
     {
-        return this.deckID;
+        return this.cardID;
     }
 
     public void SetID(string val)
     {
-        this.deckID = val;
+        this.cardID = val;
     }
 
     /// <summary>
@@ -52,30 +62,27 @@ public class Card_Base : ScriptableObject
         {
             if (cardBase.element == CardElement.Wind)
             {
-                cardBase.effect = CardEffects.Quills;
+                cardBase.effects.Add(CardEffects.Quills);
             }
             else if (cardBase.element == CardElement.Fire)
             {
-                cardBase.effect = CardEffects.Incinerate;
+                cardBase.effects.Add(CardEffects.Incinerate);
             }
             else if (cardBase.element == CardElement.Water)
             {
-                cardBase.effect = CardEffects.Flow;
+                cardBase.effects.Add(CardEffects.Flow);
             }
             else if (cardBase.element == CardElement.Earth)
             {
-                cardBase.effect = CardEffects.Tremor;
+                cardBase.effects.Add(CardEffects.Tremor);
             }
             else
             {
-                cardBase.effect = CardEffects.None;
+                cardBase.effects.Add(CardEffects.None);
             }
         } else if (effectChance == 7 && cardBase.element != CardElement.Nill)
         {
-            cardBase.effect = CardEffects.Spread;
-        } else
-        {
-            cardBase.effect = CardEffects.None;
+            cardBase.effects.Add(CardEffects.Spread);
         }
 
         return cardBase;
@@ -97,5 +104,30 @@ public class Card_Base : ScriptableObject
             4 => CardElement.Water,
             _ => CardElement.Nill,
         };
+    }
+
+    public string GetName()
+    {
+        return this.cardName;
+    }
+
+    public int GetPower()
+    {
+        return this.power;
+    }
+
+    public int GetDefense()
+    {
+        return this.defense;
+    }
+
+    public CardElement GetElement()
+    {
+        return this.element;
+    }
+
+    public List<CardEffects> GetEffects()
+    {
+        return this.effects;
     }
 }

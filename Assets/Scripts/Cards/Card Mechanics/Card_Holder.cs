@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controls the field space that cards are placed on in combat
+/// </summary>
 public class Card_Holder : MonoBehaviour
 {
     [SerializeField]
@@ -30,6 +33,10 @@ public class Card_Holder : MonoBehaviour
         yield return StartCoroutine(FlashSprite(this.rightArrow));
     }
 
+    /// <summary>
+    /// Flashes a sprite visible for a short period of time.
+    /// </summary>
+    /// <param name="sprite">The sprite to flash</param>
     private IEnumerator FlashSprite(SpriteRenderer sprite)
     {
         sprite.enabled = true;

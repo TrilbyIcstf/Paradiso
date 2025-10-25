@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Handles calculations for how cards should move
+/// </summary>
 public class Card_Gravity : MonoBehaviour
 {
     private const float MAX_DISTANCE = 2.5f;

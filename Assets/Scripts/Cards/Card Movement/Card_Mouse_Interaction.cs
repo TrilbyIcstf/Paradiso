@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Handles interactions between the card and mouse
+/// </summary>
 public class Card_Mouse_Interaction : ManagerBehavior
 {
     /// <summary>

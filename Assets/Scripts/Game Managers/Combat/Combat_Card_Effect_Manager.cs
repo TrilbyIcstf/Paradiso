@@ -79,26 +79,42 @@ public class Combat_Card_Effect_Manager : ManagerBehavior
         foreach (int pos in randCards)
         {
             GameObject targetCard = (isPlayer ? (Hand_Manager)GM.CPH : GM.CEH).GetCard(pos);
-            targetCard.GetComponent<Active_Card>().AddElementOverride(elem);
+            targetCard.GetComponent<Active_Card>().SetElement(elem);
             targetCard.GetComponent<Card_UI>().EmphasizeCardCo();
         }
     }
 
-    public bool EffectIsTriggered(CardEffects effect, CardEffectParameters effParams)
+    public bool EffectIsTriggered(List<CardEffects> effects, CardEffectParameters effParams)
     {
-        switch (effect)
+        foreach (CardEffects effect in effects)
         {
-            case CardEffects.Quills:
-            case CardEffects.Flow:
-            case CardEffects.Tremor:
-                return effParams.adjacency > 0;
-            case CardEffects.Incinerate:
-                return effParams.adjacency > 0 && effParams.opponentHandSize > 0;
-            case CardEffects.Spread:
-                return effParams.adjacency > 0 && effParams.handSize > 0;
-            default:
-                return false;
+            switch (effect)
+            {
+                case CardEffects.Quills:
+                case CardEffects.Flow:
+                case CardEffects.Tremor:
+                    if (effParams.adjacency > 0)
+                    {
+                        return true;
+                    }
+                    break;
+                case CardEffects.Incinerate:
+                    if (effParams.adjacency > 0 && effParams.opponentHandSize > 0)
+                    {
+                        return true;
+                    }
+                    break;
+                case CardEffects.Spread:
+                    if (effParams.adjacency > 0 && effParams.handSize > 0)
+                    {
+                        return true;
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
+        return false;
     }
 }
 

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Linq;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Combat_Field_Manager : ManagerBehavior
 {
@@ -107,7 +108,7 @@ public class Combat_Field_Manager : ManagerBehavior
         Active_Card defendingCard = defendingCards[pos].GetCard();
 
         results.card = attackingCards[pos].GetCardObject();
-        results.effect = attackingCard?.GetEffect() ?? CardEffects.None;
+        results.effects = attackingCard?.GetEffects() ?? new List<CardEffects>();
         results.effParams = new CardEffectParameters();
         results.totalAttack = attackingCard?.GetPower() ?? 0;
         results.totalDefense = attackingCard?.GetDefense() ?? 0;
@@ -118,7 +119,7 @@ public class Combat_Field_Manager : ManagerBehavior
         results.totalAttack = Mathf.Ceil(results.totalAttack);
         results.totalDefense = Mathf.Ceil(results.totalDefense);
 
-        if (results.effect != CardEffects.None)
+        if (results.effects.Count != 0)
         {
             results = CalculateEffectParametersIndividual(results);
         }
@@ -382,7 +383,7 @@ public class Combat_Field_Manager : ManagerBehavior
     {
         internal GameObject card;
 
-        internal CardEffects effect;
+        internal List<CardEffects> effects = new List<CardEffects>();
         internal CardEffectParameters effParams;
 
         internal bool flashLeft = false;

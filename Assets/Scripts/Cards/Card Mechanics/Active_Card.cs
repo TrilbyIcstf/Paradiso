@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Tracks information about a card actively on the field. Tracks any additional changes made to the card's base stats.
+/// </summary>
 public class Active_Card : MonoBehaviour
 {
     [SerializeField]
@@ -9,23 +12,29 @@ public class Active_Card : MonoBehaviour
 
     private Card_UI ui;
 
+    // Card's stats that can be overriden from the base
     private float activePower = 0;
     private float activeDefense = 0;
 
-    // Element override
-    private CardElement? elementOverride;
+    // Card's element that can be overriden from the base
+    private CardElement activeElement;
+
+    // Card's effects that can be overriden from the base
+    private List<CardEffects> activeEffects = new List<CardEffects>();
 
     private void Awake()
     {
-        this.activePower = this.cardStats.power;
-        this.activeDefense = this.cardStats.defense;
+        this.activePower = this.cardStats.GetPower();
+        this.activeDefense = this.cardStats.GetDefense();
+        this.activeElement = this.cardStats.GetElement();
+        this.activeEffects = this.cardStats.GetEffects();
 
         this.ui = GetComponent<Card_UI>();
 
         this.ui.SetPower(GetPower());
         this.ui.SetDefense(GetDefense());
         this.ui.SetElement(GetElement());
-        this.ui.SetEffect(GetEffect());
+        this.ui.SetEffects(GetEffects());
     }
 
     public void SetPower(float val)
@@ -64,9 +73,9 @@ public class Active_Card : MonoBehaviour
         this.ui.SetDefense(GetDefense());
     }
 
-    public void AddElementOverride(CardElement val)
+    public void SetElement(CardElement val)
     {
-        this.elementOverride = val;
+        this.activeElement = val;
         this.ui.SetElement(GetElement());
     }
 
@@ -87,12 +96,12 @@ public class Active_Card : MonoBehaviour
 
     public CardElement GetElement()
     {
-        return this.elementOverride ?? this.cardStats.element;
+        return this.activeElement;
     }
 
-    public CardEffects GetEffect()
+    public List<CardEffects> GetEffects()
     {
-        return this.cardStats.effect;
+        return this.activeEffects;
     }
 
     public void SetStats(Card_Base stats)

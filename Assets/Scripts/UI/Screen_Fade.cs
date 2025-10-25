@@ -33,7 +33,7 @@ public class Screen_Fade : MonoBehaviour
 
     public IEnumerator ScreenFade(bool fadeIn)
     {
-        int fadeDirection = fadeIn ? 2 : -2;
+        int fadeDirection = fadeIn ? 3 : -3;
         Color srColor = this.sr.color;
         srColor.a = fadeIn ? 0.0f : 1.0f;
         yield return new WaitUntil(() =>

@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Tracks the contents of the playing field
+/// </summary>
 public class Field_Space
 {
     private int position;

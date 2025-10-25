@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles movement for the enemy's cards
+/// </summary>
 public class Enemy_Card_Movement : MonoBehaviour
 {
     /// <summary>

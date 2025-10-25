@@ -128,7 +128,7 @@ public class Combat_UI_Manager : ManagerBehavior
         {
             if (this.cardSpace[i] == null) { break; }
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (GetCardHolderScript(i).shouldSnap(mousePosition) && GM.CF.GetPlayerSpace(i).GetCard() == null)
+            if ((GetCardHolderScript(i).shouldSnap(mousePosition) || GetCardHolderScript(i).shouldSnap(card.transform.position)) && GM.CF.GetPlayerSpace(i).GetCard() == null)
             {
                 spacePosition = i;
             }
@@ -136,13 +136,41 @@ public class Combat_UI_Manager : ManagerBehavior
         return spacePosition;
     }
 
+    private bool WillEmphasize(Combat_Field_Manager.Field_Card_Results results)
+    {
+        if (results.flashLeft || results.flashRight || results.flashMiddle)
+        {
+            return true;
+        }
+        if (GM.CCE.EffectIsTriggered(results.effects, results.effParams))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool WillEmphasize(Combat_Field_Manager.Field_Card_Results results, PassiveEffectParameters passParams)
+    {
+        if (WillEmphasize(results)) {
+            return true;
+        }
+
+        if (GM.PM.WillPassiveTrigger(EffectTiming.CardScoredBefore, passParams) || GM.PM.WillPassiveTrigger(EffectTiming.CardScoredAfter, passParams))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     public IEnumerator PlayFieldResultAnimations(int pos, Combat_Field_Manager.Field_Card_Results playerResults, Combat_Field_Manager.Field_Card_Results enemyResults)
     {
         List<Coroutine> animations = new List<Coroutine>();
 
         PassiveEffectParameters passParams = PassiveEffectParameters.TriggeredCard(playerResults.card);
-        bool emphasizePlayerCard = playerResults.flashLeft || playerResults.flashRight || playerResults.flashMiddle || GM.CCE.EffectIsTriggered(playerResults.effect, playerResults.effParams) || GM.PM.WillPassiveTrigger(EffectTiming.CardScoredBefore, passParams) || GM.PM.WillPassiveTrigger(EffectTiming.CardScoredAfter, passParams);
-        bool emphasizeEnemyCard = enemyResults.flashLeft || enemyResults.flashRight || enemyResults.flashMiddle || GM.CCE.EffectIsTriggered(enemyResults.effect, enemyResults.effParams);
+        bool emphasizePlayerCard = WillEmphasize(playerResults, passParams);
+        bool emphasizeEnemyCard = WillEmphasize(enemyResults);
 
         if (playerResults.flashLeft)
         {
@@ -175,7 +203,10 @@ public class Combat_UI_Manager : ManagerBehavior
             animations.Add(StartCoroutine(cardScript.EmphasizeCard()));
             cardScript.SetPower((int)playerResults.totalAttack);
             cardScript.SetDefense((int)playerResults.totalDefense);
-            StartCoroutine(GM.CCE.TriggerCardEffect(playerResults.effect, playerResults.card, playerResults.effParams, true));
+            foreach (CardEffects effect in playerResults.effects)
+            {
+                animations.Add(StartCoroutine(GM.CCE.TriggerCardEffect(effect, playerResults.card, playerResults.effParams, true)));
+            }
         }
 
         if (emphasizeEnemyCard)
@@ -184,7 +215,10 @@ public class Combat_UI_Manager : ManagerBehavior
             animations.Add(StartCoroutine(cardScript.EmphasizeCard()));
             cardScript.SetPower((int)enemyResults.totalAttack);
             cardScript.SetDefense((int)enemyResults.totalDefense);
-            StartCoroutine(GM.CCE.TriggerCardEffect(enemyResults.effect, enemyResults.card, enemyResults.effParams, false));
+            foreach (CardEffects effect in enemyResults.effects)
+            {
+                animations.Add(StartCoroutine(GM.CCE.TriggerCardEffect(effect, enemyResults.card, enemyResults.effParams, false)));
+            }
         }
 
         foreach (Coroutine c in animations)

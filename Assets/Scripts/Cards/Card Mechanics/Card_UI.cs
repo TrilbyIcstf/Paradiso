@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Handles all UI and animations for card objects
+/// </summary>
 public class Card_UI : MonoBehaviour
 {
     [SerializeField]
@@ -28,7 +31,7 @@ public class Card_UI : MonoBehaviour
     private List<Sprite> elementSpriteList;
 
     [SerializeField]
-    private SpriteRenderer effectIcon;
+    private List<SpriteRenderer> effectIcons;
 
     [SerializeField]
     private Canvas uiCanvas;
@@ -40,6 +43,9 @@ public class Card_UI : MonoBehaviour
         StartCoroutine(OnSpawnInteractionDelay());
     }
 
+    /// <summary>
+    /// Sets the card to interactable after a short delay. Used to prevent it from messing with mouse clicks when spawning on top of the deck.
+    /// </summary>
     private IEnumerator OnSpawnInteractionDelay()
     {
         yield return new WaitForSeconds(0.5f);
@@ -50,11 +56,16 @@ public class Card_UI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Emphasizes the card by making it pulse larger for a short time.
+    /// </summary>
     public IEnumerator EmphasizeCard()
     {
         GameObject spriteObject = cardSprite.gameObject;
         Vector3 originalScale = spriteObject.transform.localScale;
         float sizeGoal = originalScale.x * 1.25f;
+
+        // Pulse larger
         yield return new WaitUntilOrTimeout(() =>
         {
             Vector3 localScale = spriteObject.transform.localScale;
@@ -62,7 +73,11 @@ public class Card_UI : MonoBehaviour
             spriteObject.transform.localScale = localScale;
             return localScale.x >= sizeGoal;
         }, 0.5f);
+
+        // Hold for a moment
         yield return new WaitForSeconds(0.15f);
+
+        // Pulse smaller
         yield return new WaitUntilOrTimeout(() =>
         {
             Vector3 localScale = spriteObject.transform.localScale;
@@ -101,18 +116,22 @@ public class Card_UI : MonoBehaviour
         };
     }
 
-    public void SetEffect(CardEffects val)
+    public void SetEffects(List<CardEffects> val)
     {
-        switch (val)
+        for (int i = 0; i < val.Count; i++)
         {
-            case CardEffects.None:
-                this.effectIcon.enabled = false;
-                break;
-            default:
-                this.effectIcon.enabled = true;
-                Sprite effectSprite = GameManager.instance.STR.GetCardEffectDescription(val).effectSprite;
-                this.effectIcon.sprite = effectSprite;
-                break;
+            CardEffects effect = val[i];
+            switch (effect)
+            {
+                case CardEffects.None:
+                    this.effectIcons[i].enabled = false;
+                    break;
+                default:
+                    this.effectIcons[i].enabled = true;
+                    Sprite effectSprite = GameManager.instance.STR.GetCardEffectDescription(effect).effectSprite;
+                    this.effectIcons[i].sprite = effectSprite;
+                    break;
+            }
         }
     }
 
@@ -122,7 +141,10 @@ public class Card_UI : MonoBehaviour
         this.cardSprite.sortingOrder = val;
         this.uiCanvas.sortingOrder = val;
         this.elementIcon.sortingOrder = val;
-        this.effectIcon.sortingOrder = val;
+        foreach (SpriteRenderer icon in this.effectIcons)
+        {
+            icon.sortingOrder = val;
+        }
     }
 
     public void SetToDefaultSorting(int val)
@@ -130,7 +152,10 @@ public class Card_UI : MonoBehaviour
         this.cardSprite.sortingLayerID = 0;
         this.uiCanvas.sortingLayerID = 0;
         this.elementIcon.sortingLayerID = 0;
-        this.effectIcon.sortingLayerID = 0;
+        foreach (SpriteRenderer icon in this.effectIcons)
+        {
+            icon.sortingLayerID = 0;
+        }
         SetSortingOrder(val);
     }
 

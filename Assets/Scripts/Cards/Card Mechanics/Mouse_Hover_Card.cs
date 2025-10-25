@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles displaying additional information when the player hovers over a card with the mouse
+/// </summary>
 public class Mouse_Hover_Card : ManagerBehavior
 {
     [SerializeField]
@@ -13,7 +16,7 @@ public class Mouse_Hover_Card : ManagerBehavior
     [SerializeField]
     private bool isPlayerCard;
 
-    private GameObject tempInfoBox;
+    private List<GameObject> tempInfoBoxes = new List<GameObject>();
 
     private float hoverDuration = 0.5f;
     private Coroutine hoverCoroutine;
@@ -33,7 +36,7 @@ public class Mouse_Hover_Card : ManagerBehavior
 
     private void OnMouseEnter()
     {
-        if (this.cardStats.GetEffect() == CardEffects.None) { return; }
+        if (this.cardStats.GetEffects().Count == 0) { return; }
         if (this.hoverCoroutine != null)
         {
             StopCoroutine(hoverCoroutine);
@@ -52,21 +55,28 @@ public class Mouse_Hover_Card : ManagerBehavior
         {
             StopCoroutine(this.hoverCoroutine);
         }
-        if (this.tempInfoBox != null)
+        foreach (GameObject box in this.tempInfoBoxes)
         {
-            Destroy(this.tempInfoBox);
+            Destroy(box);
         }
     }
 
+    /// <summary>
+    /// Displays info box if mouse is held over card for certain duration
+    /// </summary>
     IEnumerator DisplayInfoOnHover()
     {
         yield return new WaitForSeconds(this.hoverDuration);
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
-        this.tempInfoBox = Instantiate(infoBox, mousePos, Quaternion.identity);
-        Effect_Info_Box boxScript = this.tempInfoBox.GetComponent<Effect_Info_Box>();
-        Card_Effect_Description eff = GameManager.instance.STR.GetCardEffectDescription(this.cardStats.GetEffect());
-        boxScript.UpdateText(eff, this.isPlayerCard);
-        this.tempInfoBox.SetActive(true);
+        foreach (CardEffects effect in this.cardStats.GetEffects())
+        {
+            GameObject newBox = Instantiate(infoBox, mousePos, Quaternion.identity);
+            Effect_Info_Box boxScript = newBox.GetComponent<Effect_Info_Box>();
+            Card_Effect_Description eff = GameManager.instance.STR.GetCardEffectDescription(effect);
+            boxScript.UpdateText(eff, this.isPlayerCard);
+            newBox.SetActive(true);
+            this.tempInfoBoxes.Add(newBox);
+        }
     }
 }
