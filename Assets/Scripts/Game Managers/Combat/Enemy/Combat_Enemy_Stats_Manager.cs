@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Manages the enemy's stats during combat
+/// </summary>
 public class Combat_Enemy_Stats_Manager : Stats_Manager
 {
     [SerializeField]
@@ -43,8 +46,8 @@ public class Combat_Enemy_Stats_Manager : Stats_Manager
     public void SetEnemy(Enemy_Stats val)
     {
         this.enemy = val;
-        this.maxHealth = this.enemy.maxHealth;
-        this.currentHealth = this.enemy.maxHealth;
+        this.maxHealth = this.enemy.GetHealth();
+        this.currentHealth = this.enemy.GetHealth();
     }
 
     public override bool DealDamage(float amount)

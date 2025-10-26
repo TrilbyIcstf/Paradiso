@@ -80,7 +80,7 @@ public class Card_Base : ScriptableObject
             {
                 cardBase.effects.Add(CardEffects.None);
             }
-        } else if (effectChance == 7 && cardBase.element != CardElement.Nill)
+        } else if (effectChance == 7 && cardBase.element != CardElement.Nil)
         {
             cardBase.effects.Add(CardEffects.Spread);
         }
@@ -97,12 +97,12 @@ public class Card_Base : ScriptableObject
         int elementIndex = Random.Range(0, 5);
         return elementIndex switch
         {
-            0 => CardElement.Nill,
+            0 => CardElement.Nil,
             1 => CardElement.Fire,
             2 => CardElement.Wind,
             3 => CardElement.Earth,
             4 => CardElement.Water,
-            _ => CardElement.Nill,
+            _ => CardElement.Nil,
         };
     }
 

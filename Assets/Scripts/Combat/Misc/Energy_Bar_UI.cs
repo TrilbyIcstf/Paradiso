@@ -2,6 +2,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Handles UI for the energy bars in combat
+/// </summary>
 public class Energy_Bar_UI : MonoBehaviour
 {
     private Image energyBar;

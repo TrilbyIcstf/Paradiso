@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+/// <summary>
+/// Controls objects within a room during exploration
+/// </summary>
 public class Room_Controller : ManagerBehavior
 {
     [SerializeField]
@@ -18,6 +21,11 @@ public class Room_Controller : ManagerBehavior
         GM.ER.SetupCurrentRoom();
     }
 
+    /// <summary>
+    /// Sets up the room to match the passed in room object
+    /// </summary>
+    /// <param name="room">The room to set up</param>
+    /// <param name="enteredDirection">The direction the player entered from</param>
     public void SetupRoom(Room_Object room, Directions enteredDirection)
     {
         UnlockRoom(room);

@@ -151,8 +151,8 @@ public class Combat_Field_Manager : ManagerBehavior
 
     private float ElementalMult(Active_Card attacking, Active_Card defending)
     {
-        CardElement attackingElement = attacking?.GetElement() ?? CardElement.Nill;
-        CardElement defendingElement = defending?.GetElement() ?? CardElement.Nill;
+        CardElement attackingElement = attacking?.GetElement() ?? CardElement.Nil;
+        CardElement defendingElement = defending?.GetElement() ?? CardElement.Nil;
         return ElementMethods.EffectivenessMult(attackingElement, defendingElement);
     }
 
@@ -168,12 +168,12 @@ public class Combat_Field_Manager : ManagerBehavior
 
     private Field_Card_Results ApplyAdjacencyBuffs(Field_Card_Results cardResults, int pos, Field_Space[] cards, Active_Card card)
     {
-        CardElement cardElement = card?.GetElement() ?? CardElement.Nill;
-        if (cardElement == CardElement.Nill) { return cardResults; }
+        CardElement cardElement = card?.GetElement() ?? CardElement.Nil;
+        if (cardElement == CardElement.Nil) { return cardResults; }
 
         if (pos > 0)
         {
-            CardElement leftElement = cards[pos - 1].GetCard()?.GetElement() ?? CardElement.Nill;
+            CardElement leftElement = cards[pos - 1].GetCard()?.GetElement() ?? CardElement.Nil;
             if (cardElement == leftElement)
             {
                 cardResults.totalAttack *= Consts.adj;
@@ -184,7 +184,7 @@ public class Combat_Field_Manager : ManagerBehavior
 
         if (pos < 3)
         {
-            CardElement rightElement = cards[pos + 1].GetCard()?.GetElement() ?? CardElement.Nill;
+            CardElement rightElement = cards[pos + 1].GetCard()?.GetElement() ?? CardElement.Nil;
             if (cardElement == rightElement)
             {
                 cardResults.totalAttack *= Consts.adj;

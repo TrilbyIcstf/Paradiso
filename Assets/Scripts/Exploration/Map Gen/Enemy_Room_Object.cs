@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Child class representing a room the contains an enemy.
+/// The enemy will be in the center, and all doors not linked towards the entrance will be locked until the enemy is defeated.
+/// </summary>
 public class Enemy_Room_Object : Room_Object
 {
     private Enemy_Stats enemy;
@@ -29,6 +33,11 @@ public class Enemy_Room_Object : Room_Object
         this.enemyIsDefeated = val;
     }
 
+    /// <summary>
+    /// Converts a standard room to an enemy room
+    /// </summary>
+    /// <param name="room">The standard room to be converted</param>
+    /// <returns>An enemy room object</returns>
     public static Enemy_Room_Object ConvertToEnemyRoom(Room_Object room)
     {
         Enemy_Room_Object newRoom = new Enemy_Room_Object(room.GetEntranceDirection(), room.GetDistance());

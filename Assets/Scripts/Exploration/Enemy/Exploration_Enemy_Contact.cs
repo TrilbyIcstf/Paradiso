@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles interaction of touching an enemy during exploration
+/// </summary>
 public class Exploration_Enemy_Contact : MonoBehaviour
 {
     private GameObject player;

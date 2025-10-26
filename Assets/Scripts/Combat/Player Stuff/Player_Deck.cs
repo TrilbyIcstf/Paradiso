@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Controls the player's deck object in combat
+/// </summary>
 public class Player_Deck : ManagerBehavior
 {
     public float drawCost = 10;
@@ -39,11 +42,17 @@ public class Player_Deck : ManagerBehavior
         }
     }
 
+    /// <summary>
+    /// Turns on the preview for the energy cost of drawing a card
+    /// </summary>
     private void CostPreviewOn()
     {
         GM.CUI.SetEnergyPreview(this.drawCost);
     }
 
+    /// <summary>
+    /// Turns off the preview for the energy cost of drawing a card
+    /// </summary>
     private void CostPreviewOff()
     {
         GM.CUI.RemoveEnergyPreview();

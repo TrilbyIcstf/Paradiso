@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Manages the enemy's hand during combat
+/// </summary>
 public class Combat_Enemy_Hand_Manager : Hand_Manager
 {
     private Combat_Area_Marker handArea;

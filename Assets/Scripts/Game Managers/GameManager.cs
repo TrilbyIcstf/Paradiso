@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         GameManager.instance = this;
-        this.PM.TestRandomDeck(15);
+        this.PM.TestRandomDeck(30);
     }
 
     private void Update()

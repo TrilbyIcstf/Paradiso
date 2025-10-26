@@ -8,7 +8,7 @@ public enum CardElement
     Water,
     Earth,
     Wind,
-    Nill
+    Nil
 }
 
 public static class ElementMethods
@@ -29,7 +29,7 @@ public static class ElementMethods
 
     private static List<ElementEffectiveness> elementMultList = new List<ElementEffectiveness>()
     {
-        new ElementEffectiveness(CardElement.Nill, CardElement.Nill, 1.0f),
+        new ElementEffectiveness(CardElement.Nil, CardElement.Nil, 1.0f),
         new ElementEffectiveness(CardElement.Fire, CardElement.Wind, Consts.SU),
         new ElementEffectiveness(CardElement.Fire, CardElement.Water, Consts.NVE),
         new ElementEffectiveness(CardElement.Water, CardElement.Fire, Consts.SU),
@@ -159,4 +159,11 @@ public enum RoomTypes
 public enum Floors
 {
     Demo
+}
+
+public enum EnemyDrawTypes
+{
+    Random,
+    AllFire,
+    AllNil
 }

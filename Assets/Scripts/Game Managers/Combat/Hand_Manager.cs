@@ -65,7 +65,7 @@ public abstract class Hand_Manager : ManagerBehavior
         {
 
             Vector2 cardPos = positions[i];
-            if (playerHand.DistanceFromHand(cardPos) > 0.25f)
+            if (playerHand.DistanceFromArea(cardPos) > 0.25f)
             {
                 Vector2 closestPos = playerHand.ClosestPoint(cardPos);
                 float distance = Vector2.Distance(cardPos, closestPos);

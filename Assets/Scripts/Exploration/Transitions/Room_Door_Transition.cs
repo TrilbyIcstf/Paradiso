@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles moving between rooms upon contact with player
+/// </summary>
 public class Room_Door_Transition : MonoBehaviour
 {
     [SerializeField]

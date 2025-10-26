@@ -2,12 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controls the enemy's hand used to move and play cards during combat
+/// </summary>
 public class Enemy_Mouse_Controller : ManagerBehavior
 {
+    // Test variable to force the hand to stop moving
     public static bool testPause = false;
 
+    // Determines current action of the hand
     [SerializeField]
     private MouseMovementState currentState = MouseMovementState.RESTING;
+
+    // Determines what the hand will do with the card while in placing mode
     private EnemyMouseIntent intent = EnemyMouseIntent.PLACE;
 
     // Variables for tracking resting state
@@ -29,6 +36,7 @@ public class Enemy_Mouse_Controller : ManagerBehavior
     private Vector2 placePos = Vector2.zero;
     private float placeDist = 0.05f;
 
+    // Variables to track what card the hand should grab, and what space it should be played in
     private GameObject targetCard = null;
     private int targetSpace = -1;
 
@@ -54,6 +62,7 @@ public class Enemy_Mouse_Controller : ManagerBehavior
 
         switch (this.currentState)
         {
+            // RESTING: Stay still until a certain amount of time has ellapsed 
             case MouseMovementState.RESTING:
                 this.restingTime += Time.deltaTime;
                 if (this.restingTime >= this.unrestTime)
@@ -61,6 +70,8 @@ public class Enemy_Mouse_Controller : ManagerBehavior
                     ChangeState(MouseMovementState.CHASING);
                 }
                 break;
+
+            // CHASING: Move towards target card until reached
             case MouseMovementState.CHASING:
                 if (this.targetCard == null) { return; }
 
@@ -80,6 +91,8 @@ public class Enemy_Mouse_Controller : ManagerBehavior
                     ChangeState(MouseMovementState.HOLDING);
                 }
                 break;
+
+            // HOLDING: Lock card into holding and pause to decide next action
             case MouseMovementState.HOLDING:
                 this.holdTime += Time.deltaTime;
                 if (this.holdTime >= this.holdDelayTime)
@@ -87,6 +100,8 @@ public class Enemy_Mouse_Controller : ManagerBehavior
                     ChangeState(MouseMovementState.PLACING);
                 }
                 break;
+
+            // PLACING: Move with card towards intended location
             case MouseMovementState.PLACING:
                 if (this.targetCard == null) { return; }
 
@@ -116,6 +131,8 @@ public class Enemy_Mouse_Controller : ManagerBehavior
         {
             case MouseMovementState.RESTING:
                 this.currentState = MouseMovementState.RESTING;
+
+                // Reset all relevent variables
                 this.restingTime = 0;
                 this.sr.sprite = this.openHand;
                 this.targetCard = null;
@@ -128,7 +145,7 @@ public class Enemy_Mouse_Controller : ManagerBehavior
                     this.currentState = MouseMovementState.CHASING;
                     this.startPos = gameObject.transform.position;
                     this.startDist = Vector2.Distance(this.startPos, this.targetCard.transform.position);
-                } else
+                } else // If no viable cards exist, go back to resting
                 {
                     ChangeState(MouseMovementState.RESTING);
                 }
@@ -158,6 +175,8 @@ public class Enemy_Mouse_Controller : ManagerBehavior
     {
         GameObject nextCard = GM.CEH.RandomCard();
         int nextSlot = GM.CF.NextFreeEnemySpace();
+
+        // nextSlot == -1 means no open field slots are available
         if (nextSlot == -1)
         {
             this.intent = EnemyMouseIntent.SORT;

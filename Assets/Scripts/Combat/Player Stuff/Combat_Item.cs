@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Object representation of one of the player's active items during combat
+/// </summary>
 public class Combat_Item : ManagerBehavior
 {
     [SerializeField]

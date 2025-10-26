@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Coordinates multiple UI elements in the combat scene
+/// </summary>
 public class UI_Coordinator : ManagerBehavior
 {
     public Energy_Bar_UI energyBar;

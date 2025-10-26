@@ -107,7 +107,7 @@ public class Card_UI : MonoBehaviour
     {
         this.elementIcon.sprite = val switch
         {
-            CardElement.Nill => this.elementSpriteList[0],
+            CardElement.Nil => this.elementSpriteList[0],
             CardElement.Fire => this.elementSpriteList[1],
             CardElement.Wind => this.elementSpriteList[2],
             CardElement.Earth => this.elementSpriteList[3],
