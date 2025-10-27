@@ -14,14 +14,20 @@ public class Room_Door_Transition : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<Player_Movement>() != null)
         {
+            GameManager.instance.EP.SetMovementLock(true);
             Room_Object newRoom = GameManager.instance.EL.MoveInDirection(this.doorDirection);
             if (newRoom.GetRoomType() != RoomTypes.Enemy)
             {
-                GameManager.instance.TR.FadeTransition("Scenes/TestMovementRoom");
+                GameManager.instance.TR.FadeTransition("Scenes/TestMovementRoom", postAction: UnlockMovement);
             } else
             {
-                GameManager.instance.TR.FadeTransition("Scenes/EnemyRoom");
+                GameManager.instance.TR.FadeTransition("Scenes/EnemyRoom", postAction: UnlockMovement);
             }
         }
+    }
+
+    private void UnlockMovement()
+    {
+        GameManager.instance.EP.SetMovementLock(false);
     }
 }

@@ -2,6 +2,11 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A dictionary that can be edited through the Unity editor
+/// </summary>
+/// <typeparam name="TKey">Var type of the key</typeparam>
+/// <typeparam name="TValue">Var type of the value</typeparam>
 [System.Serializable]
 public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
 {

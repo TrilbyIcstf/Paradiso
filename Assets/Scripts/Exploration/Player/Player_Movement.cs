@@ -19,10 +19,13 @@ public class Player_Movement : MonoBehaviour
     private Vector2 inputDirection;
     private Vector2 velocityDirection;
 
+    private bool moveLocked = false;
+
     private void Start()
     {
         this.animator = GetComponent<Animator>();
         this.rb = GetComponent<Rigidbody2D>();
+        this.moveLocked = GameManager.instance.EP.GetMovementLock();
     }
 
     void Update()
@@ -34,6 +37,12 @@ public class Player_Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (this.moveLocked) {
+            this.rb.velocity = Vector2.zero;
+            this.animator.SetBool("Walking", false);
+            return; 
+        }
+
         if (this.inputDirection.magnitude > 0)
         {
             this.moveTime += Time.deltaTime * 3.5f;
@@ -47,5 +56,10 @@ public class Player_Movement : MonoBehaviour
         this.moveTime = Mathf.Clamp(this.moveTime, 0, 1);
         this.moveSpeed = Mathf.Lerp(0.0f, this.maxMoveSpeed, this.moveTime);
         this.rb.velocity = this.velocityDirection * this.moveSpeed;
+    }
+
+    public void SetMoveLock(bool val)
+    {
+        this.moveLocked = val;
     }
 }

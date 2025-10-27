@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// An item with a passive effect
+/// </summary>
 [CreateAssetMenu(fileName = "Passive Item", menuName = "ScriptableObjects/New Passive Item", order = 1)]
 [System.Serializable]
 public class Item_Passive : Item_Base

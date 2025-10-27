@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Manages generating and tracking the layout of a floor during exploration
+/// </summary>
 public class Exploration_Layout_Manager : ManagerBehavior
 {
     private Room_Object[,] floorLayout;

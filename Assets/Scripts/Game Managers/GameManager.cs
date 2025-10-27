@@ -1,7 +1,11 @@
 using UnityEngine;
 
+/// <summary>
+/// ALL HAIL THE MIGHTY GAMEMANAGER, ORGANIZER OF THE MANAGERS
+/// </summary>
 public class GameManager : MonoBehaviour
 {
+    // Singleton instance
     public static GameManager instance
     {
         get { return GameManager._instance != null ? GameManager._instance : (GameManager)FindObjectOfType(typeof(GameManager)); }
@@ -27,6 +31,7 @@ public class GameManager : MonoBehaviour
 
     public Exploration_Layout_Manager EL;
     public Exploration_Room_Manager ER;
+    public Exploration_Player_Manager EP;
 
     public Screen_Fade SF;
 

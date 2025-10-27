@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// Manages the player's temporary deck during combat
+/// </summary>
 public class Combat_Player_Deck_Manager : ManagerBehavior
 {
     [SerializeField]

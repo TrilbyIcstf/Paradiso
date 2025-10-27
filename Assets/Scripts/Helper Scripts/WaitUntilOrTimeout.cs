@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Yield instruction that will wait until a condition, or timeout after a set period
+/// </summary>
 public class WaitUntilOrTimeout : CustomYieldInstruction
 {
     float pauseTime;

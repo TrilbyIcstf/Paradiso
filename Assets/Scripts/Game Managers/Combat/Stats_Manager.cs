@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Abstract class for managing stats during combat
+/// </summary>
 public abstract class Stats_Manager : ManagerBehavior
 {
     protected float maxHealth;

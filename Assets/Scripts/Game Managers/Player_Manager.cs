@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// Manages the player's stats and tracks base deck
+/// </summary>
 public class Player_Manager : ManagerBehavior
 {
     private int maxHealth = 300;
@@ -14,6 +17,11 @@ public class Player_Manager : ManagerBehavior
     private Dictionary<string, Card_Base> playerDeck = new Dictionary<string, Card_Base>();
     private int deckIDCounter = 0;
 
+    /// <summary>
+    /// Triggers passive items at the specified timing
+    /// </summary>
+    /// <param name="timing">The passive timing to trigger at</param>
+    /// <param name="passParams">Passive effect parameters</param>
     public void ActivatePassiveItems(EffectTiming timing, PassiveEffectParameters passParams)
     {
         List<Item_Passive> passiveItems = GetPassiveItems().Where(i => i.IsCorrectTiming(timing)).ToList();
@@ -26,6 +34,12 @@ public class Player_Manager : ManagerBehavior
         }
     }
 
+    /// <summary>
+    /// Checks if any passive effects from items will trigger during the specified timing
+    /// </summary>
+    /// <param name="timing">The passive timing to check</param>
+    /// <param name="passParams">Passive effect parameters</param>
+    /// <returns>True if a passive will trigger, false otherwise</returns>
     public bool WillPassiveTrigger(EffectTiming timing, PassiveEffectParameters passParams)
     {
         List<Item_Passive> passiveItems = GetPassiveItems().Where(i => i.IsCorrectTiming(timing)).ToList();

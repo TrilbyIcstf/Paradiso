@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Strings used for card effects
+/// </summary>
 [CreateAssetMenu(fileName = "Card Effect Description", menuName = "ScriptObjects/New Card Effect", order = 1)]
 [Serializable]
 public class Card_Effect_Description: ScriptableObject

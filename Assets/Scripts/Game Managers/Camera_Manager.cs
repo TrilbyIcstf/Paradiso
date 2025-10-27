@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Manages the camera and game aspect ratio
+/// </summary>
 public class Camera_Manager : MonoBehaviour
 {
     Camera mainCamera;

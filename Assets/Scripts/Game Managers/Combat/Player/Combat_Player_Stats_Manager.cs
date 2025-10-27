@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Manages the player's stats during combat
+/// </summary>
 public class Combat_Player_Stats_Manager : Stats_Manager
 {
     private float energyRegen = 0.08f;

@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// Manages the hand and keeps cards within it
+/// </summary>
 public abstract class Hand_Manager : ManagerBehavior
 {
     internal List<GameObject> hand = new List<GameObject>();

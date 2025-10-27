@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Static misc string list
+/// </summary>
 public class String_List : MonoBehaviour
 {
     [Serializable]

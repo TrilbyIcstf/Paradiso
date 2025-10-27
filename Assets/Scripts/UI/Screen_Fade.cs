@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controls the black screen overlay for fading between scenes
+/// </summary>
 public class Screen_Fade : MonoBehaviour
 {
     private SpriteRenderer sr;

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Abstract class for controlling health bars during combat
+/// </summary>
 public abstract class Health_Bar : MonoBehaviour
 {
     [SerializeField]

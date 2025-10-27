@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// An item that can be activated during combat
+/// </summary>
 [CreateAssetMenu(fileName = "Active Item", menuName = "ScriptableObjects/New Active Item", order = 1)]
 [System.Serializable]
 public class Item_Active : Item_Base

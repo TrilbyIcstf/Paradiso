@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manages UI elements during a combat scene
+/// </summary>
 public class Combat_UI_Manager : ManagerBehavior
 {
     /// <summary>
@@ -21,9 +24,19 @@ public class Combat_UI_Manager : ManagerBehavior
     [SerializeField]
     private GameObject playerDeck;
 
+    /// <summary>
+    /// The max size of the health bar (not its health value)
+    /// </summary>
     private static int healthMaxSize = 400;
+
+    /// <summary>
+    /// The size increment the health bar will increase and decrease in (trying to match 1 pixel)
+    /// </summary>
     private static int healthIncrement = 5;
 
+    /// <summary>
+    /// Tracks if the player is holding a card
+    /// </summary>
     public bool isHoldingCard = false;
 
     public UI_Coordinator uiCoordinator;
@@ -59,6 +72,11 @@ public class Combat_UI_Manager : ManagerBehavior
         }
     }
 
+    /// <summary>
+    /// Releases the card from the enemy's grip and snaps it to the field if needed
+    /// </summary>
+    /// <param name="card">The card being released</param>
+    /// <param name="position">The position of the field space being played to (-1 for none)</param>
     public void EnemyReleasesCard(GameObject card, int position)
     {
         Card_Gravity gravityScript = card.GetComponent<Card_Gravity>();
@@ -84,18 +102,30 @@ public class Combat_UI_Manager : ManagerBehavior
         }
     }
 
+    /// <summary>
+    /// Returns a card to the player's hand
+    /// </summary>
+    /// <param name="card">The card to return</param>
     public void ReturnToHand(GameObject card)
     {
         Card_Gravity gravityScript = card.GetComponent<Card_Gravity>();
         gravityScript.SetGravityPoint(this.uiCoordinator.PlayerHandArea().ClosestPoint(card.transform.position));
     }
 
+    /// <summary>
+    /// Returns a card to the enemy's hand
+    /// </summary>
+    /// <param name="card">The card to return</param>
     public void ReturnToEnemyHand(GameObject card)
     {
         Card_Gravity gravityScript = card.GetComponent<Card_Gravity>();
         gravityScript.SetGravityPoint(this.uiCoordinator.EnemyHandArea().ClosestPoint(card.transform.position));
     }
 
+    /// <summary>
+    /// Sends a newly drawn card to the player's hand with slight variation
+    /// </summary>
+    /// <param name="card">The drawn card</param>
     public void DrawToHand(GameObject card)
     {
         Card_Gravity gravityScript = card.GetComponent<Card_Gravity>();
@@ -105,6 +135,10 @@ public class Combat_UI_Manager : ManagerBehavior
         gravityScript.SetGravityPoint(closestPoint);
     }
 
+    /// <summary>
+    /// Sends a newly drawn card to the enemy's hand with slight variation
+    /// </summary>
+    /// <param name="card">The drawn card</param>
     public void DrawToEnemyHand(GameObject card)
     {
         Card_Gravity gravityScript = card.GetComponent<Card_Gravity>();
@@ -136,6 +170,11 @@ public class Combat_UI_Manager : ManagerBehavior
         return spacePosition;
     }
 
+    /// <summary>
+    /// Checks if a card should be emphasized during field calcs
+    /// </summary>
+    /// <param name="results">Result holder</param>
+    /// <returns>If the card should be emphasized</returns>
     private bool WillEmphasize(Combat_Field_Manager.Field_Card_Results results)
     {
         if (results.flashLeft || results.flashRight || results.flashMiddle)
@@ -150,6 +189,12 @@ public class Combat_UI_Manager : ManagerBehavior
         return false;
     }
 
+    /// <summary>
+    /// Checks if a card should be emphasized during field calcs
+    /// </summary>
+    /// <param name="results">Result holder</param>
+    /// <param name="passParams">Parameters for passives</param>
+    /// <returns>If the card should be emphasized</returns>
     private bool WillEmphasize(Combat_Field_Manager.Field_Card_Results results, PassiveEffectParameters passParams)
     {
         if (WillEmphasize(results)) {
@@ -164,6 +209,12 @@ public class Combat_UI_Manager : ManagerBehavior
         return false;
     }
 
+    /// <summary>
+    /// Plays all relevent animations for a field position
+    /// </summary>
+    /// <param name="pos">The field position</param>
+    /// <param name="playerResults">The player's field results</param>
+    /// <param name="enemyResults">The enemy's field results</param>
     public IEnumerator PlayFieldResultAnimations(int pos, Combat_Field_Manager.Field_Card_Results playerResults, Combat_Field_Manager.Field_Card_Results enemyResults)
     {
         List<Coroutine> animations = new List<Coroutine>();

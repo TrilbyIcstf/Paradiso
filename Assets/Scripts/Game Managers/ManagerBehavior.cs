@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Parent class that gives classes that heavily rely on the GameManager a quicker way to reference it
+/// </summary>
 public class ManagerBehavior : MonoBehaviour
 {
     public GameManager GM
