@@ -7,13 +7,6 @@ using UnityEngine;
 /// </summary>
 public class Exploration_Enemy_Contact : MonoBehaviour
 {
-    private GameObject player;
-
-    private void Awake()
-    {
-        this.player = GameObject.FindGameObjectWithTag("Player");
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")

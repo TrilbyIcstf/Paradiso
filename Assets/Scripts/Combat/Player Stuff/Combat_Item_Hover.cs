@@ -62,13 +62,16 @@ public class Combat_Item_Hover : MonoBehaviour
     IEnumerator DisplayInfoOnHover()
     {
         yield return new WaitForSeconds(this.hoverDuration);
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.z = 0;
-        this.tempInfoBox = Instantiate(infoBox, mousePos, Quaternion.identity);
-        Effect_Info_Box boxScript = this.tempInfoBox.GetComponent<Effect_Info_Box>();
-        Item_Description item = GameManager.instance.STR.GetItemDescription(this.itemHolder.GetItem().item);
-        boxScript.UpdateText(item);
-        this.tempInfoBox.SetActive(true);
+        if (this.itemHolder.GetItem() != null)
+        {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos.z = 0;
+            this.tempInfoBox = Instantiate(infoBox, mousePos, Quaternion.identity);
+            Effect_Info_Box boxScript = this.tempInfoBox.GetComponent<Effect_Info_Box>();
+            Item_Description item = GameManager.instance.STR.GetItemDescription(this.itemHolder.GetItem().item);
+            boxScript.UpdateText(item);
+            this.tempInfoBox.SetActive(true);
+        }
     }
 
     /// <summary>
@@ -76,7 +79,10 @@ public class Combat_Item_Hover : MonoBehaviour
     /// </summary>
     private void CostPreviewOn()
     {
-        GameManager.instance.CUI.SetEnergyPreview(this.itemHolder.GetItem().energyCost);
+        if (this.itemHolder.GetItem() != null)
+        {
+            GameManager.instance.CUI.SetEnergyPreview(this.itemHolder.GetItem().energyCost);
+        }
     }
 
     /// <summary>

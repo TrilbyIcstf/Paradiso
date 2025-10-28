@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public Exploration_Layout_Manager EL;
     public Exploration_Room_Manager ER;
     public Exploration_Player_Manager EP;
+    public Exploration_Item_Manager EI;
 
     public Screen_Fade SF;
 

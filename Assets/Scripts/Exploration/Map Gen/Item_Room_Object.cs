@@ -28,8 +28,23 @@ public class Item_Room_Object : Room_Object
         this.containedItem = val;
     }
 
-    public void SetItemTake(bool val)
+    public void SetItemTaken(bool val)
     {
         this.itemTaken = val;
+    }
+
+    /// <summary>
+    /// Converts a standard room to an item room
+    /// </summary>
+    /// <param name="room">The standard room to be converted</param>
+    /// <returns>An Item room object</returns>
+    public static Item_Room_Object ConvertToItemRoom(Room_Object room)
+    {
+        Item_Room_Object newRoom = new Item_Room_Object(room.GetEntranceDirection(), room.GetDistance());
+        newRoom.SetItem(GameManager.instance.EI.ChooseNewItem());
+        newRoom.connections = room.GetConnections();
+        newRoom.roomType = room.GetRoomType();
+        
+        return newRoom;
     }
 }

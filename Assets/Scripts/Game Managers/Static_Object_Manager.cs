@@ -16,8 +16,15 @@ public class Static_Object_Manager : MonoBehaviour
     }
     private static Static_Object_Manager _instance;
 
+    // The big ol' list of items in the game
+    [Serializable]
+    public class ItemDictionary : SerializableDictionary<Items, Item_Base> { }
+    [SerializeField]
+    private ItemDictionary items;
+    public Item_Base GetItem(Items item) { return this.items[item]; }
+
     // The quill card stats used for the quill effect
-    public Card_Base QuillCard;
+    public Card_Base quillCard;
 
     // Wall tile sprites used for exploration. May vary by floor
     [Serializable]

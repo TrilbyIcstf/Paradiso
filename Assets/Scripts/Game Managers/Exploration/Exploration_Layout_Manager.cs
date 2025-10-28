@@ -7,13 +7,35 @@ using UnityEngine;
 /// </summary>
 public class Exploration_Layout_Manager : ManagerBehavior
 {
+    /// <summary>
+    /// 2D array of the floor's layout
+    /// </summary>
     private Room_Object[,] floorLayout;
 
+    /// <summary>
+    /// The starting position for the floor
+    /// </summary>
     private Vector2Int startingPos;
 
+    /// <summary>
+    /// The player's current position on the floor
+    /// </summary>
     private Vector2Int currentPos;
 
-    private int enemyCount = 0;
+    /// <summary>
+    /// Counts the number of enemies spawned on the floor
+    /// </summary>
+    private float enemyCount = 0;
+
+    /// <summary>
+    /// Counts the number of passive items spawned on the floor
+    /// </summary>
+    private float itemCount = 0;
+
+    /// <summary>
+    /// Tracks if the stairs have been generated on the floor yet
+    /// </summary>
+    private bool stairsGenerated = false;
 
     private Floors currentFloor = Floors.Demo;
 
@@ -40,6 +62,9 @@ public class Exploration_Layout_Manager : ManagerBehavior
                             break;
                         case RoomTypes.Enemy:
                             mapRow += "F";
+                            break;
+                        case RoomTypes.Item:
+                            mapRow += "I";
                             break;
                         default:
                             mapRow += "O";
@@ -96,10 +121,7 @@ public class Exploration_Layout_Manager : ManagerBehavior
 
         RoomTypes roomType = DetermineRoomType(pos);
         thisRoom.SetRoomType(roomType);
-        if (roomType == RoomTypes.Enemy)
-        {
-            this.floorLayout[pos.x, pos.y] = Enemy_Room_Object.ConvertToEnemyRoom(thisRoom);
-        }
+        this.floorLayout[pos.x, pos.y] = ConvertToRoomType(thisRoom, roomType);
 
         return GetRoom(pos);
     }
@@ -147,14 +169,30 @@ public class Exploration_Layout_Manager : ManagerBehavior
 
     private RoomTypes DetermineRoomType(Vector2Int pos)
     {
+        float randAmount;
         if (pos == this.startingPos) { return RoomTypes.Starting; }
         if (GetRoom(pos).GetConnectionCount() <= 1) {
+            if (!this.stairsGenerated)
+            {
+                this.stairsGenerated = true;
+                return RoomTypes.Stairs;
+            }
+
+            float itemFillRatio = 1.0f - (this.itemCount / 2);
+            float itemChance = 100.0f * itemFillRatio;
+            randAmount = Random.Range(0.0f, 100.0f);
+            if (randAmount < itemChance)
+            {
+                this.itemCount++;
+                return RoomTypes.Item;
+            }
+
             return RoomTypes.Empty;
         }
         float enemyFillRatio = 1.0f - (this.enemyCount / GetAverageFloorSize());
         float enemyChance = 80.0f * enemyFillRatio;
-        float randAmount = Random.Range(0.0f, 100.0f);
-        if (randAmount <= enemyChance)
+        randAmount = Random.Range(0.0f, 100.0f);
+        if (randAmount < enemyChance)
         {
             this.enemyCount++;
             return RoomTypes.Enemy;
@@ -162,6 +200,43 @@ public class Exploration_Layout_Manager : ManagerBehavior
         {
             return RoomTypes.Empty;
         }
+    }
+
+    private Room_Object ConvertToRoomType(Room_Object room, RoomTypes type)
+    {
+        switch (type)
+        {
+            case RoomTypes.Enemy:
+                return Enemy_Room_Object.ConvertToEnemyRoom(room);
+            case RoomTypes.Item:
+                return Item_Room_Object.ConvertToItemRoom(room);
+            default:
+                return room;
+        }
+    }
+
+    /// <summary>
+    /// Finds all the items contained on the current floor
+    /// </summary>
+    /// <returns>A list of items on the current floor</returns>
+    public List<Items> GetFloorItems()
+    {
+        List<Items> list = new List<Items>();
+
+        for (int i = 0; i < this.floorLayout.GetLength(0); i++)
+        {
+            for (int j = 0; j < this.floorLayout.GetLength(1); j++)
+            {
+                Room_Object room = this.floorLayout[i, j];
+                if (room is Item_Room_Object)
+                {
+                    Items item = ((Item_Room_Object)room).GetItem();
+                    list.Add(item);
+                }
+            }
+        }
+
+        return list;
     }
 
     public Vector2Int GetStartingCoords()

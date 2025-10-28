@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EnemyRoom.unity
     guid: ec1b99e13d2dde44f92ab7961f8621dd
+  - enabled: 1
+    path: Assets/Scenes/ItemRoom.unity
+    guid: 94e7d6d64a3b9754db0632698ef1d55c
   m_configObjects: {}

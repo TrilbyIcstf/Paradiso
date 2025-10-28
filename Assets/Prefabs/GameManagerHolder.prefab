@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 717222405218251421}
   - component: {fileID: 3558180179293404840}
   - component: {fileID: 2475389648954751715}
+  - component: {fileID: 5976122729001831649}
   - component: {fileID: 3555046578125482734}
   - component: {fileID: 3555046578125482721}
   m_Layer: 0
@@ -76,6 +77,7 @@ MonoBehaviour:
   EL: {fileID: 717222405218251421}
   ER: {fileID: 3558180179293404840}
   EP: {fileID: 2475389648954751715}
+  EI: {fileID: 5976122729001831649}
   SF: {fileID: 0}
   STR: {fileID: 3555046578125482721}
 --- !u!114 &5069544072207160086
@@ -232,11 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1575bde31bb5541ae710c2b6542933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerItems:
-  - {fileID: 11400000, guid: fd936005e531b2048a683f3b064bacb3, type: 2}
-  - {fileID: 11400000, guid: b39581442c869b04c9b6500b1aefecb3, type: 2}
-  - {fileID: 11400000, guid: 23593d8b14cad4f4ebee1bcfafa7197f, type: 2}
-  - {fileID: 11400000, guid: 2ad6f9c8438f93245b4b167eb795b991, type: 2}
+  playerItems: []
 --- !u!114 &717222405218251421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,6 +271,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f77533cae7fbf449d24c35edb69a77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5976122729001831649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3555046578125482706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 871c5901c343a384eaba582bce0e6753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3555046578125482734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,7 +295,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98e7e048b67ecef4a9ce6d1685ff6067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QuillCard: {fileID: 11400000, guid: c777f88b95af01d47a0e190cf5c2a35e, type: 2}
+  items:
+    _serializableList:
+    - Key: 1
+      Value: {fileID: 11400000, guid: fd936005e531b2048a683f3b064bacb3, type: 2}
+    - Key: 2
+      Value: {fileID: 11400000, guid: b39581442c869b04c9b6500b1aefecb3, type: 2}
+    - Key: 3
+      Value: {fileID: 11400000, guid: 2ad6f9c8438f93245b4b167eb795b991, type: 2}
+    - Key: 4
+      Value: {fileID: 11400000, guid: 9227990860f0d1840b2ac2b6230bc597, type: 2}
+    - Key: 5
+      Value: {fileID: 11400000, guid: 20f4d57ee3174a34baba5c0f61269477, type: 2}
+    - Key: 6
+      Value: {fileID: 11400000, guid: 23593d8b14cad4f4ebee1bcfafa7197f, type: 2}
+  quillCard: {fileID: 11400000, guid: c777f88b95af01d47a0e190cf5c2a35e, type: 2}
   wallTiles:
     _serializableList:
     - Key: 0

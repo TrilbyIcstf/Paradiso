@@ -52,7 +52,7 @@ public class Player_Manager : ManagerBehavior
         }
         return false;
     }
-    
+
     public int GetMaxHealth()
     {
         return this.maxHealth;
@@ -106,6 +106,11 @@ public class Player_Manager : ManagerBehavior
     public void SetCurrentHealth(int val)
     {
         this.currentHealth = Mathf.Min(val, this.maxHealth);
+    }
+
+    public void AddItem(Item_Base item)
+    {
+        this.playerItems.Add(item);
     }
 
     public void TestRandomDeck(int size)
