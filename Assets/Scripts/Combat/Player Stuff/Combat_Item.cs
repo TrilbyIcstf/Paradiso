@@ -28,7 +28,7 @@ public class Combat_Item : ManagerBehavior
         GameManager.instance.CPI.SetItemSlot(gameObject, this.position);
         if (this.item != null)
         {
-            this.itemSprite.sprite = this.item.sprite;
+            this.itemSprite.sprite = this.item.GetSprite();
         }
     }
 
@@ -92,7 +92,7 @@ public class Combat_Item : ManagerBehavior
         }
     }
 
-    public Item_Active GetItem()
+    public Item_Active GetBase()
     {
         return this.item;
     }
@@ -103,7 +103,7 @@ public class Combat_Item : ManagerBehavior
 
         if (this.item != null)
         {
-            this.itemSprite.sprite = this.item.sprite;
+            this.itemSprite.sprite = this.item.GetSprite();
         }
     }
 

@@ -7,7 +7,27 @@ using UnityEngine;
 /// </summary>
 public class Item_Base : ScriptableObject
 {
-    public Items item;
-    public string itemName;
-    public Sprite sprite;
+    [SerializeField]
+    protected Items item;
+
+    [SerializeField]
+    protected string itemName;
+
+    [SerializeField]
+    protected Sprite sprite;
+
+    public Items GetItem()
+    {
+        return this.item;
+    }
+
+    public string GetName()
+    {
+        return this.itemName;
+    }
+
+    public Sprite GetSprite()
+    {
+        return this.sprite;
+    }
 }

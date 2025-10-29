@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Linq;
-using UnityEngine;
 
 public class Exploration_Item_Manager : ManagerBehavior
 {
@@ -10,13 +8,22 @@ public class Exploration_Item_Manager : ManagerBehavior
 
     public Items ChooseNewItem()
     {
-        List<Items> playerItems = GM.PM.GetItems().Select(i => i.item).ToList();
+        List<Items> playerItems = GM.PM.GetItems().Select(i => i.GetItem()).ToList();
         List<Items> mapItems = GM.EL.GetFloorItems();
 
-        List<Items> existingItems = playerItems;
-        existingItems.Concat(mapItems);
+        List<Items> existingItems = playerItems.Concat(mapItems).ToList();
 
-        return Items.AGun;
+        List<Items> viableItems = ItemMethods.GetItemRoomViableList();
+        List<Items> remainingItems = viableItems.Except(existingItems).ToList();
+
+        if (remainingItems.Count == 0)
+        {
+            return Items.Default;
+        }
+
+        int randPos = UnityEngine.Random.Range(0, remainingItems.Count);
+
+        return remainingItems[randPos];
     }
 
     public void RemoveAvailableItem(Items val)

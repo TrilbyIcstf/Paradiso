@@ -27,9 +27,9 @@ public class Player_Manager : ManagerBehavior
         List<Item_Passive> passiveItems = GetPassiveItems().Where(i => i.IsCorrectTiming(timing)).ToList();
         foreach (Item_Passive item in passiveItems)
         {
-            if (GM.IBM.WillTriggerPassive(item.item, passParams))
+            if (GM.IBM.WillTriggerPassive(item.GetItem(), passParams))
             {
-                GM.IBM.TriggerPassiveItem(item.item, passParams);
+                GM.IBM.TriggerPassiveItem(item.GetItem(), passParams);
             }
         }
     }
@@ -45,7 +45,7 @@ public class Player_Manager : ManagerBehavior
         List<Item_Passive> passiveItems = GetPassiveItems().Where(i => i.IsCorrectTiming(timing)).ToList();
         foreach (Item_Passive item in passiveItems)
         {
-            if (GM.IBM.WillTriggerPassive(item.item, passParams))
+            if (GM.IBM.WillTriggerPassive(item.GetItem(), passParams))
             {
                 return true;
             }

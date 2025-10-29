@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System;
+using System.Linq;
 using UnityEngine;
 
 public enum CardElement
@@ -84,6 +85,23 @@ public static class ItemMethods {
                 return false;
             default:
                 return false;
+        }
+    }
+
+    public static List<Items> GetItemRoomViableList()
+    {
+        return Enum.GetValues(typeof(Items)).Cast<Items>().Where(i => i.IsItemRoomViable()).ToList();
+    }
+
+    private static bool IsItemRoomViable(this Items item)
+    {
+        switch (item)
+        {
+            case Items.AGun:
+            case Items.Default:
+                return false;
+            default:
+                return true;
         }
     }
 }

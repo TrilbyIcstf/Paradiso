@@ -134,6 +134,12 @@ public class Combat_Player_Stats_Manager : Stats_Manager
         return this.currentEnergy >= this.maxEnergy;
     }
 
+    public void MaxEnergy()
+    {
+        this.currentEnergy = this.maxEnergy;
+        NotifyEnergyUpdated();
+    }
+
     public override bool SubtractEnergy(float val, bool delay)
     {
         this.currentEnergy = Mathf.Max(this.currentEnergy - val, 0);

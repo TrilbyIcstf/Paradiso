@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
     public void EndCombat()
     {
         this.PM.SetCurrentHealth((int)this.CPS.GetCurrentHealth());
+        this.CPS.MaxEnergy();
         ToggleCombatUpdates(false);
         this.TR.UnloadScene("TestCombat", () => {
             this.CPH.ResetHand();
