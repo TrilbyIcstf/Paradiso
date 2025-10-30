@@ -48,7 +48,7 @@ public class Combat_Card_Effect_Manager : ManagerBehavior
     /// <param name="isPlayer">If it's the player triggering the effect</param>
     private IEnumerator QuillsEffect(GameObject card, CardEffectParameters effParams, bool isPlayer)
     {
-        Card_Base quill = Static_Object_Manager.instance.quillCard;
+        Card_Base quill = Static_Object_Manager.instance.GetQuillCard();
         for (int i = 0; i < effParams.adjacency; i++)
         {
             if (isPlayer)

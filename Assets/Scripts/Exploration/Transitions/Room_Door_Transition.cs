@@ -22,6 +22,9 @@ public class Room_Door_Transition : MonoBehaviour
             } else if (newRoom.GetRoomType() == RoomTypes.Enemy)
             {
                 GameManager.instance.TR.FadeTransition("Scenes/EnemyRoom", postAction: UnlockMovement);
+            } else if (newRoom.GetRoomType() == RoomTypes.Stairs)
+            {
+                GameManager.instance.TR.FadeTransition("Scenes/StairsRoom", postAction: UnlockMovement);
             } else
             {
                 GameManager.instance.TR.FadeTransition("Scenes/TestMovementRoom", postAction: UnlockMovement);

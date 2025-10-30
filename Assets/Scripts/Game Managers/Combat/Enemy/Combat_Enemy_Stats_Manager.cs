@@ -57,7 +57,6 @@ public class Combat_Enemy_Stats_Manager : Stats_Manager
 
         if (this.currentHealth <= 0)
         {
-            Enemy_Mouse_Controller.testPause = true;
             GM.EndCombat();
         }
 

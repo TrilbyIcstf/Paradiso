@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Quill
   m_EditorClassIdentifier: 
   cardName: Quill
-  power: 2
-  defense: 2
+  power: 4
+  defense: 4
   element: 3
-  effect: 0
+  effects: 

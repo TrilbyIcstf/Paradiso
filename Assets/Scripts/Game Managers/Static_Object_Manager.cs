@@ -24,7 +24,10 @@ public class Static_Object_Manager : MonoBehaviour
     public Item_Base GetItem(Items item) { return this.items[item]; }
 
     // The quill card stats used for the quill effect
-    public Card_Base quillCard;
+    [SerializeField]
+    private Card_Base quillCard;
+
+    public Card_Base GetQuillCard() { return Instantiate(quillCard); }
 
     // Wall tile sprites used for exploration. May vary by floor
     [Serializable]

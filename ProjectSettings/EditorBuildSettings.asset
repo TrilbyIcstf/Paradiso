@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ItemRoom.unity
     guid: 94e7d6d64a3b9754db0632698ef1d55c
+  - enabled: 1
+    path: Assets/Scenes/StairsRoom.unity
+    guid: dadc97f784dac994b876404e6d11f1ef
   m_configObjects: {}

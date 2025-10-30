@@ -15,10 +15,13 @@ public class Room_Controller : ManagerBehavior
     [SerializeField]
     private GameObject player;
 
+    private Room_UI_Coordinator ui;
+
     private void Awake()
     {
         GM.ER.SetCurrentRoom(this);
         GM.ER.SetupCurrentRoom();
+        this.ui = GetComponent<Room_UI_Coordinator>();
     }
 
     /// <summary>
@@ -66,5 +69,10 @@ public class Room_Controller : ManagerBehavior
             if (conn.Key == Directions.None) { continue; }
             this.doorGrids[conn.Key].SetActive(conn.Value == null);
         }
+    }
+
+    public Room_UI_Coordinator GetUI()
+    {
+        return this.ui;
     }
 }

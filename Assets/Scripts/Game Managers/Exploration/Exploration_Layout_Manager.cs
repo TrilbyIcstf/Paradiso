@@ -39,8 +39,16 @@ public class Exploration_Layout_Manager : ManagerBehavior
 
     private Floors currentFloor = Floors.Demo;
 
+    public void ResetFloorGenVars()
+    {
+        this.enemyCount = 0;
+        this.itemCount = 0;
+        this.stairsGenerated = false;
+    }
+
     public void RandomizeFloor(int width, int height)
     {
+        ResetFloorGenVars();
         this.floorLayout = new Room_Object[width, height];
         this.startingPos = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
         this.currentPos = this.startingPos;
@@ -65,6 +73,9 @@ public class Exploration_Layout_Manager : ManagerBehavior
                             break;
                         case RoomTypes.Item:
                             mapRow += "I";
+                            break;
+                        case RoomTypes.Stairs:
+                            mapRow += "S";
                             break;
                         default:
                             mapRow += "O";
@@ -210,6 +221,8 @@ public class Exploration_Layout_Manager : ManagerBehavior
                 return Enemy_Room_Object.ConvertToEnemyRoom(room);
             case RoomTypes.Item:
                 return Item_Room_Object.ConvertToItemRoom(room);
+            case RoomTypes.Stairs:
+                return Stairs_Room_Object.ConvertToStairsRoom(room);
             default:
                 return room;
         }

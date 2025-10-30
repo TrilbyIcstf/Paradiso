@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Child class representing a room with a collectable item in it.
+/// Child class representing a room with a collectable item in it
 /// </summary>
 public class Item_Room_Object : Room_Object
 {

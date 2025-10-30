@@ -35,4 +35,9 @@ public class Exploration_Room_Manager : ManagerBehavior
     {
         return this.currentRoom;
     }
+
+    public Room_UI_Coordinator GetUI()
+    {
+        return this.currentRoom.GetUI();
+    }
 }
