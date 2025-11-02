@@ -9,6 +9,11 @@ public class Exploration_Layout_Manager : ManagerBehavior
 {
     /// <summary>
     /// 2D array of the floor's layout
+    /// [0,y ... x,y]
+    /// [.         .]
+    /// [.         .]
+    /// [.         .]
+    /// [0,0 ... x,0]
     /// </summary>
     private Room_Object[,] floorLayout;
 
@@ -54,6 +59,7 @@ public class Exploration_Layout_Manager : ManagerBehavior
         this.currentPos = this.startingPos;
         float startingContinuePower = GetAverageFloorSize() * 50;
         RecursiveAddRoom(this.startingPos, startingContinuePower, 80.0f, Directions.None, 0);
+        GetRoom(this.currentPos).SetEntered(true);
 
         for (int i = floorLayout.GetLength(1) - 1; i >= 0; i--)
         {
@@ -93,6 +99,11 @@ public class Exploration_Layout_Manager : ManagerBehavior
     private Room_Object RecursiveAddRoom(Vector2Int pos, float continuePercent, float splitPercent, Directions entranceDirection, int distance)
     {
         Room_Object thisRoom = new Room_Object(entranceDirection, distance);
+        if (entranceDirection != Directions.None)
+        {
+            thisRoom.AddConnection(pos + entranceDirection.NumericalDirection(), entranceDirection);
+        }
+
         this.floorLayout[pos.x, pos.y] = thisRoom;
         float randPerc = Random.Range(0.0f, 100.0f);
         do
@@ -113,8 +124,7 @@ public class Exploration_Layout_Manager : ManagerBehavior
 
                 Vector2Int dir = nextDir.NumericalDirection();
                 Room_Object newRoom = RecursiveAddRoom(pos + dir, continuePercent - 50.0f, splitPercent, nextDir.OppositeDirection(), distance + 1);
-                thisRoom.AddConnection(newRoom, nextDir);
-                newRoom.AddConnection(thisRoom, nextDir.OppositeDirection());
+                thisRoom.AddConnection(pos + dir, nextDir);
 
                 if (shouldSplit)
                 {
@@ -124,8 +134,7 @@ public class Exploration_Layout_Manager : ManagerBehavior
 
                     Vector2Int split = splitDir.NumericalDirection();
                     Room_Object splitRoom = RecursiveAddRoom(pos + split, continuePercent - 50.0f, splitPercent, splitDir.OppositeDirection(), distance + 1);
-                    thisRoom.AddConnection(splitRoom, splitDir);
-                    splitRoom.AddConnection(thisRoom, splitDir.OppositeDirection());
+                    thisRoom.AddConnection(pos + split, splitDir);
                 }
             }
         } while (false);
@@ -175,6 +184,7 @@ public class Exploration_Layout_Manager : ManagerBehavior
         Vector2Int dirVect = dir.NumericalDirection();
         this.currentPos += dirVect;
         GM.ER.EnteredDirection = dir;
+        GetRoom(this.currentPos).SetEntered(true);
         return GetCurrentRoom();
     }
 
@@ -202,7 +212,7 @@ public class Exploration_Layout_Manager : ManagerBehavior
         }
         float enemyFillRatio = 1.0f - (this.enemyCount / GetAverageFloorSize());
         float enemyChance = 80.0f * enemyFillRatio;
-        randAmount = Random.Range(0.0f, 100.0f);
+        randAmount = 100; //Random.Range(0.0f, 100.0f);
         if (randAmount < enemyChance)
         {
             this.enemyCount++;
@@ -281,6 +291,16 @@ public class Exploration_Layout_Manager : ManagerBehavior
     private float GetAverageFloorSize()
     {
         return (this.floorLayout.GetLength(0) + this.floorLayout.GetLength(1)) / 2;
+    }
+
+    public int GetFloorWidth()
+    {
+        return this.floorLayout.GetLength(0);
+    }
+
+    public int GetFloorHeight()
+    {
+        return this.floorLayout.GetLength(1);
     }
 
     public Floors GetFloor()
