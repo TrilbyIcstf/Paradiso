@@ -13,6 +13,9 @@ public class Minimap_Maker : ManagerBehavior
     private RoomExpLevels[,] floorLayout;
 
     [SerializeField]
+    GameObject minimapCamera;
+
+    [SerializeField]
     private Sprite enteredRoom;
     [SerializeField]
     private Sprite hiddenRoom;
@@ -70,6 +73,14 @@ public class Minimap_Maker : ManagerBehavior
         tempRoom.transform.position = mapPos;
 
         tempRoom.GetComponent<Image>().sprite = sprite;
+
+        if (pos == GM.EL.GetPos())
+        {
+            Vector3 cameraPos = this.minimapCamera.transform.position;
+            cameraPos.x = tempRoom.transform.position.x;
+            cameraPos.y = tempRoom.transform.position.y;
+            this.minimapCamera.transform.position = cameraPos;
+        }
     }
 
     private void AddConnection(Vector2Int pos, Directions direction)

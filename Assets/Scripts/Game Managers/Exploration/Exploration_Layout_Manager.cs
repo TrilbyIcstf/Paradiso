@@ -277,6 +277,11 @@ public class Exploration_Layout_Manager : ManagerBehavior
         return GetRoom(this.startingPos);
     }
 
+    public Vector2Int GetPos()
+    {
+        return this.currentPos;
+    }
+
     public Room_Object GetCurrentRoom()
     {
         return GetRoom(this.currentPos);
