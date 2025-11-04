@@ -5,19 +5,29 @@ using UnityEngine;
 /// <summary>
 /// Handles UI elements in exploration environments
 /// </summary>
-public class Room_UI_Coordinator : MonoBehaviour
+public class Room_UI_Coordinator : ManagerBehavior
 {
     [SerializeField]
     private Item_Pickup_Box_Controller itemPickupBox;
+    [SerializeField]
+    private Active_Item_Discard_Controller activeDiscardBox;
 
     public void OnItemPickup(Item_Base item)
     {
         this.itemPickupBox.SetTextBox(item);
-        GameManager.instance.EP.SetMovementLock(true);
+        GM.EP.SetMovementLock(true);
     }
 
-    public void OnDismissItemPickup()
+    public void OnAcceptItemPickup()
     {
-        GameManager.instance.EP.SetMovementLock(false);
+        if (GM.PM.IsTentativeActive() && GM.PM.GetActiveItems().Count >= 3)
+        {
+            Item_Active pickupItem = GM.PM.GetTentativeActive();
+            this.activeDiscardBox.SetupDiscard(pickupItem);
+        } else
+        {
+            GM.PM.AddTentativeItem();
+            GM.EP.SetMovementLock(false);
+        }
     }
 }

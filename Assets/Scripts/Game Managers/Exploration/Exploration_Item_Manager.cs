@@ -10,8 +10,9 @@ public class Exploration_Item_Manager : ManagerBehavior
     {
         List<Items> playerItems = GM.PM.GetItems().Select(i => i.GetItem()).ToList();
         List<Items> mapItems = GM.EL.GetFloorItems();
+        List<Items> discardedItems = GM.PM.GetDiscardedItems();
 
-        List<Items> existingItems = playerItems.Concat(mapItems).ToList();
+        List<Items> existingItems = playerItems.Concat(mapItems).Concat(discardedItems).ToList();
 
         List<Items> viableItems = ItemMethods.GetItemRoomViableList();
         List<Items> remainingItems = viableItems.Except(existingItems).ToList();

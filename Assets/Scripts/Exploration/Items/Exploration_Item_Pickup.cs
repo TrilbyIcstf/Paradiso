@@ -24,7 +24,7 @@ public class Exploration_Item_Pickup : MonoBehaviour
             Destroy(gameObject);
             Item_Room_Object currentRoom = CurrentRoom();
             Item_Base itemStats = Static_Object_Manager.instance.GetItem(currentRoom.GetItem());
-            GameManager.instance.PM.AddItem(itemStats);
+            GameManager.instance.PM.SetTentativeItem(itemStats);
             GameManager.instance.ER.GetUI().OnItemPickup(itemStats);
             currentRoom.SetItemTaken(true);
         }

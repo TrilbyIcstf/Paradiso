@@ -212,7 +212,7 @@ public class Exploration_Layout_Manager : ManagerBehavior
         }
         float enemyFillRatio = 1.0f - (this.enemyCount / GetAverageFloorSize());
         float enemyChance = 80.0f * enemyFillRatio;
-        randAmount = Random.Range(0.0f, 100.0f);
+        randAmount = 100;// Random.Range(0.0f, 100.0f);
         if (randAmount < enemyChance)
         {
             this.enemyCount++;

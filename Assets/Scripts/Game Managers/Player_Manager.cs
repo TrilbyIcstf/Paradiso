@@ -13,6 +13,9 @@ public class Player_Manager : ManagerBehavior
 
     [SerializeField]
     private List<Item_Base> playerItems = new List<Item_Base>();
+    private List<Items> discardedItems = new List<Items>();
+    // Tracks a picked up item that hasn't been accepted yet
+    private Item_Base tentativeItem;
 
     private Dictionary<string, Card_Base> playerDeck = new Dictionary<string, Card_Base>();
     private int deckIDCounter = 0;
@@ -78,6 +81,30 @@ public class Player_Manager : ManagerBehavior
         return this.playerItems.Where(i => i is Item_Passive).Select(i => (Item_Passive)i).ToList();
     }
 
+    public Item_Base GetTentativeItem()
+    {
+        return this.tentativeItem;
+    }
+
+    public Item_Active GetTentativeActive()
+    {
+        if (this.tentativeItem is Item_Active)
+        {
+            return (Item_Active)this.tentativeItem;
+        }
+        return null;
+    }
+
+    public bool IsTentativeActive()
+    {
+        return this.tentativeItem is Item_Active;
+    }
+
+    public List<Items> GetDiscardedItems()
+    {
+        return this.discardedItems;
+    }
+
     public List<Card_Base> GetDeck()
     {
         return this.playerDeck.Values.ToList();
@@ -111,6 +138,35 @@ public class Player_Manager : ManagerBehavior
     public void AddItem(Item_Base item)
     {
         this.playerItems.Add(item);
+    }
+
+    public void SetTentativeItem(Item_Base item)
+    {
+        this.tentativeItem = item;
+    }
+
+    public void AddTentativeItem()
+    {
+        this.playerItems.Add(this.tentativeItem);
+        this.tentativeItem = null;
+    }
+
+    public void DiscardTentativeItem()
+    {
+        this.discardedItems.Add(this.tentativeItem.GetItem());
+        this.tentativeItem = null;
+    }
+
+    public void DiscardForTentativeItem(Items discardItem)
+    {
+        Item_Base itemToDiscard = this.playerItems.FirstOrDefault(i => i.GetItem() == discardItem);
+
+        if (itemToDiscard != null)
+        {
+            this.discardedItems.Add(discardItem);
+            this.playerItems.Remove(itemToDiscard);
+            AddTentativeItem();
+        }
     }
 
     public void TestRandomDeck(int size)

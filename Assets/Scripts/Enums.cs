@@ -97,7 +97,6 @@ public static class ItemMethods {
     {
         switch (item)
         {
-            case Items.AGun:
             case Items.Default:
                 return false;
             default:
