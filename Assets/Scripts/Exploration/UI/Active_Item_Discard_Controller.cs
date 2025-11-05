@@ -27,4 +27,21 @@ public class Active_Item_Discard_Controller : MonoBehaviour
 
         gameObject.SetActive(true);
     }
+
+    public void ItemChosen(Active_Item_Discard_Holder holder)
+    {
+        int pos = holder.GetPos();
+        Items item = holder.GetItemType();
+
+        if (pos <= 2)
+        {
+            GameManager.instance.PM.DiscardForTentativeItem(item);
+        } else
+        {
+            GameManager.instance.PM.DiscardTentativeItem();
+        }
+
+        GameManager.instance.EP.SetMovementLock(false);
+        gameObject.SetActive(false);
+    }
 }

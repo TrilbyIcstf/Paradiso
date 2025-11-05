@@ -33,6 +33,12 @@ public class Combat_Player_Stats_Manager : Stats_Manager
         this.currentHealth = current;
     }
 
+    public void InitializeEnergy(int max)
+    {
+        this.maxEnergy = max;
+        this.currentEnergy = max;
+    }
+
     public override bool DealDamage(float amount)
     {
         this.currentHealth -= amount;

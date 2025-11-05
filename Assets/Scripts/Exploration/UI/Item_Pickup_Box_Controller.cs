@@ -20,7 +20,7 @@ public class Item_Pickup_Box_Controller : MonoBehaviour
     public void SetTextBox(Item_Base item)
     {
         this.itemTitle.text = item.GetName();
-        this.itemDescription.text = GameManager.instance.STR.GetItemDescription(item.GetItem()).description;
+        this.itemDescription.text = GameManager.instance.STR.GetItemDescription(item.GetItemType()).description;
         this.itemSprite.sprite = item.GetSprite();
 
         gameObject.SetActive(true);

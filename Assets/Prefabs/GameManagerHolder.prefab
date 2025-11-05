@@ -309,6 +309,10 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 20f4d57ee3174a34baba5c0f61269477, type: 2}
     - Key: 6
       Value: {fileID: 11400000, guid: 23593d8b14cad4f4ebee1bcfafa7197f, type: 2}
+    - Key: 7
+      Value: {fileID: 11400000, guid: 590339ae25115774cad5d58ed83e9675, type: 2}
+    - Key: 8
+      Value: {fileID: 11400000, guid: 4b2958d3f7d76da46ad0882c31aabf3e, type: 2}
   quillCard: {fileID: 11400000, guid: c777f88b95af01d47a0e190cf5c2a35e, type: 2}
   wallTiles:
     _serializableList:
@@ -360,3 +364,7 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 8f7f9ad461f98fd43892d86545e42388, type: 2}
     - Key: 6
       Value: {fileID: 11400000, guid: c67105a61c2ead7468b8c32dfc69b0da, type: 2}
+    - Key: 7
+      Value: {fileID: 11400000, guid: 6699f24c4eff3234eb00358148c5ba0a, type: 2}
+    - Key: 8
+      Value: {fileID: 11400000, guid: 88878a0fde1f869418db8e2d270a8491, type: 2}

@@ -8,7 +8,7 @@ public class Exploration_Item_Manager : ManagerBehavior
 
     public Items ChooseNewItem()
     {
-        List<Items> playerItems = GM.PM.GetItems().Select(i => i.GetItem()).ToList();
+        List<Items> playerItems = GM.PM.GetItems().Select(i => i.GetItemType()).ToList();
         List<Items> mapItems = GM.EL.GetFloorItems();
         List<Items> discardedItems = GM.PM.GetDiscardedItems();
 

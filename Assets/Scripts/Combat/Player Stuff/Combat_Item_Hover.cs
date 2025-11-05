@@ -68,7 +68,7 @@ public class Combat_Item_Hover : MonoBehaviour
             mousePos.z = 0;
             this.tempInfoBox = Instantiate(infoBox, mousePos, Quaternion.identity);
             Effect_Info_Box boxScript = this.tempInfoBox.GetComponent<Effect_Info_Box>();
-            Item_Description item = GameManager.instance.STR.GetItemDescription(this.itemHolder.GetBase().GetItem());
+            Item_Description item = GameManager.instance.STR.GetItemDescription(this.itemHolder.GetBase().GetItemType());
             boxScript.UpdateText(item);
             this.tempInfoBox.SetActive(true);
         }

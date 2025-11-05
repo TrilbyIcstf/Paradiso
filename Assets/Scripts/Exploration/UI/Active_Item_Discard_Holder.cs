@@ -18,8 +18,8 @@ public class Active_Item_Discard_Holder : Item_Holder
         this.itemImage.sprite = item.GetSprite();
     }
 
-    private void OnMouseDown()
+    public int GetPos()
     {
-        
+        return this.pos;
     }
 }

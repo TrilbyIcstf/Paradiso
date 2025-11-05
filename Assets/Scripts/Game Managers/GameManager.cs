@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
     {
         ToggleCombatUpdates(true);
         this.CPS.InitializeHealth(this.PM.GetMaxHealth(), this.PM.GetCurrentHealth());
+        this.CPS.InitializeEnergy(this.PM.GetMaxEnergy());
         this.CPD.SetDeck(this.PM.GetDeck());
         this.CPD.ShuffleDeck();
 
@@ -75,7 +76,7 @@ public class GameManager : MonoBehaviour
     public void EndCombat()
     {
         this.PM.SetCurrentHealth((int)this.CPS.GetCurrentHealth());
-        this.CPS.MaxEnergy();
+        this.PM.ActivatePassiveItems(EffectTiming.CombatEnd, null);
         ToggleCombatUpdates(false);
         this.TR.UnloadScene("TestCombat", () => {
             this.CPH.ResetHand();

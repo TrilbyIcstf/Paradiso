@@ -11,6 +11,8 @@ public class Player_Manager : ManagerBehavior
     private int maxHealth = 300;
     private int currentHealth = 300;
 
+    private int maxEnergy = 30;
+
     [SerializeField]
     private List<Item_Base> playerItems = new List<Item_Base>();
     private List<Items> discardedItems = new List<Items>();
@@ -30,9 +32,9 @@ public class Player_Manager : ManagerBehavior
         List<Item_Passive> passiveItems = GetPassiveItems().Where(i => i.IsCorrectTiming(timing)).ToList();
         foreach (Item_Passive item in passiveItems)
         {
-            if (GM.IBM.WillTriggerPassive(item.GetItem(), passParams))
+            if (GM.IBM.WillTriggerPassive(item.GetItemType(), passParams))
             {
-                GM.IBM.TriggerPassiveItem(item.GetItem(), passParams);
+                GM.IBM.TriggerPassiveItem(item.GetItemType(), passParams);
             }
         }
     }
@@ -48,7 +50,7 @@ public class Player_Manager : ManagerBehavior
         List<Item_Passive> passiveItems = GetPassiveItems().Where(i => i.IsCorrectTiming(timing)).ToList();
         foreach (Item_Passive item in passiveItems)
         {
-            if (GM.IBM.WillTriggerPassive(item.GetItem(), passParams))
+            if (GM.IBM.WillTriggerPassive(item.GetItemType(), passParams))
             {
                 return true;
             }
@@ -64,6 +66,11 @@ public class Player_Manager : ManagerBehavior
     public int GetCurrentHealth()
     {
         return this.currentHealth;
+    }
+
+    public int GetMaxEnergy()
+    {
+        return this.maxEnergy;
     }
 
     public List<Item_Base> GetItems()
@@ -135,9 +142,25 @@ public class Player_Manager : ManagerBehavior
         this.currentHealth = Mathf.Min(val, this.maxHealth);
     }
 
+    public void AddMaxHealth(int val)
+    {
+        this.maxHealth += val;
+    }
+
+    public void HealHealth(int val)
+    {
+        this.currentHealth = Mathf.Min(this.currentHealth + val, this.maxHealth);
+    }
+
+    public void AddMaxEnergy(int val)
+    {
+        this.maxEnergy += val;
+    }
+
     public void AddItem(Item_Base item)
     {
         this.playerItems.Add(item);
+        TriggerPickupPassive(item.GetItemType());
     }
 
     public void SetTentativeItem(Item_Base item)
@@ -148,18 +171,24 @@ public class Player_Manager : ManagerBehavior
     public void AddTentativeItem()
     {
         this.playerItems.Add(this.tentativeItem);
+        TriggerPickupPassive(this.tentativeItem.GetItemType());
         this.tentativeItem = null;
+    }
+
+    private void TriggerPickupPassive(Items item)
+    {
+        GM.IBM.TriggerItemPickup(item, null);
     }
 
     public void DiscardTentativeItem()
     {
-        this.discardedItems.Add(this.tentativeItem.GetItem());
+        this.discardedItems.Add(this.tentativeItem.GetItemType());
         this.tentativeItem = null;
     }
 
     public void DiscardForTentativeItem(Items discardItem)
     {
-        Item_Base itemToDiscard = this.playerItems.FirstOrDefault(i => i.GetItem() == discardItem);
+        Item_Base itemToDiscard = this.playerItems.FirstOrDefault(i => i.GetItemType() == discardItem);
 
         if (itemToDiscard != null)
         {

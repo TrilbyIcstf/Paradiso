@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33c118f46eaa39941a4f72f5e8884351, type: 3}
-  m_Name: Test Cheap Draw
+  m_Script: {fileID: 11500000, guid: b39a77543a5fecf43ad89c1b931702d1, type: 3}
+  m_Name: Bandage Script
   m_EditorClassIdentifier: 
-  item: 2
-  itemName: Mana Rune
-  sprite: {fileID: 21300000, guid: d54f014b48e71c5458654071d8a1c9ab, type: 3}
-  energyCost: 4
-  cooldown: 8
+  item: 7
+  title: Bandage
+  description: Restores a small amount of life after each battle.
+  itemSprite: {fileID: 21300000, guid: fbc34f844b2669b4cb8ee17eaea392ee, type: 3}

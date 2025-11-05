@@ -15,4 +15,4 @@ MonoBehaviour:
   item: 3
   title: A Gun
   description: Shoot the enemy. Deals damage.
-  itemSprite: {fileID: 21300000, guid: f33bf7fe1a359f941bac6d9414e21ccf, type: 3}
+  itemSprite: {fileID: 21300000, guid: 8ea5cc962982feb49abf7e0389f29d5c, type: 3}

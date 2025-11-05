@@ -15,4 +15,4 @@ MonoBehaviour:
   item: 6
   title: Solidifier
   description: Each time you play a card, permanently increase its defense by 1.
-  itemSprite: {fileID: 21300000, guid: f33bf7fe1a359f941bac6d9414e21ccf, type: 3}
+  itemSprite: {fileID: 21300000, guid: 261b6830cd375c44da6ee39040322b9e, type: 3}

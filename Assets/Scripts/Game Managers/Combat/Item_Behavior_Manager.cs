@@ -59,6 +59,21 @@ public class Item_Behavior_Manager : ManagerBehavior
                     GM.PM.UpdateCard(cardStats.GetID(), cardStats);
                 }
                 break;
+            case Items.Bandage:
+                GM.PM.HealHealth(25);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void TriggerItemPickup(Items item, PassiveEffectParameters passParams)
+    {
+        switch (item)
+        {
+            case Items.CrystalBall:
+                GM.PM.AddMaxEnergy(10);
+                break;
             default:
                 break;
         }
@@ -101,6 +116,9 @@ public class Item_Behavior_Manager : ManagerBehavior
     {
         switch (item)
         {
+            case Items.CrystalBall:
+            case Items.Bandage:
+                return true;
             case Items.Antiquifier:
                 return passParams.triggeredCard != null;
             case Items.Solidifier:

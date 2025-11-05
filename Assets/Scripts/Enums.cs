@@ -51,12 +51,14 @@ public static class ElementMethods
 
 public enum EffectTiming
 {
+    Pickup,
     Draw,
     CardScoredBefore,
     CardScoredAfter,
     ItemUsed,
     DamageDealt,
-    DamageTaken
+    DamageTaken,
+    CombatEnd
 }
 
 public enum Items
@@ -67,7 +69,9 @@ public enum Items
     AGun,
     PageRipper,
     Antiquifier,
-    Solidifier
+    Solidifier,
+    Bandage,
+    CrystalBall
 }
 
 public static class ItemMethods { 

@@ -16,7 +16,7 @@ public class Item_Base : ScriptableObject
     [SerializeField]
     protected Sprite sprite;
 
-    public Items GetItem()
+    public Items GetItemType()
     {
         return this.item;
     }
