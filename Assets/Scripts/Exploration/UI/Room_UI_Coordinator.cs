@@ -11,6 +11,12 @@ public class Room_UI_Coordinator : ManagerBehavior
     private Item_Pickup_Box_Controller itemPickupBox;
     [SerializeField]
     private Active_Item_Discard_Controller activeDiscardBox;
+    [SerializeField]
+    private Minimap_UI_Controller minimap;
+    [SerializeField]
+    private Inventory_Button_Controller inventoryButton;
+    [SerializeField]
+    private Inventory_Box_Controller inventoryBox;
 
     public void OnItemPickup(Item_Base item)
     {
@@ -29,5 +35,13 @@ public class Room_UI_Coordinator : ManagerBehavior
             GM.PM.AddTentativeItem();
             GM.EP.SetMovementLock(false);
         }
+    }
+
+    public void OpenInventory()
+    {
+        this.minimap.SetVisible(false);
+        this.inventoryButton.SetVisible(false);
+
+        this.inventoryBox.SetVisible(true);
     }
 }
