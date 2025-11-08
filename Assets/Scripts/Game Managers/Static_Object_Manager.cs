@@ -49,4 +49,11 @@ public class Static_Object_Manager : MonoBehaviour
     [SerializeField]
     private LockTiles lockTiles;
     public TileBase GetLockTile(Floors floor) { return this.lockTiles[floor]; }
+
+    // Elemental icons
+    [Serializable]
+    public class ElementIcons : SerializableDictionary<CardElement, Sprite> { }
+    [SerializeField]
+    private ElementIcons elementIcons;
+    public Sprite GetElementIcon(CardElement element) { return this.elementIcons[element]; }
 }

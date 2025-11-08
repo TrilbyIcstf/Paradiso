@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Controls the inventory window during exploration.
@@ -11,6 +12,9 @@ public class Inventory_Box_Controller : MonoBehaviour
 
     [SerializeField]
     private GameObject innerBox;
+
+    [SerializeField]
+    private ScrollRect scrollRect;
 
     // UI variables for the deck
     private const int CardsPerRow = 5;
@@ -46,7 +50,18 @@ public class Inventory_Box_Controller : MonoBehaviour
 
         for (int i = 0; i < playerDeck.Count; i++)
         {
+            Card_Base deckCard = playerDeck[i];
             GameObject tempCard = Instantiate(this.cardBase, this.innerBox.transform);
+            Card_UI_Controller tempController = tempCard.GetComponent<Card_UI_Controller>();
+            tempController.SetPower(deckCard.GetPower());
+            tempController.SetDefense(deckCard.GetDefense());
+            tempController.SetElement(deckCard.GetElement());
+            tempController.SetEffects(deckCard.GetEffects());
+            Inventory_Mouse_Hover_Card hoverScript = tempCard.GetComponent<Inventory_Mouse_Hover_Card>();
+            hoverScript.SetBaseStats(deckCard);
+            ScrollRect_Drag_Handler dragHandler = tempCard.GetComponent<ScrollRect_Drag_Handler>();
+            dragHandler.SetScrollRect(this.scrollRect);
+
             this.deckCards.Add(tempCard);
         }
 
@@ -89,12 +104,34 @@ public class Inventory_Box_Controller : MonoBehaviour
         rectBox.sizeDelta = new Vector2(rect.width, totalHeight);
     }
 
+    private void DestroyTempCards()
+    {
+        for (int i = 0; i < this.deckCards.Count; i += 0)
+        {
+            GameObject card = this.deckCards[i];
+            this.deckCards.Remove(card);
+            Destroy(card);
+        }
+    }
+
     private void SetupItems()
     {
 
     }
 
-    public void SetVisible(bool val)
+    public void OpenInventory()
+    {
+        SetVisible(true);
+        SetupMode();
+    }
+
+    public void CloseInventory()
+    {
+        DestroyTempCards();
+        SetVisible(false);
+    }
+
+    private void SetVisible(bool val)
     {
         gameObject.SetActive(val);
     }

@@ -2,16 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Handles displaying additional information when the player hovers over a card with the mouse
-/// </summary>
-public class Mouse_Hover_Card : ManagerBehavior
+public abstract class Mouse_Hover_Card : ManagerBehavior
 {
     [SerializeField]
     private GameObject infoBox;
-
-    [SerializeField]
-    private Active_Card cardStats;
 
     [SerializeField]
     private bool isPlayerCard;
@@ -34,9 +28,9 @@ public class Mouse_Hover_Card : ManagerBehavior
         DestroyBox();
     }
 
-    private void OnMouseEnter()
+    protected void MouseEnter()
     {
-        if (this.cardStats.GetEffects().Count == 0) { return; }
+        if (GetEffects().Count == 0) { return; }
         if (this.hoverCoroutine != null)
         {
             StopCoroutine(hoverCoroutine);
@@ -44,7 +38,7 @@ public class Mouse_Hover_Card : ManagerBehavior
         this.hoverCoroutine = StartCoroutine(DisplayInfoOnHover());
     }
 
-    private void OnMouseExit()
+    protected void MouseExit()
     {
         DestroyBox();
     }
@@ -69,7 +63,7 @@ public class Mouse_Hover_Card : ManagerBehavior
         yield return new WaitForSeconds(this.hoverDuration);
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
-        List<CardEffects> effectList = this.cardStats.GetEffects();
+        List<CardEffects> effectList = GetEffects();
         for (int i = 0; i < effectList.Count; i++)
         {
             GameObject newBox = Instantiate(infoBox, mousePos, Quaternion.identity);
@@ -80,4 +74,6 @@ public class Mouse_Hover_Card : ManagerBehavior
             this.tempInfoBoxes.Add(newBox);
         }
     }
+
+    protected abstract List<CardEffects> GetEffects();
 }

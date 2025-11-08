@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2080148368728023531}
   - component: {fileID: 7223437327504582860}
   - component: {fileID: 3916391363717354795}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Effect Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 3794010461958592368}
   - component: {fileID: 1046226158454125867}
   - component: {fileID: 7856966257059021864}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1197725447359590684}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
@@ -190,7 +190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6915156343893323945}
   - component: {fileID: 407264061922379023}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Effect Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 8232163470609855086}
   - component: {fileID: 6744399621552882770}
   - component: {fileID: 8602070584148184030}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Effect Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 4552180020137425226}
   - component: {fileID: 4552180020137425205}
   - component: {fileID: 6489934052118496195}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: InfoBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}

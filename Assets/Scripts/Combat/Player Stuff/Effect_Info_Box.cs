@@ -20,7 +20,17 @@ public class Effect_Info_Box : MonoBehaviour
 
     private int pos = 0;
 
+    private void Awake()
+    {
+        SetPos();
+    }
+
     private void Update()
+    {
+        SetPos();
+    }
+
+    private void SetPos()
     {
         float halfWidth = sr.bounds.size.x / 2;
         float height = sr.bounds.size.y;

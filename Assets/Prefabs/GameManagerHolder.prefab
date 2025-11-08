@@ -326,6 +326,18 @@ MonoBehaviour:
     _serializableList:
     - Key: 0
       Value: {fileID: 11400000, guid: 9eba4dbfd322f894f8ce5a7dc0ae877c, type: 2}
+  elementIcons:
+    _serializableList:
+    - Key: 0
+      Value: {fileID: 21300000, guid: e42bc1ec3601e3f47a50cc230cf7848f, type: 3}
+    - Key: 1
+      Value: {fileID: 21300000, guid: bb8add78a63f5b843b6dfe835b31a53a, type: 3}
+    - Key: 2
+      Value: {fileID: 21300000, guid: 54970b2c23f538a4f938668bc0544400, type: 3}
+    - Key: 3
+      Value: {fileID: 21300000, guid: 1b2c6d7e0b5a24941831aced08e962cb, type: 3}
+    - Key: 4
+      Value: {fileID: 21300000, guid: d54f014b48e71c5458654071d8a1c9ab, type: 3}
 --- !u!114 &3555046578125482721
 MonoBehaviour:
   m_ObjectHideFlags: 0

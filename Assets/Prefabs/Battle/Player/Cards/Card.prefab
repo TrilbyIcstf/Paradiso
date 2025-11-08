@@ -506,8 +506,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infoBox: {fileID: 4552180020137425204, guid: b5719750722d48b45b52db3cdbd0565e, type: 3}
-  cardStats: {fileID: 4189466139966896813}
   isPlayerCard: 1
+  cardStats: {fileID: 4189466139966896813}
 --- !u!1 &4397756916184234849
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,6 +608,10 @@ PrefabInstance:
     - target: {fileID: 940597068441558547, guid: 3b4e6707504d1cb4287b43a2644151e1, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.561
+      objectReference: {fileID: 0}
+    - target: {fileID: 1070188719021002818, guid: 3b4e6707504d1cb4287b43a2644151e1, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2395720597533095618, guid: 3b4e6707504d1cb4287b43a2644151e1, type: 3}
       propertyPath: m_Layer

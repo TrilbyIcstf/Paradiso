@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Handles all UI and animations for card objects
-/// </summary>
-public class Card_UI : MonoBehaviour
+public class Card_UI_Controller : MonoBehaviour
 {
     [SerializeField]
     private Text powerText;
@@ -14,39 +11,20 @@ public class Card_UI : MonoBehaviour
     private Text defenseText;
 
     [SerializeField]
-    private SpriteRenderer cardSprite;
+    private Image elementIcon;
 
     [SerializeField]
-    private SpriteRenderer elementIcon;
-
-    /// <summary>
-    /// List of element sprites:
-    /// 0 - Nill
-    /// 1 - Fire
-    /// 2 - Wind
-    /// 3 - Earth
-    /// 4 - Water
-    /// </summary>
-    [SerializeField]
-    private List<Sprite> elementSpriteList;
-
-    [SerializeField]
-    private List<SpriteRenderer> effectIcons;
+    private List<Image> effectIcons;
 
     [SerializeField]
     private Canvas uiCanvas;
 
     private int sortingOrder = -1;
 
-    private void Awake()
-    {
-        StartCoroutine(OnSpawnInteractionDelay());
-    }
-
     /// <summary>
     /// Sets the card to interactable after a short delay. Used to prevent it from messing with mouse clicks when spawning on top of the deck.
     /// </summary>
-    private IEnumerator OnSpawnInteractionDelay()
+    public IEnumerator OnSpawnInteractionDelay()
     {
         Transform[] cardObjects = gameObject.GetComponentsInChildren<Transform>(true);
         foreach (Transform obj in cardObjects)
@@ -65,7 +43,7 @@ public class Card_UI : MonoBehaviour
     /// </summary>
     public IEnumerator EmphasizeCard()
     {
-        GameObject spriteObject = cardSprite.gameObject;
+        GameObject spriteObject = gameObject;
         Vector3 originalScale = spriteObject.transform.localScale;
         float sizeGoal = originalScale.x * 1.25f;
 
@@ -109,15 +87,7 @@ public class Card_UI : MonoBehaviour
 
     public void SetElement(CardElement val)
     {
-        this.elementIcon.sprite = val switch
-        {
-            CardElement.Nil => this.elementSpriteList[0],
-            CardElement.Fire => this.elementSpriteList[1],
-            CardElement.Wind => this.elementSpriteList[2],
-            CardElement.Earth => this.elementSpriteList[3],
-            CardElement.Water => this.elementSpriteList[4],
-            _ => this.elementSpriteList[0]
-        };
+        this.elementIcon.sprite = Static_Object_Manager.instance.GetElementIcon(val);
     }
 
     public void SetEffects(List<CardEffects> val)
@@ -142,23 +112,21 @@ public class Card_UI : MonoBehaviour
     public void SetSortingOrder(int val)
     {
         this.sortingOrder = val;
-        this.cardSprite.sortingOrder = val;
-        this.uiCanvas.sortingOrder = val;
-        this.elementIcon.sortingOrder = val;
-        foreach (SpriteRenderer icon in this.effectIcons)
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr != null)
         {
-            icon.sortingOrder = val;
+            sr.sortingOrder = val;
         }
+        this.uiCanvas.sortingOrder = val;
     }
 
     public void SetToDefaultSorting(int val)
     {
-        this.cardSprite.sortingLayerID = 0;
         this.uiCanvas.sortingLayerID = 0;
-        this.elementIcon.sortingLayerID = 0;
-        foreach (SpriteRenderer icon in this.effectIcons)
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr != null)
         {
-            icon.sortingLayerID = 0;
+            sr.sortingLayerID = 0;
         }
         SetSortingOrder(val);
     }
