@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Exploration_Generic_Item_Hover : MonoBehaviour
+public class Exploration_Generic_Item_Hover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     private GameObject infoBox;
@@ -25,8 +26,9 @@ public class Exploration_Generic_Item_Hover : MonoBehaviour
         this.hoverCoroutine = StartCoroutine(DisplayInfoOnHover());
     }
 
-    private void OnMouseEnter()
+    public void OnPointerEnter(PointerEventData eventData)
     {
+        Debug.Log("LLKJ");
         if (this.hoverCoroutine != null)
         {
             StopCoroutine(hoverCoroutine);
@@ -34,7 +36,7 @@ public class Exploration_Generic_Item_Hover : MonoBehaviour
         this.hoverCoroutine = StartCoroutine(DisplayInfoOnHover());
     }
 
-    private void OnMouseExit()
+    public void OnPointerExit(PointerEventData eventData)
     {
         DestroyBox();
     }

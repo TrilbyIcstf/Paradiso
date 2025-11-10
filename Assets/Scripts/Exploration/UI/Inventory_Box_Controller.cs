@@ -28,6 +28,15 @@ public class Inventory_Box_Controller : MonoBehaviour
     private GameObject cardBase;
 
     // UI variables for the item list
+    private const int ItemsPerRow = 3;
+    private const float ItemMarginY = 100.0f;
+    private const float ItemPaddingX = 80.0f;
+    private const float ItemPaddingY = 80.0f;
+
+    private List<GameObject> itemList = new List<GameObject>();
+
+    [SerializeField]
+    private GameObject itemBase;
 
     public void SetupMode()
     {
@@ -42,8 +51,28 @@ public class Inventory_Box_Controller : MonoBehaviour
         }
     }
 
+    public void SetDeckMode()
+    {
+        if (this.currentMode != InventoryModes.Deck)
+        {
+            this.currentMode = InventoryModes.Deck;
+            SetupMode();
+        }
+    }
+
+    public void SetItemMode()
+    {
+        if (this.currentMode != InventoryModes.Items)
+        {
+            this.currentMode = InventoryModes.Items;
+            SetupMode();
+        }
+    }
+
     private void SetupDeck()
     {
+        DestroyTempItems();
+
         List<Card_Base> playerDeck = GameManager.instance.PM.GetDeck();
 
         float boxWidth = this.innerBox.GetComponent<RectTransform>().rect.width - (CardPaddingX * 2);
@@ -86,8 +115,8 @@ public class Inventory_Box_Controller : MonoBehaviour
 
         for (int i = 0; i < this.deckCards.Count; i++)
         {
-            int collumn = i % 5;
-            int row = Mathf.FloorToInt(i / 5);
+            int collumn = i % CardsPerRow;
+            int row = Mathf.FloorToInt(i / CardsPerRow);
             highestRow = row;
 
             GameObject tempCard = this.deckCards[i];
@@ -102,6 +131,7 @@ public class Inventory_Box_Controller : MonoBehaviour
 
         Rect rect = rectBox.rect;
         rectBox.sizeDelta = new Vector2(rect.width, totalHeight);
+        this.scrollRect.verticalNormalizedPosition = 1.0f;
     }
 
     private void DestroyTempCards()
@@ -116,7 +146,71 @@ public class Inventory_Box_Controller : MonoBehaviour
 
     private void SetupItems()
     {
+        DestroyTempCards();
 
+        List<Item_Base> playerItems = GameManager.instance.PM.GetItems();
+
+        float boxWidth = this.innerBox.GetComponent<RectTransform>().rect.width - (CardPaddingX * 2);
+        for (int i = 0; i < playerItems.Count; i++)
+        {
+            Item_Base item = playerItems[i];
+            GameObject tempItem = Instantiate(this.itemBase, this.innerBox.transform);
+            Inventory_Item_Holder tempController = tempItem.GetComponent<Inventory_Item_Holder>();
+            tempController.SetupItem(item);
+            ScrollRect_Drag_Handler dragHandler = tempItem.GetComponent<ScrollRect_Drag_Handler>();
+            dragHandler.SetScrollRect(this.scrollRect);
+
+            this.itemList.Add(tempItem);
+        }
+
+        StartCoroutine(SetItemPositions());
+    }
+
+    private IEnumerator SetItemPositions()
+    {
+        yield return new WaitForEndOfFrame();
+
+        if (this.itemList.Count == 0) { yield break; }
+
+        RectTransform rectBox = this.innerBox.GetComponent<RectTransform>();
+        float boxWidth = rectBox.rect.width - (ItemPaddingX * 2);
+        GameObject firstItem = this.itemList[0];
+        float itemWidth = firstItem.GetComponent<RectTransform>().rect.width * firstItem.transform.localScale.x;
+        float itemHeight = firstItem.GetComponent<RectTransform>().rect.height * firstItem.transform.localScale.y;
+        float itemSpacingX = itemWidth + ((boxWidth - (itemWidth * ItemsPerRow)) / (ItemsPerRow - 1));
+        float itemSpacingY = itemHeight + ItemMarginY;
+
+        int highestRow = 1;
+
+        for (int i = 0; i < this.itemList.Count; i++)
+        {
+            int collumn = i % ItemsPerRow;
+            int row = Mathf.FloorToInt(i / ItemsPerRow);
+            highestRow = row;
+
+            GameObject tempItem = this.itemList[i];
+
+            Vector3 itemPos = tempItem.transform.localPosition;
+            itemPos.x += ItemPaddingX + (itemSpacingX * collumn);
+            itemPos.y -= ItemPaddingY + (itemSpacingY * row);
+            tempItem.transform.localPosition = itemPos;
+        }
+
+        float totalHeight = (itemSpacingY * highestRow) + (ItemPaddingY * 2) + itemHeight;
+
+        Rect rect = rectBox.rect;
+        rectBox.sizeDelta = new Vector2(rect.width, totalHeight);
+        this.scrollRect.verticalNormalizedPosition = 1.0f;
+    }
+
+    private void DestroyTempItems()
+    {
+        for (int i = 0; i < this.itemList.Count; i += 0)
+        {
+            GameObject item = this.itemList[i];
+            this.itemList.Remove(item);
+            Destroy(item);
+        }
     }
 
     public void OpenInventory()
@@ -128,6 +222,7 @@ public class Inventory_Box_Controller : MonoBehaviour
     public void CloseInventory()
     {
         DestroyTempCards();
+        DestroyTempItems();
         SetVisible(false);
     }
 
@@ -137,7 +232,8 @@ public class Inventory_Box_Controller : MonoBehaviour
     }
 }
 
-enum InventoryModes
+[SerializeField]
+public enum InventoryModes
 {
     Deck,
     Items
