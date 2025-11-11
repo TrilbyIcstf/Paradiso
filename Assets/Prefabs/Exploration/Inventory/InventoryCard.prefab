@@ -598,8 +598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d6001fd578d476409af9a2d9a973233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infoBox: {fileID: 4552180020137425204, guid: b5719750722d48b45b52db3cdbd0565e, type: 3}
-  cardStats: {fileID: 0}
+  infoBox: {fileID: 8525086612989131269, guid: dd23c838a7cf87a479944771b7e3fec6, type: 3}
   isPlayerCard: 1
 --- !u!1 &6495936121501275708
 GameObject:
@@ -840,5 +839,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infoBox: {fileID: 4552180020137425204, guid: b5719750722d48b45b52db3cdbd0565e, type: 3}
-  cardStats: {fileID: 0}
   isPlayerCard: 1
+  cardStats: {fileID: 0}
