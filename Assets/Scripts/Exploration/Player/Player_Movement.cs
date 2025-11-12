@@ -38,7 +38,7 @@ public class Player_Movement : MonoBehaviour
     private void FixedUpdate()
     {
         if (this.moveLocked) {
-            this.rb.velocity = Vector2.zero;
+            this.rb.linearVelocity = Vector2.zero;
             this.animator.SetBool("Walking", false);
             return; 
         }
@@ -55,7 +55,7 @@ public class Player_Movement : MonoBehaviour
         }
         this.moveTime = Mathf.Clamp(this.moveTime, 0, 1);
         this.moveSpeed = Mathf.Lerp(0.0f, this.maxMoveSpeed, this.moveTime);
-        this.rb.velocity = this.velocityDirection * this.moveSpeed;
+        this.rb.linearVelocity = this.velocityDirection * this.moveSpeed;
     }
 
     public void SetMoveLock(bool val)

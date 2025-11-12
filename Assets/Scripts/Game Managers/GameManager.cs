@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     // Singleton instance
     public static GameManager instance
     {
-        get { return GameManager._instance != null ? GameManager._instance : (GameManager)FindObjectOfType(typeof(GameManager)); }
+        get { return GameManager._instance != null ? GameManager._instance : (GameManager)FindFirstObjectByType(typeof(GameManager)); }
         set { GameManager._instance = value; }
     }
     private static GameManager _instance;
