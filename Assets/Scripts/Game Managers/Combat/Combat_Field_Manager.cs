@@ -62,6 +62,8 @@ public class Combat_Field_Manager : ManagerBehavior
 
         yield return new WaitForSeconds(1.0f);
 
+        Field_Full_Results results = new Field_Full_Results(this.playerSpaces.Length);
+
         float damageToEnemy = 0;
         float damageToPlayer = 0;
 
@@ -86,6 +88,10 @@ public class Combat_Field_Manager : ManagerBehavior
             // Play animations from calcs
             yield return StartCoroutine(GM.CUI.PlayFieldResultAnimations(i, playerResults, enemyResults));
 
+            // Add to results
+            results.SetPlayerResult(i, playerResults);
+            results.SetEnemyResult(i, enemyResults);
+
             debugPlayerAttacks += $"Card {i} deals {playerResults.totalDamage}, ";
             debugEnemyAttacks += $"Card {i} deals {enemyResults.totalDamage}, ";
 
@@ -101,6 +107,8 @@ public class Combat_Field_Manager : ManagerBehavior
 
         Debug.Log(debugPlayerAttacks);
         Debug.Log(debugEnemyAttacks);
+
+        yield return StartCoroutine(GM.CUI.PlayDamagePips(results));
 
         GM.CES.DealDamage(damageToEnemy);
         GM.CPS.DealDamage(damageToPlayer);
@@ -485,23 +493,5 @@ public class Combat_Field_Manager : ManagerBehavior
     public bool FieldLocked()
     {
         return this.fieldLocked;
-    }
-
-    public class Field_Card_Results
-    {
-        internal GameObject card;
-
-        internal List<CardEffects> effects = new List<CardEffects>();
-        internal CardEffectParameters effParams;
-
-        internal bool flashLeft = false;
-        internal bool flashMiddle = false;
-        internal bool flashRight = false;
-
-        internal bool advantage = false;
-
-        internal float totalDamage = 0;
-        internal float totalAttack = 0;
-        internal float totalDefense = 0;
     }
 }

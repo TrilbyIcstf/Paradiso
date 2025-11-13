@@ -6,27 +6,38 @@ public class Damage_Pip_Movement : MonoBehaviour
 {
     private Vector2 direction = Vector2.zero;
 
-    private Vector2 goal = Vector2.zero;
+    private Transform goal;
 
     private float speed = 12.5f;
-    private float rotSpeed = 60.0f;
+    private float rotSpeed = 90.0f;
+
+    private float rotAccel = 0;
+
+    private float lifespan = 0;
 
     private bool started = false;
 
-    public void Setup(Vector2 goal) {
+    private void Setup(Transform goal) {
         this.goal = goal;
         float randRotation = Random.Range(-10.0f, 10.0f);
 
         // Sets direction to oposite of goal
-        this.direction = ((Vector2)transform.position - goal).normalized;
+        this.direction = ((Vector2)transform.position - GoalPos()).normalized;
         this.direction = this.direction.Rotate(randRotation);
 
         this.started = true;
     }
 
-    private void Start()
+    public void SetupAttacker(Transform goal)
     {
-        Setup(new Vector2(20, 8));
+        this.rotAccel = 30.0f;
+        Setup(goal);
+    }
+
+    public void SetupDefender(Transform goal)
+    {
+        this.rotAccel = 100.0f;
+        Setup(goal);
     }
 
     private void Update()
@@ -37,8 +48,8 @@ public class Damage_Pip_Movement : MonoBehaviour
 
             // Check if at goal
             Vector3 velocity = (Vector3)this.direction * time * this.speed;
-            float dist = Vector2.Distance(this.goal, transform.position);
-            if (velocity.magnitude >= dist)
+            float dist = Vector2.Distance(GoalPos(), transform.position);
+            if (velocity.magnitude >= dist || GoalDestroyed())
             {
                 Destroy(gameObject);
             }
@@ -50,7 +61,7 @@ public class Damage_Pip_Movement : MonoBehaviour
 
             // Calculate rotation
             float rotDegrees = this.rotSpeed * time;
-            Vector2 dirToGoal = this.goal - (Vector2)transform.position;
+            Vector2 dirToGoal = GoalPos() - (Vector2)transform.position;
             float angle = Vector2.SignedAngle(this.direction, dirToGoal);
             if (Mathf.Abs(angle) <= rotDegrees)
             {
@@ -64,15 +75,30 @@ public class Damage_Pip_Movement : MonoBehaviour
             // Calculate speed changes
             if (Mathf.Abs(angle) > 90)
             {
-                this.speed = Mathf.Max(this.speed - (8.0f * time), 6.0f);
+                this.speed = Mathf.Max(this.speed - (15.0f * time), 6.0f);
             } else
             {
-                this.speed += 8.0f * time;
+                this.speed += 20.0f * time;
             }
-            this.rotSpeed += time * 30.0f;
+            this.rotSpeed += time * this.rotAccel * Mathf.Max(this.lifespan, 1.0f);
 
-            Vector3 screenMousePosition = Input.mousePosition;
-            this.goal = Camera.main.ScreenToWorldPoint(new Vector3(screenMousePosition.x, screenMousePosition.y, Camera.main.nearClipPlane + 0.1f));
+            this.lifespan += time;
         }
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.instance.CUI.GetPipController().RemovePip(gameObject);
+    }
+
+    private Vector2 GoalPos()
+    {
+        if (GoalDestroyed()) { return Vector2.zero; }
+        return this.goal.position;
+    }
+
+    private bool GoalDestroyed()
+    {
+        return this.goal == null;
     }
 }

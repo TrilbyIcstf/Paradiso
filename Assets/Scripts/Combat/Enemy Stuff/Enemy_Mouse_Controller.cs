@@ -40,6 +40,10 @@ public class Enemy_Mouse_Controller : ManagerBehavior
     private GameObject targetCard = null;
     private int targetSpace = -1;
 
+    // Variables for tracking returning state
+    private Vector2 returnPos = Vector2.zero;
+    private float returnDist = 0.05f;
+
     [SerializeField]
     private Sprite openHand;
     [SerializeField]
@@ -64,62 +68,86 @@ public class Enemy_Mouse_Controller : ManagerBehavior
         {
             // RESTING: Stay still until a certain amount of time has ellapsed 
             case MouseMovementState.RESTING:
-                this.restingTime += Time.deltaTime;
-                if (this.restingTime >= this.unrestTime)
                 {
-                    ChangeState(MouseMovementState.CHASING);
+                    this.restingTime += Time.deltaTime;
+                    if (this.restingTime >= this.unrestTime)
+                    {
+                        ChangeState(MouseMovementState.CHASING);
+                    }
+                    break;
                 }
-                break;
-
             // CHASING: Move towards target card until reached
             case MouseMovementState.CHASING:
-                if (this.targetCard == null) { return; }
-
-                Vector2 cardPos = this.targetCard.transform.position;
-                Vector2 chaseDir = (cardPos - currPos).normalized;
-                currDist = Vector2.Distance(currPos, cardPos);
-                float speedMult = Mathf.Lerp(1, 2, currDist / this.startDist);
-
-                speed = Time.deltaTime * this.chaseSpeed * speedMult;
-                speed = Mathf.Min(speed, currDist);
-
-                currPos += chaseDir * speed;
-                gameObject.transform.position = currPos;
-
-                if (Vector2.Distance(currPos, cardPos) <= this.catchDist)
                 {
-                    ChangeState(MouseMovementState.HOLDING);
-                }
-                break;
+                    if (this.targetCard == null) { return; }
 
+                    Vector2 cardPos = this.targetCard.transform.position;
+                    Vector2 chaseDir = (cardPos - currPos).normalized;
+                    currDist = Vector2.Distance(currPos, cardPos);
+                    float speedMult = Mathf.Lerp(1, 2, currDist / this.startDist);
+
+                    speed = Time.deltaTime * this.chaseSpeed * speedMult;
+                    speed = Mathf.Min(speed, currDist);
+
+                    currPos += chaseDir * speed;
+                    gameObject.transform.position = currPos;
+
+                    if (Vector2.Distance(currPos, cardPos) <= this.catchDist)
+                    {
+                        ChangeState(MouseMovementState.HOLDING);
+                    }
+                    break;
+                }
             // HOLDING: Lock card into holding and pause to decide next action
             case MouseMovementState.HOLDING:
-                this.holdTime += Time.deltaTime;
-                if (this.holdTime >= this.holdDelayTime)
                 {
-                    ChangeState(MouseMovementState.PLACING);
+                    this.holdTime += Time.deltaTime;
+                    if (this.holdTime >= this.holdDelayTime)
+                    {
+                        ChangeState(MouseMovementState.PLACING);
+                    }
+                    break;
                 }
-                break;
-
             // PLACING: Move with card towards intended location
             case MouseMovementState.PLACING:
-                if (this.targetCard == null) { return; }
-
-                Vector2 placeDir = (this.placePos - currPos).normalized;
-                currDist = Vector2.Distance(currPos, this.placePos);
-
-                speed = Time.deltaTime * this.placeSpeed;
-                speed = Mathf.Min(speed, currDist);
-
-                currPos += placeDir * speed;
-                gameObject.transform.position = currPos;
-
-                if (Vector2.Distance(currPos, this.placePos) <= this.placeDist)
                 {
-                    this.targetCard.GetComponent<Enemy_Card_Movement>().OnRelease(this.targetSpace);
-                    ChangeState(MouseMovementState.RESTING);
+                    if (this.targetCard == null) { return; }
+
+                    Vector2 placeDir = (this.placePos - currPos).normalized;
+                    currDist = Vector2.Distance(currPos, this.placePos);
+
+                    speed = Time.deltaTime * this.placeSpeed;
+                    speed = Mathf.Min(speed, currDist);
+
+                    currPos += placeDir * speed;
+                    gameObject.transform.position = currPos;
+
+                    if (Vector2.Distance(currPos, this.placePos) <= this.placeDist)
+                    {
+                        this.targetCard.GetComponent<Enemy_Card_Movement>().OnRelease(this.targetSpace);
+                        ChangeState(MouseMovementState.RETURNING);
+                    }
+                    break;
                 }
-                break;
+            // RETURNING: Move back to the hand area so it isn't blocking the card
+            case MouseMovementState.RETURNING:
+                {
+                    Vector2 moveDir = (this.returnPos - currPos).normalized;
+                    currDist = Vector2.Distance(currPos, this.returnPos);
+
+                    speed = Time.deltaTime * this.chaseSpeed;
+                    speed = Mathf.Min(speed, currDist);
+
+                    currPos += moveDir * speed;
+                    gameObject.transform.position = currPos;
+
+                    if (Vector2.Distance(currPos, this.returnPos) <= this.returnDist)
+                    {
+                        ChangeState(MouseMovementState.RESTING);
+                    }
+
+                    break;
+                }
             default:
                 break;
         }
@@ -166,6 +194,11 @@ public class Enemy_Mouse_Controller : ManagerBehavior
                     this.placePos = GM.CUI.uiCoordinator.EnemyHandArea().RandomPoint();
                 }
                 return;
+            case MouseMovementState.RETURNING:
+                this.currentState = MouseMovementState.RETURNING;
+                this.returnPos = GM.CUI.uiCoordinator.EnemyHandArea().ClosestPoint(gameObject.transform.position);
+                this.sr.sprite = this.openHand;
+                return;
             default:
                 return;
         }
@@ -195,7 +228,8 @@ public enum MouseMovementState
     CHASING,
     HOLDING,
     PLACING,
-    ORDERING
+    ORDERING,
+    RETURNING
 }
 
 public enum EnemyMouseIntent

@@ -15,6 +15,11 @@ public class UI_Coordinator : ManagerBehavior
     private GameObject playerHandArea;
     private GameObject enemyHandArea;
 
+    [SerializeField]
+    private GameObject playerSprite;
+    [SerializeField]
+    private GameObject enemySprite;
+
     public Player_Health_Bar playerHealth;
     public Enemy_Health_Bar enemyHealth;
 
@@ -36,6 +41,16 @@ public class UI_Coordinator : ManagerBehavior
     public Combat_Area_Marker EnemyHandArea()
     {
         return this.enemyHandArea.GetComponent<Combat_Area_Marker>();
+    }
+
+    public GameObject GetPlayerSpriteObject()
+    {
+        return this.playerSprite;
+    }
+
+    public GameObject GetEnemySpriteObject()
+    {
+        return this.enemySprite;
     }
 
     public void SetPlayerHandArea(GameObject val)

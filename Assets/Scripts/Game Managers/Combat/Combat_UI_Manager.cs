@@ -41,6 +41,9 @@ public class Combat_UI_Manager : ManagerBehavior
 
     public UI_Coordinator uiCoordinator;
 
+    [SerializeField]
+    private Combat_Pip_Controller pipController;
+
     /// <summary>
     /// Called when player releases hold of a card with the mouse. Sets card to new position and calls associated logic
     /// </summary>
@@ -175,7 +178,7 @@ public class Combat_UI_Manager : ManagerBehavior
     /// </summary>
     /// <param name="results">Result holder</param>
     /// <returns>If the card should be emphasized</returns>
-    private bool WillEmphasize(Combat_Field_Manager.Field_Card_Results results)
+    private bool WillEmphasize(Field_Card_Results results)
     {
         if (results.flashLeft || results.flashRight || results.flashMiddle)
         {
@@ -195,7 +198,7 @@ public class Combat_UI_Manager : ManagerBehavior
     /// <param name="results">Result holder</param>
     /// <param name="passParams">Parameters for passives</param>
     /// <returns>If the card should be emphasized</returns>
-    private bool WillEmphasize(Combat_Field_Manager.Field_Card_Results results, PassiveEffectParameters passParams)
+    private bool WillEmphasize(Field_Card_Results results, PassiveEffectParameters passParams)
     {
         if (WillEmphasize(results)) {
             return true;
@@ -215,7 +218,7 @@ public class Combat_UI_Manager : ManagerBehavior
     /// <param name="pos">The field position</param>
     /// <param name="playerResults">The player's field results</param>
     /// <param name="enemyResults">The enemy's field results</param>
-    public IEnumerator PlayFieldResultAnimations(int pos, Combat_Field_Manager.Field_Card_Results playerResults, Combat_Field_Manager.Field_Card_Results enemyResults)
+    public IEnumerator PlayFieldResultAnimations(int pos, Field_Card_Results playerResults, Field_Card_Results enemyResults)
     {
         List<Coroutine> animations = new List<Coroutine>();
 
@@ -276,6 +279,21 @@ public class Combat_UI_Manager : ManagerBehavior
         {
             yield return c;
         }
+    }
+
+    public IEnumerator PlayDamagePips(Field_Full_Results results)
+    {
+        for (int i = 0; i < results.GetSize(); i++)
+        {
+            yield return StartCoroutine(this.pipController.ReleaseThePips(results, i));
+            GameObject playerCard = results.GetPlayerResult(i).card;
+            GameObject enemyCard = results.GetEnemyResult(i).card;
+
+            Destroy(playerCard);
+            Destroy(enemyCard);
+        }
+
+        yield return StartCoroutine(this.pipController.WaitUntilFinished());
     }
 
     public IEnumerator FlashMiddle(int pos, bool playerAdvantage)
@@ -342,6 +360,11 @@ public class Combat_UI_Manager : ManagerBehavior
     public GameObject GetPlayerDeck()
     {
         return this.playerDeck;
+    }
+
+    public Combat_Pip_Controller GetPipController()
+    {
+        return this.pipController;
     }
 
     public void SetCardHolder(GameObject cardHolder, int pos)

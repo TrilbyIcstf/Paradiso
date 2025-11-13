@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Rival
   m_EditorClassIdentifier: 
   enemyName: Rival
-  maxHealth: 100
+  maxHealth: 50
+  regenRate: 0
+  drawType: 0

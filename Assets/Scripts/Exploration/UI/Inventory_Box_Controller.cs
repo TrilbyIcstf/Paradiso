@@ -16,6 +16,9 @@ public class Inventory_Box_Controller : MonoBehaviour
     [SerializeField]
     private ScrollRect scrollRect;
 
+    [SerializeField]
+    private Inventory_Health_Amount healthText;
+
     // UI variables for the deck
     private const int CardsPerRow = 5;
     private const float CardMarginY = 60.0f;
@@ -217,6 +220,7 @@ public class Inventory_Box_Controller : MonoBehaviour
     {
         SetVisible(true);
         SetupMode();
+        this.healthText.UpdateHealth();
     }
 
     public void CloseInventory()

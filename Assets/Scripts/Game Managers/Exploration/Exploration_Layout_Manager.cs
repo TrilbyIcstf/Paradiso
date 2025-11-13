@@ -44,6 +44,8 @@ public class Exploration_Layout_Manager : ManagerBehavior
 
     private Floors currentFloor = Floors.Demo;
 
+    private int floorNumber = 1;
+
     public void ResetFloorGenVars()
     {
         this.enemyCount = 0;
@@ -311,5 +313,15 @@ public class Exploration_Layout_Manager : ManagerBehavior
     public Floors GetFloor()
     {
         return this.currentFloor;
+    }
+
+    public int GetFloorNumber()
+    {
+        return this.floorNumber;
+    }
+
+    public void IncrementFloorNumber()
+    {
+        this.floorNumber++;
     }
 }
