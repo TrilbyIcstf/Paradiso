@@ -25,6 +25,20 @@ public class Card_Base : ScriptableObject
     [SerializeField]
     private List<CardEffects> effects = new List<CardEffects>();
 
+    public static Card_Base NewCard(string id, string name, int power, int defense, CardElement element, List<CardEffects> effects)
+    {
+        Card_Base cardBase = ScriptableObject.CreateInstance<Card_Base>();
+        cardBase.cardID = id;
+        cardBase.cardName = name;
+        cardBase.power = power;
+        cardBase.defense = defense;
+        cardBase.element = element;
+
+        cardBase.effects = effects != null ? effects : new List<CardEffects>();
+
+        return cardBase;
+    }
+
     public void BuffPower(int buff)
     {
         this.power += buff;

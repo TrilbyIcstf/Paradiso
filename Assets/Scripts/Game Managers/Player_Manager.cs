@@ -210,4 +210,10 @@ public class Player_Manager : ManagerBehavior
             this.deckIDCounter = i;
         }
     }
+
+    public void SetBasicStartingDeck()
+    {
+        this.playerDeck = Starting_Decks.BasicStartingDeck();
+        this.deckIDCounter = this.playerDeck.Count;
+    }
 }
