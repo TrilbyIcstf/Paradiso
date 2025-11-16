@@ -15,4 +15,4 @@ MonoBehaviour:
   enemyName: Rival
   maxHealth: 50
   regenRate: 0
-  drawType: 0
+  drawType: 1

@@ -47,6 +47,24 @@ public static class ElementMethods
 
         return mult;
     }
+
+    /// <summary>
+    /// Generates a random element
+    /// </summary>
+    /// <returns>A random element</returns>
+    public static CardElement RandomElement()
+    {
+        int elementIndex = UnityEngine.Random.Range(0, 5);
+        return elementIndex switch
+        {
+            0 => CardElement.Nil,
+            1 => CardElement.Fire,
+            2 => CardElement.Wind,
+            3 => CardElement.Earth,
+            4 => CardElement.Water,
+            _ => CardElement.Nil,
+        };
+    }
 }
 
 public enum EffectTiming

@@ -19,7 +19,7 @@ public class Damage_Pip_Movement : MonoBehaviour
 
     private void Setup(Transform goal) {
         this.goal = goal;
-        float randRotation = Random.Range(-10.0f, 10.0f);
+        float randRotation = Random.Range(-20.0f, 20.0f);
 
         // Sets direction to oposite of goal
         this.direction = ((Vector2)transform.position - GoalPos()).normalized;

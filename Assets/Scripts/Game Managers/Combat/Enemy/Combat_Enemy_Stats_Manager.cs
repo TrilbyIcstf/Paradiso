@@ -7,14 +7,17 @@ using UnityEngine;
 /// </summary>
 public class Combat_Enemy_Stats_Manager : Stats_Manager
 {
-    [SerializeField]
     private Enemy_Stats enemy;
 
     private float energyDelay = 0.0f;
 
     private float regenMultiplier = 1.0f;
 
+    private Enemy_Stats_State state;
+
     private GameObject enemyDeck;
+
+    private List<Card_Base> drawnCards = new List<Card_Base>();
 
     public Combat_Enemy_Stats_Manager()
     {
@@ -48,6 +51,14 @@ public class Combat_Enemy_Stats_Manager : Stats_Manager
         this.enemy = val;
         this.maxHealth = this.enemy.GetHealth();
         this.currentHealth = this.enemy.GetHealth();
+        this.drawnCards = new List<Card_Base>();
+
+        this.state = new Enemy_Stats_State();
+        this.state.SetEffectRate(30.0f);
+        this.state.SetMinPower(5);
+        this.state.SetMaxPower(20);
+        this.state.SetMinDefense(5);
+        this.state.SetMaxDefense(20);
     }
 
     public override bool DealDamage(float amount)
@@ -92,7 +103,7 @@ public class Combat_Enemy_Stats_Manager : Stats_Manager
     {
         if (this.enemyDeck != null)
         {
-            this.card.GetComponent<Active_Card>().SetStats(Card_Base.RandomizeStats());
+            this.card.GetComponent<Active_Card>().SetStats(Enemy_Draw_Controller.DecideCard(this.enemy.GetDrawType(), this.state, this.drawnCards));
             GameObject newCard = Instantiate(this.card, enemyDeck.transform.position, enemyDeck.transform.rotation);
             GM.CEH.DrawToEnemyHand(newCard);
         }
