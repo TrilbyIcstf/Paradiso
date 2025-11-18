@@ -90,14 +90,14 @@ public class Card_UI_Controller : MonoBehaviour
         this.elementIcon.sprite = Static_Object_Manager.instance.GetElementIcon(val);
     }
 
-    public void SetEffects(List<CardEffects> val)
+    public void SetEffects(List<CardEffect> val)
     {
         for (int i = 0; i < val.Count; i++)
         {
-            CardEffects effect = val[i];
+            CardEffect effect = val[i];
             switch (effect)
             {
-                case CardEffects.None:
+                case CardEffect.None:
                     this.effectIcons[i].enabled = false;
                     break;
                 default:

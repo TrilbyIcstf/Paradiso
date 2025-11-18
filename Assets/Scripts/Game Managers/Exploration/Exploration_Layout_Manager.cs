@@ -42,7 +42,7 @@ public class Exploration_Layout_Manager : ManagerBehavior
     /// </summary>
     private bool stairsGenerated = false;
 
-    private Floors currentFloor = Floors.Demo;
+    private Floor currentFloor = Floor.Demo;
 
     private int floorNumber = 1;
 
@@ -60,7 +60,7 @@ public class Exploration_Layout_Manager : ManagerBehavior
         this.startingPos = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
         this.currentPos = this.startingPos;
         float startingContinuePower = GetAverageFloorSize() * 50;
-        RecursiveAddRoom(this.startingPos, startingContinuePower, 80.0f, Directions.None, 0);
+        RecursiveAddRoom(this.startingPos, startingContinuePower, 80.0f, Direction.None, 0);
         GetRoom(this.currentPos).SetEntered(true);
 
         for (int i = floorLayout.GetLength(1) - 1; i >= 0; i--)
@@ -70,19 +70,19 @@ public class Exploration_Layout_Manager : ManagerBehavior
             {
                 if (this.floorLayout[j, i] != null)
                 {
-                    RoomTypes type = this.floorLayout[j, i].GetRoomType();
+                    RoomType type = this.floorLayout[j, i].GetRoomType();
                     switch (type)
                     {
-                        case RoomTypes.Starting:
+                        case RoomType.Starting:
                             mapRow += "V";
                             break;
-                        case RoomTypes.Enemy:
+                        case RoomType.Enemy:
                             mapRow += "F";
                             break;
-                        case RoomTypes.Item:
+                        case RoomType.Item:
                             mapRow += "I";
                             break;
-                        case RoomTypes.Stairs:
+                        case RoomType.Stairs:
                             mapRow += "S";
                             break;
                         default:
@@ -98,10 +98,10 @@ public class Exploration_Layout_Manager : ManagerBehavior
         }
     }
 
-    private Room_Object RecursiveAddRoom(Vector2Int pos, float continuePercent, float splitPercent, Directions entranceDirection, int distance)
+    private Room_Object RecursiveAddRoom(Vector2Int pos, float continuePercent, float splitPercent, Direction entranceDirection, int distance)
     {
         Room_Object thisRoom = new Room_Object(entranceDirection, distance);
-        if (entranceDirection != Directions.None)
+        if (entranceDirection != Direction.None)
         {
             thisRoom.AddConnection(pos + entranceDirection.NumericalDirection(), entranceDirection);
         }
@@ -120,9 +120,9 @@ public class Exploration_Layout_Manager : ManagerBehavior
                     splitPercent -= 40;
                 }
 
-                Directions nextDir = GetEmptyDirection(pos);
+                Direction nextDir = GetEmptyDirection(pos);
 
-                if (nextDir == Directions.None) { break; }
+                if (nextDir == Direction.None) { break; }
 
                 Vector2Int dir = nextDir.NumericalDirection();
                 Room_Object newRoom = RecursiveAddRoom(pos + dir, continuePercent - 50.0f, splitPercent, nextDir.OppositeDirection(), distance + 1);
@@ -130,9 +130,9 @@ public class Exploration_Layout_Manager : ManagerBehavior
 
                 if (shouldSplit)
                 {
-                    Directions splitDir = GetEmptyDirection(pos);
+                    Direction splitDir = GetEmptyDirection(pos);
 
-                    if (splitDir == Directions.None) { break; }
+                    if (splitDir == Direction.None) { break; }
 
                     Vector2Int split = splitDir.NumericalDirection();
                     Room_Object splitRoom = RecursiveAddRoom(pos + split, continuePercent - 50.0f, splitPercent, splitDir.OppositeDirection(), distance + 1);
@@ -141,47 +141,47 @@ public class Exploration_Layout_Manager : ManagerBehavior
             }
         } while (false);
 
-        RoomTypes roomType = DetermineRoomType(pos);
+        RoomType roomType = DetermineRoomType(pos);
         thisRoom.SetRoomType(roomType);
         this.floorLayout[pos.x, pos.y] = ConvertToRoomType(thisRoom, roomType);
 
         return GetRoom(pos);
     }
 
-    private Directions GetEmptyDirection(Vector2Int pos)
+    private Direction GetEmptyDirection(Vector2Int pos)
     {
-        List<Directions> directions = new List<Directions>();
+        List<Direction> directions = new List<Direction>();
 
         if (pos.x > 0 && this.floorLayout[pos.x - 1, pos.y] == null)
         {
-            directions.Add(Directions.Left);
+            directions.Add(Direction.Left);
         }
 
         if (pos.x < floorLayout.GetLength(0) - 1 && this.floorLayout[pos.x + 1, pos.y] == null)
         {
-            directions.Add(Directions.Right);
+            directions.Add(Direction.Right);
         }
 
         if (pos.y > 0 && this.floorLayout[pos.x, pos.y - 1] == null)
         {
-            directions.Add(Directions.Down);
+            directions.Add(Direction.Down);
         }
 
         if (pos.y < floorLayout.GetLength(1) - 1 && this.floorLayout[pos.x, pos.y + 1] == null)
         {
-            directions.Add(Directions.Up);
+            directions.Add(Direction.Up);
         }
 
         if (directions.Count == 0)
         {
-            return Directions.None;
+            return Direction.None;
         }
 
         int randDir = Random.Range(0, directions.Count);
         return directions[randDir];
     }
 
-    public Room_Object MoveInDirection(Directions dir)
+    public Room_Object MoveInDirection(Direction dir)
     {
         Vector2Int dirVect = dir.NumericalDirection();
         this.currentPos += dirVect;
@@ -190,15 +190,15 @@ public class Exploration_Layout_Manager : ManagerBehavior
         return GetCurrentRoom();
     }
 
-    private RoomTypes DetermineRoomType(Vector2Int pos)
+    private RoomType DetermineRoomType(Vector2Int pos)
     {
         float randAmount;
-        if (pos == this.startingPos) { return RoomTypes.Starting; }
+        if (pos == this.startingPos) { return RoomType.Starting; }
         if (GetRoom(pos).GetConnectionCount() <= 1) {
             if (!this.stairsGenerated)
             {
                 this.stairsGenerated = true;
-                return RoomTypes.Stairs;
+                return RoomType.Stairs;
             }
 
             float itemFillRatio = 1.0f - (this.itemCount / 2);
@@ -207,10 +207,10 @@ public class Exploration_Layout_Manager : ManagerBehavior
             if (randAmount < itemChance)
             {
                 this.itemCount++;
-                return RoomTypes.Item;
+                return RoomType.Item;
             }
 
-            return RoomTypes.Empty;
+            return RoomType.Empty;
         }
         float enemyFillRatio = 1.0f - (this.enemyCount / GetAverageFloorSize());
         float enemyChance = 60.0f * enemyFillRatio;
@@ -218,22 +218,22 @@ public class Exploration_Layout_Manager : ManagerBehavior
         if (randAmount < enemyChance)
         {
             this.enemyCount++;
-            return RoomTypes.Enemy;
+            return RoomType.Enemy;
         } else
         {
-            return RoomTypes.Empty;
+            return RoomType.Empty;
         }
     }
 
-    private Room_Object ConvertToRoomType(Room_Object room, RoomTypes type)
+    private Room_Object ConvertToRoomType(Room_Object room, RoomType type)
     {
         switch (type)
         {
-            case RoomTypes.Enemy:
+            case RoomType.Enemy:
                 return Enemy_Room_Object.ConvertToEnemyRoom(room);
-            case RoomTypes.Item:
+            case RoomType.Item:
                 return Item_Room_Object.ConvertToItemRoom(room);
-            case RoomTypes.Stairs:
+            case RoomType.Stairs:
                 return Stairs_Room_Object.ConvertToStairsRoom(room);
             default:
                 return room;
@@ -244,9 +244,9 @@ public class Exploration_Layout_Manager : ManagerBehavior
     /// Finds all the items contained on the current floor
     /// </summary>
     /// <returns>A list of items on the current floor</returns>
-    public List<Items> GetFloorItems()
+    public List<Item> GetFloorItems()
     {
-        List<Items> list = new List<Items>();
+        List<Item> list = new List<Item>();
 
         for (int i = 0; i < this.floorLayout.GetLength(0); i++)
         {
@@ -255,7 +255,7 @@ public class Exploration_Layout_Manager : ManagerBehavior
                 Room_Object room = this.floorLayout[i, j];
                 if (room is Item_Room_Object)
                 {
-                    Items item = ((Item_Room_Object)room).GetItem();
+                    Item item = ((Item_Room_Object)room).GetItem();
                     list.Add(item);
                 }
             }
@@ -289,7 +289,7 @@ public class Exploration_Layout_Manager : ManagerBehavior
         return GetRoom(this.currentPos);
     }
 
-    public Room_Object GetRoomInDirection(Directions dir)
+    public Room_Object GetRoomInDirection(Direction dir)
     {
         Vector2Int dirVect = dir.NumericalDirection();
         return this.floorLayout[this.currentPos.x + dirVect.x, this.currentPos.y + dirVect.y];
@@ -310,7 +310,7 @@ public class Exploration_Layout_Manager : ManagerBehavior
         return this.floorLayout.GetLength(1);
     }
 
-    public Floors GetFloor()
+    public Floor GetFloor()
     {
         return this.currentFloor;
     }

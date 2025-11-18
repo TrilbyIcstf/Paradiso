@@ -20,7 +20,7 @@ public class Combat_Mouse_Hover_Card : Mouse_Hover_Card
         MouseExit();
     }
 
-    protected override List<CardEffects> GetEffects()
+    protected override List<CardEffect> GetEffects()
     {
         return this.cardStats.GetEffects(); ;
     }

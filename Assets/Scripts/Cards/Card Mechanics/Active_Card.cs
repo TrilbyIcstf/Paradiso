@@ -20,7 +20,7 @@ public class Active_Card : MonoBehaviour
     private CardElement activeElement;
 
     // Card's effects that can be overriden from the base
-    private List<CardEffects> activeEffects = new List<CardEffects>();
+    private List<CardEffect> activeEffects = new List<CardEffect>();
 
     private void Awake()
     {
@@ -99,7 +99,7 @@ public class Active_Card : MonoBehaviour
         return this.activeElement;
     }
 
-    public List<CardEffects> GetEffects()
+    public List<CardEffect> GetEffects()
     {
         return this.activeEffects;
     }

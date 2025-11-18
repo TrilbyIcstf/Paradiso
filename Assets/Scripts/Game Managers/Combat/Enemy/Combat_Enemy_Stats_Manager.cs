@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public class Combat_Enemy_Stats_Manager : Stats_Manager
 {
+    [SerializeField]
     private Enemy_Stats enemy;
 
     private float energyDelay = 0.0f;
@@ -22,14 +23,14 @@ public class Combat_Enemy_Stats_Manager : Stats_Manager
     public Combat_Enemy_Stats_Manager()
     {
         this.currentEnergy = 0.0f;
-        this.maxEnergy = 3.0f;
+        this.maxEnergy = 1.0f;
     }
 
     private void FixedUpdate()
     {
         if (this.regenOn && !this.energyLock && EnergyFraction() < 1)
         {
-            AddEnergy(Time.deltaTime * this.regenMultiplier);
+            AddEnergy(Time.deltaTime * this.state.GetRegenRate() * this.regenMultiplier);
         }
 
         if (EnergyFraction() >= 1)
@@ -49,16 +50,10 @@ public class Combat_Enemy_Stats_Manager : Stats_Manager
     public void SetEnemy(Enemy_Stats val)
     {
         this.enemy = val;
-        this.maxHealth = this.enemy.GetHealth();
-        this.currentHealth = this.enemy.GetHealth();
+        this.state = this.enemy.GetBaseStats();
+        this.maxHealth = this.state.GetMaxHealth();
+        this.currentHealth = this.maxHealth;
         this.drawnCards = new List<Card_Base>();
-
-        this.state = new Enemy_Stats_State();
-        this.state.SetEffectRate(30.0f);
-        this.state.SetMinPower(5);
-        this.state.SetMaxPower(20);
-        this.state.SetMinDefense(5);
-        this.state.SetMaxDefense(20);
     }
 
     public override bool DealDamage(float amount)

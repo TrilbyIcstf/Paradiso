@@ -9,21 +9,21 @@ using UnityEngine;
 public class String_List : MonoBehaviour
 {
     [Serializable]
-    public class EffectDictionary : SerializableDictionary<CardEffects, Card_Effect_Description> { }
+    public class EffectDictionary : SerializableDictionary<CardEffect, Card_Effect_Description> { }
     [SerializeField]
     private EffectDictionary cardEffects;
     [Serializable]
-    public class ItemDictionary : SerializableDictionary<Items, Item_Description> { }
+    public class ItemDictionary : SerializableDictionary<Item, Item_Description> { }
     [SerializeField]
     private ItemDictionary items;
 
 
-    public Card_Effect_Description GetCardEffectDescription(CardEffects eff)
+    public Card_Effect_Description GetCardEffectDescription(CardEffect eff)
     {
         return this.cardEffects[eff];
     }
 
-    public Item_Description GetItemDescription(Items item)
+    public Item_Description GetItemDescription(Item item)
     {
         return this.items[item];
     }

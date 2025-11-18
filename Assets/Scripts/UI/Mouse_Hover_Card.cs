@@ -63,7 +63,7 @@ public abstract class Mouse_Hover_Card : ManagerBehavior
         yield return new WaitForSeconds(this.hoverDuration);
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
-        List<CardEffects> effectList = GetEffects();
+        List<CardEffect> effectList = GetEffects();
         for (int i = 0; i < effectList.Count; i++)
         {
             GameObject newBox = Instantiate(infoBox, mousePos, Quaternion.identity);
@@ -75,5 +75,5 @@ public abstract class Mouse_Hover_Card : ManagerBehavior
         }
     }
 
-    protected abstract List<CardEffects> GetEffects();
+    protected abstract List<CardEffect> GetEffects();
 }

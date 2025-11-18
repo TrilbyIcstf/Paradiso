@@ -8,12 +8,12 @@ using UnityEngine;
 public class Room_Object
 {
     // Tracks which rooms this one is connected to and in which direction
-    protected Dictionary<Directions, Vector2Int> connections = new Dictionary<Directions, Vector2Int>();
+    protected Dictionary<Direction, Vector2Int> connections = new Dictionary<Direction, Vector2Int>();
 
-    protected RoomTypes roomType;
+    protected RoomType roomType;
 
     // Tracks what direction in the room leads towards the floor entrance
-    protected Directions entranceDirection;
+    protected Direction entranceDirection;
 
     // Number of rooms from the floor entrance
     protected int distance;
@@ -21,18 +21,18 @@ public class Room_Object
     // Tracks if the player has been in the room
     protected bool entered = false;
 
-    public Room_Object(Directions entranceDirection, int distance)
+    public Room_Object(Direction entranceDirection, int distance)
     {
         this.entranceDirection = entranceDirection;
         this.distance = distance;
     }
 
-    public void AddConnection(Vector2Int pos, Directions dir)
+    public void AddConnection(Vector2Int pos, Direction dir)
     {
         this.connections[dir] = pos;
     }
 
-    public Dictionary<Directions, Vector2Int> GetConnections()
+    public Dictionary<Direction, Vector2Int> GetConnections()
     {
         return this.connections;
     }
@@ -42,12 +42,12 @@ public class Room_Object
         return this.connections.Count;
     }
 
-    public RoomTypes GetRoomType()
+    public RoomType GetRoomType()
     {
         return this.roomType;
     }
 
-    public Directions GetEntranceDirection()
+    public Direction GetEntranceDirection()
     {
         return this.entranceDirection;
     }
@@ -62,7 +62,7 @@ public class Room_Object
         return this.entered;
     }
 
-    public void SetRoomType(RoomTypes val)
+    public void SetRoomType(RoomType val)
     {
         this.roomType = val;
     }

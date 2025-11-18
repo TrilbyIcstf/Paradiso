@@ -12,7 +12,7 @@ public class Enemy_Room_Object : Room_Object
 
     private bool enemyIsDefeated = false;
 
-    public Enemy_Room_Object(Directions entranceDirection, int distance) : base(entranceDirection, distance) { }
+    public Enemy_Room_Object(Direction entranceDirection, int distance) : base(entranceDirection, distance) { }
 
     public Enemy_Stats GetEnemy() {
         return this.enemy;
@@ -43,6 +43,13 @@ public class Enemy_Room_Object : Room_Object
         Enemy_Room_Object newRoom = new Enemy_Room_Object(room.GetEntranceDirection(), room.GetDistance());
         newRoom.connections = room.GetConnections();
         newRoom.roomType = room.GetRoomType();
+        newRoom.enemy = Static_Object_Manager.instance.GetEnemy(DecideEnemy());
         return newRoom;
+    }
+
+    private static Enemy DecideEnemy()
+    {
+        int randomEnemy = Random.Range(1, 6);
+        return (Enemy)randomEnemy;
     }
 }

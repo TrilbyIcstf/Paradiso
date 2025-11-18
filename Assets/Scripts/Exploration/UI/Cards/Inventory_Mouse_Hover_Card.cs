@@ -22,7 +22,7 @@ public class Inventory_Mouse_Hover_Card : Mouse_Hover_Card, IPointerEnterHandler
         this.baseCardStats = val;
     }
 
-    protected override List<CardEffects> GetEffects()
+    protected override List<CardEffect> GetEffects()
     {
         return this.baseCardStats.GetEffects();
     }

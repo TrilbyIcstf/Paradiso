@@ -15,7 +15,7 @@ public class Player_Manager : ManagerBehavior
 
     [SerializeField]
     private List<Item_Base> playerItems = new List<Item_Base>();
-    private List<Items> discardedItems = new List<Items>();
+    private List<Item> discardedItems = new List<Item>();
     // Tracks a picked up item that hasn't been accepted yet
     private Item_Base tentativeItem;
 
@@ -107,7 +107,7 @@ public class Player_Manager : ManagerBehavior
         return this.tentativeItem is Item_Active;
     }
 
-    public List<Items> GetDiscardedItems()
+    public List<Item> GetDiscardedItems()
     {
         return this.discardedItems;
     }
@@ -175,7 +175,7 @@ public class Player_Manager : ManagerBehavior
         this.tentativeItem = null;
     }
 
-    private void TriggerPickupPassive(Items item)
+    private void TriggerPickupPassive(Item item)
     {
         GM.IBM.TriggerItemPickup(item, null);
     }
@@ -186,7 +186,7 @@ public class Player_Manager : ManagerBehavior
         this.tentativeItem = null;
     }
 
-    public void DiscardForTentativeItem(Items discardItem)
+    public void DiscardForTentativeItem(Item discardItem)
     {
         Item_Base itemToDiscard = this.playerItems.FirstOrDefault(i => i.GetItemType() == discardItem);
 

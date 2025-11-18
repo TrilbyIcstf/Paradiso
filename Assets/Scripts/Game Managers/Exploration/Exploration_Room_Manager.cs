@@ -8,9 +8,9 @@ using UnityEngine;
 public class Exploration_Room_Manager : ManagerBehavior
 {
     private Room_Controller currentRoom;
-    private Directions enteredDirection = Directions.None;
+    private Direction enteredDirection = Direction.None;
 
-    public Directions EnteredDirection
+    public Direction EnteredDirection
     {
         get { return enteredDirection; }
         set { this.enteredDirection = value; }

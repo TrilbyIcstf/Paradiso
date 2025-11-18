@@ -173,7 +173,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 5177938677466291718, guid: fb5994dc1571adf468ae69d8467797d8, type: 3}
-  enemy: {fileID: 0}
 --- !u!114 &3555046578125482730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,6 +328,22 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 590339ae25115774cad5d58ed83e9675, type: 2}
     - Key: 8
       Value: {fileID: 11400000, guid: 4b2958d3f7d76da46ad0882c31aabf3e, type: 2}
+  enemies:
+    _serializableList:
+    - Key: 0
+      Value: {fileID: 11400000, guid: faa2ad6aaf62b9a48bd8f2fa69de524c, type: 2}
+    - Key: 1
+      Value: {fileID: 11400000, guid: 746ef2c78cc6b4544a95e205043c5e44, type: 2}
+    - Key: 2
+      Value: {fileID: 11400000, guid: 61145f32094795b41b145b67e663ba47, type: 2}
+    - Key: 3
+      Value: {fileID: 11400000, guid: f372e8cc7d87ddc469e46871fe695518, type: 2}
+    - Key: 4
+      Value: {fileID: 11400000, guid: 93e98fcb5723c404eb48b22b866e75f9, type: 2}
+    - Key: 5
+      Value: {fileID: 11400000, guid: 1cfc2dd187202134b9d2fb4bd7fd46d5, type: 2}
+    - Key: 6
+      Value: {fileID: 11400000, guid: 4dcfbaf97512e8b4ea6fb436280f6e53, type: 2}
   quillCard: {fileID: 11400000, guid: c777f88b95af01d47a0e190cf5c2a35e, type: 2}
   wallTiles:
     _serializableList:

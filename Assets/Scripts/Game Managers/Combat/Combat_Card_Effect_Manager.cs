@@ -15,23 +15,23 @@ public class Combat_Card_Effect_Manager : ManagerBehavior
     /// <param name="effParams">Parameters for effect calcs</param>
     /// <param name="isPlayer">If it's the player triggering the effect</param>
     /// <returns></returns>
-    public IEnumerator TriggerCardEffect(CardEffects effect, GameObject card, CardEffectParameters effParams, bool isPlayer)
+    public IEnumerator TriggerCardEffect(CardEffect effect, GameObject card, CardEffectParameters effParams, bool isPlayer)
     {
         switch (effect)
         {
-            case CardEffects.Quills:
+            case CardEffect.Quills:
                 yield return StartCoroutine(QuillsEffect(card, effParams, isPlayer));
                 break;
-            case CardEffects.Incinerate:
+            case CardEffect.Incinerate:
                 IncinerateEffect(card, effParams, isPlayer);
                 break;
-            case CardEffects.Tremor:
+            case CardEffect.Tremor:
                 TremorEffect(card, effParams, isPlayer);
                 break;
-            case CardEffects.Flow:
+            case CardEffect.Flow:
                 FlowEffect(card, effParams, isPlayer);
                 break;
-            case CardEffects.Spread:
+            case CardEffect.Spread:
                 SpreadEffect(card, effParams, isPlayer);
                 break;
             default:
@@ -131,27 +131,27 @@ public class Combat_Card_Effect_Manager : ManagerBehavior
     /// <param name="effects">List of effects to check</param>
     /// <param name="effParams">Parameters for effect calcs</param>
     /// <returns>True if an effect will trigger, false otherwise</returns>
-    public bool EffectIsTriggered(List<CardEffects> effects, CardEffectParameters effParams)
+    public bool EffectIsTriggered(List<CardEffect> effects, CardEffectParameters effParams)
     {
-        foreach (CardEffects effect in effects)
+        foreach (CardEffect effect in effects)
         {
             switch (effect)
             {
-                case CardEffects.Quills:
-                case CardEffects.Flow:
-                case CardEffects.Tremor:
+                case CardEffect.Quills:
+                case CardEffect.Flow:
+                case CardEffect.Tremor:
                     if (effParams.adjacency > 0)
                     {
                         return true;
                     }
                     break;
-                case CardEffects.Incinerate:
+                case CardEffect.Incinerate:
                     if (effParams.adjacency > 0 && effParams.opponentHandSize > 0)
                     {
                         return true;
                     }
                     break;
-                case CardEffects.Spread:
+                case CardEffect.Spread:
                     if (effParams.adjacency > 0 && effParams.handSize > 0)
                     {
                         return true;

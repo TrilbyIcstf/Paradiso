@@ -18,37 +18,43 @@ public class Static_Object_Manager : MonoBehaviour
 
     // The big ol' list of items in the game
     [Serializable]
-    public class ItemDictionary : SerializableDictionary<Items, Item_Base> { }
+    public class ItemDictionary : SerializableDictionary<Item, Item_Base> { }
     [SerializeField]
     private ItemDictionary items;
-    public Item_Base GetItem(Items item) { return this.items[item]; }
+    public Item_Base GetItem(Item item) { return this.items[item]; }
+
+    // List of enemies in the game
+    [Serializable]
+    public class EnemyDictionary : SerializableDictionary<Enemy, Enemy_Stats> { }
+    public EnemyDictionary enemies;
+    public Enemy_Stats GetEnemy(Enemy enemy) { return Instantiate(this.enemies[enemy]); }
 
     // The quill card stats used for the quill effect
     [SerializeField]
     private Card_Base quillCard;
 
-    public Card_Base GetQuillCard() { return Instantiate(quillCard); }
+    public Card_Base GetQuillCard() { return Instantiate(this.quillCard); }
 
     // Wall tile sprites used for exploration. May vary by floor
     [Serializable]
-    public class WallTiles : SerializableDictionary<Floors, TileBase> { }
+    public class WallTiles : SerializableDictionary<Floor, TileBase> { }
     [SerializeField]
     private WallTiles wallTiles;
-    public TileBase GetWallTile(Floors floor) { return this.wallTiles[floor]; }
+    public TileBase GetWallTile(Floor floor) { return this.wallTiles[floor]; }
 
     // Floor tile sprites used for exploration. May vary by floor
     [Serializable]
-    public class FloorTiles : SerializableDictionary<Floors, TileBase> { }
+    public class FloorTiles : SerializableDictionary<Floor, TileBase> { }
     [SerializeField]
     private FloorTiles floorTiles;
-    public TileBase GetFloorTile(Floors floor) { return this.floorTiles[floor]; }
+    public TileBase GetFloorTile(Floor floor) { return this.floorTiles[floor]; }
 
     // Lock tile sprites used for exploration. May vary by floor
     [Serializable]
-    public class LockTiles : SerializableDictionary<Floors, TileBase> { }
+    public class LockTiles : SerializableDictionary<Floor, TileBase> { }
     [SerializeField]
     private LockTiles lockTiles;
-    public TileBase GetLockTile(Floors floor) { return this.lockTiles[floor]; }
+    public TileBase GetLockTile(Floor floor) { return this.lockTiles[floor]; }
 
     // Elemental icons
     [Serializable]

@@ -13,30 +13,22 @@ public class Enemy_Stats : ScriptableObject
     private string enemyName;
 
     [SerializeField]
-    private int maxHealth;
+    private EnemyDrawType drawType;
 
     [SerializeField]
-    private float regenRate;
-
-    [SerializeField]
-    private EnemyDrawTypes drawType;
+    private Enemy_Stats_State baseStats;
 
     public string GetName()
     {
         return this.enemyName;
     }
 
-    public int GetHealth()
+    public Enemy_Stats_State GetBaseStats()
     {
-        return this.maxHealth;
+        return this.baseStats;
     }
 
-    public float GetEnergyRegen()
-    {
-        return this.regenRate;
-    }
-
-    public EnemyDrawTypes GetDrawType()
+    public EnemyDrawType GetDrawType()
     {
         return this.drawType;
     }

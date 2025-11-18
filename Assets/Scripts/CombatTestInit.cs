@@ -8,7 +8,6 @@ public class CombatTestInit : MonoBehaviour
 
     private void Awake()
     {
-        GameManager.instance.CES.SetEnemy(enemy);
         GameManager.instance.InitCombat();
 
         Destroy(gameObject);

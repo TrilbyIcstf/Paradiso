@@ -157,7 +157,7 @@ public class Combat_Field_Manager : ManagerBehavior
 
         // Set defaults
         results.card = attackingCards[pos].GetCardObject();
-        results.effects = attackingCard?.GetEffects() ?? new List<CardEffects>();
+        results.effects = attackingCard?.GetEffects() ?? new List<CardEffect>();
         results.effParams = new CardEffectParameters();
         results.totalAttack = attackingCard?.GetPower() ?? 0;
         results.totalDefense = attackingCard?.GetDefense() ?? 0;

@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dded558337506ac40922c28d955c320b, type: 3}
-  m_Name: Rival
-  m_EditorClassIdentifier: 
-  enemyName: Rival
-  drawType: 0
+  m_Name: Spirited Crusader
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy_Stats
+  enemyName: Spirited Crusader
+  drawType: 4
   baseStats:
-    maxHealth: 75
-    regenRate: 0.35
+    maxHealth: 70
+    regenRate: 0.4
     minPower: 5
-    maxPower: 20
+    maxPower: 15
     minDefense: 5
     maxDefense: 20
-    powerQuality: 0
+    powerQuality: 1
     defenseQuality: 0
-    effectRate: 30
+    effectRate: 35

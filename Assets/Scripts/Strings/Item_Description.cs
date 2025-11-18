@@ -11,7 +11,7 @@ using UnityEngine;
 public class Item_Description : ScriptableObject
 {
     [SerializeField]
-    public Items item;
+    public Item item;
 
     [SerializeField]
     public string title;

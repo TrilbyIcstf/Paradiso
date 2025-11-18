@@ -31,7 +31,7 @@ public class Active_Item_Discard_Controller : MonoBehaviour
     public void ItemChosen(Active_Item_Discard_Holder holder)
     {
         int pos = holder.GetPos();
-        Items item = holder.GetItemType();
+        Item item = holder.GetItemType();
 
         if (pos <= 2)
         {

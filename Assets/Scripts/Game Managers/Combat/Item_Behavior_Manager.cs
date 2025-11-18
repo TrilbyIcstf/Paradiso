@@ -7,25 +7,25 @@ using UnityEngine;
 /// </summary>
 public class Item_Behavior_Manager : ManagerBehavior
 {
-    public void TriggerActiveEffect(Items item)
+    public void TriggerActiveEffect(Item item)
     {
         switch(item)
         {
-            case Items.Default:
+            case Item.Default:
                 break;
-            case Items.DamageTest:
+            case Item.DamageTest:
                 Active_Card randCard = GM.CPH.PickRandomCard()?.GetComponent<Active_Card>();
                 if (randCard == null) { break; }
                 randCard.AddMultPower(1.2f);
                 randCard.GetComponent<Card_UI>().EmphasizeCardCo();
                 break;
-            case Items.CheapDrawTest:
+            case Item.CheapDrawTest:
                 GM.CPS.DrawCard();
                 break;
-            case Items.AGun:
+            case Item.AGun:
                 GM.CES.DealDamage(25.0f);
                 break;
-            case Items.PageRipper:
+            case Item.PageRipper:
                 PageRipperActive();
                 break;
             default:
@@ -33,11 +33,11 @@ public class Item_Behavior_Manager : ManagerBehavior
         }
     }
 
-    public void TriggerPassiveItem(Items item, PassiveEffectParameters passParams)
+    public void TriggerPassiveItem(Item item, PassiveEffectParameters passParams)
     {
         switch (item)
         {
-            case Items.Antiquifier:
+            case Item.Antiquifier:
                 {
                     Active_Card cardScript = passParams.triggeredCard.GetComponent<Active_Card>();
                     Card_Base cardStats = cardScript.GetBase();
@@ -48,7 +48,7 @@ public class Item_Behavior_Manager : ManagerBehavior
                     GM.PM.UpdateCard(cardStats.GetID(), cardStats);
                 }
                 break;
-            case Items.Solidifier:
+            case Item.Solidifier:
                 {
                     Active_Card cardScript = passParams.triggeredCard.GetComponent<Active_Card>();
                     Card_Base cardStats = cardScript.GetBase();
@@ -59,7 +59,7 @@ public class Item_Behavior_Manager : ManagerBehavior
                     GM.PM.UpdateCard(cardStats.GetID(), cardStats);
                 }
                 break;
-            case Items.Bandage:
+            case Item.Bandage:
                 GM.PM.HealHealth(25);
                 break;
             default:
@@ -67,11 +67,11 @@ public class Item_Behavior_Manager : ManagerBehavior
         }
     }
 
-    public void TriggerItemPickup(Items item, PassiveEffectParameters passParams)
+    public void TriggerItemPickup(Item item, PassiveEffectParameters passParams)
     {
         switch (item)
         {
-            case Items.CrystalBall:
+            case Item.CrystalBall:
                 GM.PM.AddMaxEnergy(10);
                 break;
             default:
@@ -93,35 +93,35 @@ public class Item_Behavior_Manager : ManagerBehavior
         newCard.SetDefense(halvedDefense);
     }
 
-    public bool CanTriggerActive(Items item)
+    public bool CanTriggerActive(Item item)
     {
         switch (item)
         {
-            case Items.Default:
+            case Item.Default:
                 return true;
-            case Items.DamageTest:
+            case Item.DamageTest:
                 return GM.CPH.HandSize() > 0;
-            case Items.CheapDrawTest:
+            case Item.CheapDrawTest:
                 return !GM.CPD.DeckIsEmpty() && !GM.CPH.AtHandLimit();
-            case Items.AGun:
+            case Item.AGun:
                 return true;
-            case Items.PageRipper:
+            case Item.PageRipper:
                 return GM.CPH.HandSize() > 0;
             default:
                 return false;
         }
     }
 
-    public bool WillTriggerPassive(Items item, PassiveEffectParameters passParams)
+    public bool WillTriggerPassive(Item item, PassiveEffectParameters passParams)
     {
         switch (item)
         {
-            case Items.CrystalBall:
-            case Items.Bandage:
+            case Item.CrystalBall:
+            case Item.Bandage:
                 return true;
-            case Items.Antiquifier:
+            case Item.Antiquifier:
                 return passParams.triggeredCard != null;
-            case Items.Solidifier:
+            case Item.Solidifier:
                 return passParams.triggeredCard != null;
             default:
                 return false;

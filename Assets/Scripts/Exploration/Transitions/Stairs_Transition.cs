@@ -10,7 +10,7 @@ public class Stairs_Transition : MonoBehaviour
         {
             GameManager.instance.EL.RandomizeFloor(5, 5);
             GameManager.instance.EL.IncrementFloorNumber();
-            GameManager.instance.ER.EnteredDirection = Directions.None;
+            GameManager.instance.ER.EnteredDirection = Direction.None;
             GameManager.instance.TR.FadeTransition("Scenes/TestMovementRoom", postAction: UnlockMovement);
         }
     }

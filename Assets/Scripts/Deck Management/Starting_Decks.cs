@@ -56,50 +56,50 @@ public static class Starting_Decks
             defenseList.RemoveAt(randDefense);
             CardElement cardElement = elementList[randElement];
             elementList.RemoveAt(randElement);
-            CardEffects? cardEffect = null;
+            CardEffect? cardEffect = null;
             switch(cardElement)
             {
                 case CardElement.Earth:
                     if (tremorCount < 2)
                     {
-                        cardEffect = CardEffects.Tremor;
+                        cardEffect = CardEffect.Tremor;
                         tremorCount++;
                     } else if (spreadCount < 4)
                     {
-                        cardEffect = CardEffects.Spread;
+                        cardEffect = CardEffect.Spread;
                         spreadCount++;
                     }
                     break;
                 case CardElement.Fire:
                     if (incinerateCount < 2)
                     {
-                        cardEffect = CardEffects.Incinerate;
+                        cardEffect = CardEffect.Incinerate;
                         incinerateCount++;
                     } else if (spreadCount < 4)
                     {
-                        cardEffect = CardEffects.Spread;
+                        cardEffect = CardEffect.Spread;
                         spreadCount++;
                     }
                     break;
                 case CardElement.Water:
                     if (flowCount < 2)
                     {
-                        cardEffect = CardEffects.Flow;
+                        cardEffect = CardEffect.Flow;
                         flowCount++;
                     } else if (spreadCount < 4)
                     {
-                        cardEffect = CardEffects.Spread;
+                        cardEffect = CardEffect.Spread;
                         spreadCount++;
                     }
                     break;
                 case CardElement.Wind:
                     if (quillCount < 2)
                     {
-                        cardEffect = CardEffects.Quills;
+                        cardEffect = CardEffect.Quills;
                         quillCount++;
                     } else if (spreadCount < 4)
                     {
-                        cardEffect = CardEffects.Spread;
+                        cardEffect = CardEffect.Spread;
                         spreadCount++;
                     }
                     break;
@@ -107,7 +107,7 @@ public static class Starting_Decks
                     break;
             }
 
-            List<CardEffects> cardEffects = new List<CardEffects>();
+            List<CardEffect> cardEffects = new List<CardEffect>();
             if (cardEffect is { } effectValue)
             {
                 cardEffects.Add(effectValue);

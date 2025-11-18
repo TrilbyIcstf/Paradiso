@@ -79,7 +79,7 @@ public enum EffectTiming
     CombatEnd
 }
 
-public enum Items
+public enum Item
 {
     Default,
     DamageTest,
@@ -93,33 +93,33 @@ public enum Items
 }
 
 public static class ItemMethods { 
-    public static bool IsActive(this Items item)
+    public static bool IsActive(this Item item)
     {
         switch (item)
         {
-            case Items.DamageTest:
-            case Items.CheapDrawTest:
-            case Items.AGun:
-            case Items.PageRipper:
+            case Item.DamageTest:
+            case Item.CheapDrawTest:
+            case Item.AGun:
+            case Item.PageRipper:
                 return true;
-            case Items.Antiquifier:
-            case Items.Solidifier:
+            case Item.Antiquifier:
+            case Item.Solidifier:
                 return false;
             default:
                 return false;
         }
     }
 
-    public static List<Items> GetItemRoomViableList()
+    public static List<Item> GetItemRoomViableList()
     {
-        return Enum.GetValues(typeof(Items)).Cast<Items>().Where(i => i.IsItemRoomViable()).ToList();
+        return Enum.GetValues(typeof(Item)).Cast<Item>().Where(i => i.IsItemRoomViable()).ToList();
     }
 
-    private static bool IsItemRoomViable(this Items item)
+    private static bool IsItemRoomViable(this Item item)
     {
         switch (item)
         {
-            case Items.Default:
+            case Item.Default:
                 return false;
             default:
                 return true;
@@ -128,7 +128,7 @@ public static class ItemMethods {
 }
 
 [Serializable]
-public enum CardEffects
+public enum CardEffect
 {
     None,
     Quills,
@@ -138,7 +138,7 @@ public enum CardEffects
     Spread
 }
 
-public enum Directions
+public enum Direction
 {
     None,
     Up,
@@ -149,44 +149,44 @@ public enum Directions
 
 public static class DirectionMethods
 {
-    public static Vector2Int NumericalDirection(this Directions dir)
+    public static Vector2Int NumericalDirection(this Direction dir)
     {
         switch(dir)
         {
-            case Directions.None:
+            case Direction.None:
                 return new Vector2Int(0, 0);
-            case Directions.Up:
+            case Direction.Up:
                 return new Vector2Int(0, 1);
-            case Directions.Left:
+            case Direction.Left:
                 return new Vector2Int(-1, 0);
-            case Directions.Right:
+            case Direction.Right:
                 return new Vector2Int(1, 0);
-            case Directions.Down:
+            case Direction.Down:
                 return new Vector2Int(0, -1);
             default:
                 return new Vector2Int(0, 0);
         }
     }
 
-    public static Directions OppositeDirection(this Directions dir)
+    public static Direction OppositeDirection(this Direction dir)
     {
         switch(dir)
         {
-            case Directions.Up:
-                return Directions.Down;
-            case Directions.Down:
-                return Directions.Up;
-            case Directions.Left:
-                return Directions.Right;
-            case Directions.Right:
-                return Directions.Left;
+            case Direction.Up:
+                return Direction.Down;
+            case Direction.Down:
+                return Direction.Up;
+            case Direction.Left:
+                return Direction.Right;
+            case Direction.Right:
+                return Direction.Left;
             default:
-                return Directions.None;
+                return Direction.None;
         }
     }
 }
 
-public enum RoomTypes
+public enum RoomType
 {
     Empty,
     Starting,
@@ -195,14 +195,34 @@ public enum RoomTypes
     Stairs
 }
 
-public enum Floors
+public enum Floor
 {
     Demo
 }
 
-public enum EnemyDrawTypes
+public enum EnemyDrawType
 {
     Random,
     AllFire,
+    FireHeavy,
+    AllWind,
+    WindHeavy,
+    AllWater,
+    WaterHeavy,
+    AllEarth,
+    EarthHeavy,
+    HighPower,
+    HighDefense,
     AllNil
+}
+
+public enum Enemy
+{
+    Test,
+    Cherub,
+    FerventCrusader,
+    TranquilCrusader,
+    SteadfastCrusader,
+    SpiritedCrusader,
+    BurningSeraph
 }

@@ -46,7 +46,7 @@ public class Minimap_Maker : ManagerBehavior
                     this.floorLayout[pos.x, pos.y] = RoomExpLevels.Entered;
 
                     MakeRoom(pos, this.enteredRoom);
-                    foreach (Directions dir in GM.EL.GetRoom(pos).GetConnections().Keys)
+                    foreach (Direction dir in GM.EL.GetRoom(pos).GetConnections().Keys)
                     {
                         Vector2Int connPos = pos + dir.NumericalDirection();
                         if (this.floorLayout[connPos.x, connPos.y] != RoomExpLevels.Entered) {
@@ -83,7 +83,7 @@ public class Minimap_Maker : ManagerBehavior
         }
     }
 
-    private void AddConnection(Vector2Int pos, Directions direction)
+    private void AddConnection(Vector2Int pos, Direction direction)
     {
         GameObject tempConnection = Instantiate(this.dummyObject, this.transform);
         Vector3 mapPos = tempConnection.transform.position;
@@ -94,7 +94,7 @@ public class Minimap_Maker : ManagerBehavior
 
         tempConnection.GetComponent<Image>().sprite = this.roomConnection;
 
-        if (direction == Directions.Down || direction == Directions.Up)
+        if (direction == Direction.Down || direction == Direction.Up)
         {
             tempConnection.transform.Rotate(0, 0, 90);
         }

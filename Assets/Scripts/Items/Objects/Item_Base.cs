@@ -8,7 +8,7 @@ using UnityEngine;
 public class Item_Base : ScriptableObject
 {
     [SerializeField]
-    protected Items item;
+    protected Item item;
 
     [SerializeField]
     protected string itemName;
@@ -16,7 +16,7 @@ public class Item_Base : ScriptableObject
     [SerializeField]
     protected Sprite sprite;
 
-    public Items GetItemType()
+    public Item GetItemType()
     {
         return this.item;
     }

@@ -11,7 +11,7 @@ public class Exploration_Item_Pickup : MonoBehaviour
         this.sr = GetComponent<SpriteRenderer>();
 
         Item_Room_Object currentRoom = CurrentRoom();
-        Items roomItem = currentRoom.GetItem();
+        Item roomItem = currentRoom.GetItem();
         Item_Base itemObject = Static_Object_Manager.instance.GetItem(roomItem);
 
         this.sr.sprite = itemObject.GetSprite();

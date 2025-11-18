@@ -23,9 +23,9 @@ public class Card_Base : ScriptableObject
     private CardElement element;
 
     [SerializeField]
-    private List<CardEffects> effects = new List<CardEffects>();
+    private List<CardEffect> effects = new List<CardEffect>();
 
-    public static Card_Base NewCard(string id, string name, int power, int defense, CardElement element, List<CardEffects> effects)
+    public static Card_Base NewCard(string id, string name, int power, int defense, CardElement element, List<CardEffect> effects)
     {
         Card_Base cardBase = ScriptableObject.CreateInstance<Card_Base>();
         cardBase.cardID = id;
@@ -34,7 +34,7 @@ public class Card_Base : ScriptableObject
         cardBase.defense = defense;
         cardBase.element = element;
 
-        cardBase.effects = effects != null ? effects : new List<CardEffects>();
+        cardBase.effects = effects != null ? effects : new List<CardEffect>();
 
         return cardBase;
     }
@@ -76,27 +76,27 @@ public class Card_Base : ScriptableObject
         {
             if (cardBase.element == CardElement.Wind)
             {
-                cardBase.effects.Add(CardEffects.Quills);
+                cardBase.effects.Add(CardEffect.Quills);
             }
             else if (cardBase.element == CardElement.Fire)
             {
-                cardBase.effects.Add(CardEffects.Incinerate);
+                cardBase.effects.Add(CardEffect.Incinerate);
             }
             else if (cardBase.element == CardElement.Water)
             {
-                cardBase.effects.Add(CardEffects.Flow);
+                cardBase.effects.Add(CardEffect.Flow);
             }
             else if (cardBase.element == CardElement.Earth)
             {
-                cardBase.effects.Add(CardEffects.Tremor);
+                cardBase.effects.Add(CardEffect.Tremor);
             }
             else
             {
-                cardBase.effects.Add(CardEffects.None);
+                cardBase.effects.Add(CardEffect.None);
             }
         } else if (effectChance == 7 && cardBase.element != CardElement.Nil)
         {
-            cardBase.effects.Add(CardEffects.Spread);
+            cardBase.effects.Add(CardEffect.Spread);
         }
 
         return cardBase;
@@ -140,7 +140,7 @@ public class Card_Base : ScriptableObject
         return this.element;
     }
 
-    public List<CardEffects> GetEffects()
+    public List<CardEffect> GetEffects()
     {
         return this.effects;
     }

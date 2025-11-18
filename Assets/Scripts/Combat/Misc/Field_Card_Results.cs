@@ -5,7 +5,7 @@ public class Field_Card_Results
 {
     internal GameObject card;
 
-    internal List<CardEffects> effects = new List<CardEffects>();
+    internal List<CardEffect> effects = new List<CardEffect>();
     internal CardEffectParameters effParams;
 
     internal bool flashLeft = false;

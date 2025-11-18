@@ -8,7 +8,7 @@ using UnityEngine;
 public class Room_Door_Transition : MonoBehaviour
 {
     [SerializeField]
-    Directions doorDirection;
+    Direction doorDirection;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -16,13 +16,13 @@ public class Room_Door_Transition : MonoBehaviour
         {
             GameManager.instance.EP.SetMovementLock(true);
             Room_Object newRoom = GameManager.instance.EL.MoveInDirection(this.doorDirection);
-            if (newRoom.GetRoomType() == RoomTypes.Item)
+            if (newRoom.GetRoomType() == RoomType.Item)
             {
                 GameManager.instance.TR.FadeTransition("Scenes/ItemRoom", postAction: UnlockMovement);
-            } else if (newRoom.GetRoomType() == RoomTypes.Enemy)
+            } else if (newRoom.GetRoomType() == RoomType.Enemy)
             {
                 GameManager.instance.TR.FadeTransition("Scenes/EnemyRoom", postAction: UnlockMovement);
-            } else if (newRoom.GetRoomType() == RoomTypes.Stairs)
+            } else if (newRoom.GetRoomType() == RoomType.Stairs)
             {
                 GameManager.instance.TR.FadeTransition("Scenes/StairsRoom", postAction: UnlockMovement);
             } else

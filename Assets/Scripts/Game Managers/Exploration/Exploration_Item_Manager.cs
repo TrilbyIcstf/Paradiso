@@ -4,22 +4,22 @@ using System.Linq;
 
 public class Exploration_Item_Manager : ManagerBehavior
 {
-    private List<Items> availableItems = Enum.GetValues(typeof(Items)).Cast<Items>().ToList();
+    private List<Item> availableItems = Enum.GetValues(typeof(Item)).Cast<Item>().ToList();
 
-    public Items ChooseNewItem()
+    public Item ChooseNewItem()
     {
-        List<Items> playerItems = GM.PM.GetItems().Select(i => i.GetItemType()).ToList();
-        List<Items> mapItems = GM.EL.GetFloorItems();
-        List<Items> discardedItems = GM.PM.GetDiscardedItems();
+        List<Item> playerItems = GM.PM.GetItems().Select(i => i.GetItemType()).ToList();
+        List<Item> mapItems = GM.EL.GetFloorItems();
+        List<Item> discardedItems = GM.PM.GetDiscardedItems();
 
-        List<Items> existingItems = playerItems.Concat(mapItems).Concat(discardedItems).ToList();
+        List<Item> existingItems = playerItems.Concat(mapItems).Concat(discardedItems).ToList();
 
-        List<Items> viableItems = ItemMethods.GetItemRoomViableList();
-        List<Items> remainingItems = viableItems.Except(existingItems).ToList();
+        List<Item> viableItems = ItemMethods.GetItemRoomViableList();
+        List<Item> remainingItems = viableItems.Except(existingItems).ToList();
 
         if (remainingItems.Count == 0)
         {
-            return Items.Default;
+            return Item.Default;
         }
 
         int randPos = UnityEngine.Random.Range(0, remainingItems.Count);
@@ -27,7 +27,7 @@ public class Exploration_Item_Manager : ManagerBehavior
         return remainingItems[randPos];
     }
 
-    public void RemoveAvailableItem(Items val)
+    public void RemoveAvailableItem(Item val)
     {
         this.availableItems.Remove(val);
     }

@@ -9,9 +9,9 @@ using UnityEngine.Tilemaps;
 public class Room_Controller : ManagerBehavior
 {
     [SerializeField]
-    private SerializableDictionary<Directions, GameObject> doorGrids;
+    private SerializableDictionary<Direction, GameObject> doorGrids;
     [SerializeField]
-    private SerializableDictionary<Directions, GameObject> playerSpawns;
+    private SerializableDictionary<Direction, GameObject> playerSpawns;
     [SerializeField]
     private GameObject player;
 
@@ -29,7 +29,7 @@ public class Room_Controller : ManagerBehavior
     /// </summary>
     /// <param name="room">The room to set up</param>
     /// <param name="enteredDirection">The direction the player entered from</param>
-    public void SetupRoom(Room_Object room, Directions enteredDirection)
+    public void SetupRoom(Room_Object room, Direction enteredDirection)
     {
         UnlockRoom(room);
 
@@ -42,6 +42,8 @@ public class Room_Controller : ManagerBehavior
         {
             Enemy_Room_Object enemyRoom = (Enemy_Room_Object)room;
 
+            GM.CES.SetEnemy(enemyRoom.GetEnemy());
+
             TileBase oldWall = GM.SOM.GetWallTile(GM.EL.GetFloor());
             TileBase newWall = GM.SOM.GetLockTile(GM.EL.GetFloor());
 
@@ -49,11 +51,12 @@ public class Room_Controller : ManagerBehavior
             {
                 GameObject enemyObj = GameObject.FindGameObjectWithTag("Enemy");
                 Destroy(enemyObj);
-            } else
+            } 
+            else
             {
                 foreach (var conn in room.GetConnections())
                 {
-                    if (conn.Key == Directions.None) { continue; }
+                    if (conn.Key == Direction.None) { continue; }
                     if (conn.Key == room.GetEntranceDirection() || conn.Value == null) { continue; }
                     this.doorGrids[conn.Key].SetActive(true);
                     this.doorGrids[conn.Key].GetComponent<Tilemap>().SwapTile(oldWall, newWall);
@@ -66,7 +69,7 @@ public class Room_Controller : ManagerBehavior
     {
         foreach (var conn in room.GetConnections())
         {
-            if (conn.Key == Directions.None) { continue; }
+            if (conn.Key == Direction.None) { continue; }
             this.doorGrids[conn.Key].SetActive(conn.Value == null);
         }
     }

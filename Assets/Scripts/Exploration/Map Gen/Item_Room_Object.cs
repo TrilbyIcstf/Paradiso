@@ -7,13 +7,13 @@ using UnityEngine;
 /// </summary>
 public class Item_Room_Object : Room_Object
 {
-    private Items containedItem;
+    private Item containedItem;
 
     private bool itemTaken = false;
 
-    public Item_Room_Object(Directions entranceDirection, int distance) : base(entranceDirection, distance) { }
+    public Item_Room_Object(Direction entranceDirection, int distance) : base(entranceDirection, distance) { }
 
-    public Items GetItem()
+    public Item GetItem()
     {
         return this.containedItem;
     }
@@ -23,7 +23,7 @@ public class Item_Room_Object : Room_Object
         return this.itemTaken;
     }
 
-    public void SetItem(Items val)
+    public void SetItem(Item val)
     {
         this.containedItem = val;
     }

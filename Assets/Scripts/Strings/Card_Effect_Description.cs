@@ -11,7 +11,7 @@ using UnityEngine;
 public class Card_Effect_Description: ScriptableObject
 {
     [SerializeField]
-    public CardEffects effect;
+    public CardEffect effect;
 
     [SerializeField]
     public string title;

@@ -21,9 +21,9 @@ public abstract class Item_Holder : MonoBehaviour
         return this.item;
     }
 
-    public Items GetItemType()
+    public Item GetItemType()
     {
-        return this.item?.GetItemType() ?? Items.Default;
+        return this.item?.GetItemType() ?? Item.Default;
     }
 
     public bool HasItem()

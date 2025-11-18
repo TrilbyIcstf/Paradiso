@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class Stairs_Room_Object : Room_Object
 {
-    public Stairs_Room_Object(Directions entranceDirection, int distance) : base(entranceDirection, distance) { }
+    public Stairs_Room_Object(Direction entranceDirection, int distance) : base(entranceDirection, distance) { }
 
     /// <summary>
     /// Converts a standard room to a stairs room
