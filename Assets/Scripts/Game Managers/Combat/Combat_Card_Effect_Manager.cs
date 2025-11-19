@@ -75,7 +75,7 @@ public class Combat_Card_Effect_Manager : ManagerBehavior
         {
             GameObject targetCard = (isPlayer ? (Hand_Manager)GM.CEH : GM.CPH).GetCard(pos);
             targetCard.GetComponent<Active_Card>().AddPowerBuff(-5);
-            targetCard.GetComponent<Card_UI>().EmphasizeCardCo();
+            targetCard.GetComponent<Card_UI_Controller>().EmphasizeCardCo();
         }
     }
 
@@ -121,7 +121,7 @@ public class Combat_Card_Effect_Manager : ManagerBehavior
         {
             GameObject targetCard = (isPlayer ? (Hand_Manager)GM.CPH : GM.CEH).GetCard(pos);
             targetCard.GetComponent<Active_Card>().SetElement(elem);
-            targetCard.GetComponent<Card_UI>().EmphasizeCardCo();
+            targetCard.GetComponent<Card_UI_Controller>().EmphasizeCardCo();
         }
     }
 

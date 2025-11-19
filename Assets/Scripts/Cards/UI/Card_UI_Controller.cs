@@ -6,25 +6,25 @@ using UnityEngine.UI;
 public class Card_UI_Controller : MonoBehaviour
 {
     [SerializeField]
-    private Text powerText;
+    protected Text powerText;
     [SerializeField]
-    private Text defenseText;
+    protected Text defenseText;
 
     [SerializeField]
-    private Image elementIcon;
+    protected Image elementIcon;
 
     [SerializeField]
-    private List<Image> effectIcons;
+    protected List<Image> effectIcons;
 
     [SerializeField]
-    private Canvas uiCanvas;
+    protected Canvas uiCanvas;
 
-    private int sortingOrder = -1;
+    protected int sortingOrder = -1;
 
     /// <summary>
     /// Sets the card to interactable after a short delay. Used to prevent it from messing with mouse clicks when spawning on top of the deck.
     /// </summary>
-    public IEnumerator OnSpawnInteractionDelay()
+    protected IEnumerator OnSpawnInteractionDelay()
     {
         Transform[] cardObjects = gameObject.GetComponentsInChildren<Transform>(true);
         foreach (Transform obj in cardObjects)

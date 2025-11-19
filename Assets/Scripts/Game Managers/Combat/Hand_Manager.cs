@@ -92,13 +92,13 @@ public abstract class Hand_Manager : ManagerBehavior
 
     public void SetSortingOrder(GameObject topCard)
     {
-        List<Card_UI> scriptList = GetUIScripts();
-        List<Card_UI> sortedHand = scriptList.OrderBy(c => c.GetSortingOrder()).ToList();
-        Card_UI topScript = topCard.GetComponent<Card_UI>();
+        List<Card_UI_Controller> scriptList = GetUIScripts();
+        List<Card_UI_Controller> sortedHand = scriptList.OrderBy(c => c.GetSortingOrder()).ToList();
+        Card_UI_Controller topScript = topCard.GetComponent<Card_UI_Controller>();
         int oldOrder = topScript.GetSortingOrder();
 
         int order = 1;
-        foreach (Card_UI card in sortedHand)
+        foreach (Card_UI_Controller card in sortedHand)
         {
             if (card.GetSortingOrder() != oldOrder)
             {
@@ -109,9 +109,9 @@ public abstract class Hand_Manager : ManagerBehavior
         topScript.SetSortingOrder(order);
     }
 
-    private List<Card_UI> GetUIScripts()
+    private List<Card_UI_Controller> GetUIScripts()
     {
-        return this.hand.Select(c => c.GetComponent<Card_UI>()).ToList();
+        return this.hand.Select(c => c.GetComponent<Card_UI_Controller>()).ToList();
     }
 
     public void DrawToHand(GameObject card)

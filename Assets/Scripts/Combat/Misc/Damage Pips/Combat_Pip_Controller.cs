@@ -31,19 +31,20 @@ public class Combat_Pip_Controller : MonoBehaviour
         {
             GameObject tempPip = Instantiate(this.pip, playerRes.card.transform.position, Quaternion.identity);
 
+            Transform enemyPos = GameManager.instance.CUI.uiCoordinator.GetEnemySpriteObject().transform;
             if (i < enemyBlockPips)
             {
                 GameObject tempBlockPip = Instantiate(this.pip, enemyRes.card.transform.position, Quaternion.identity);
 
-                tempPip.GetComponent<Damage_Pip_Movement>().SetupDefender(tempBlockPip.transform);
-                tempBlockPip.GetComponent<Damage_Pip_Movement>().SetupDefender(tempPip.transform);
+                tempPip.GetComponent<Damage_Pip_Movement>().SetupDefender(tempBlockPip.transform, enemyPos);
+                tempBlockPip.GetComponent<Damage_Pip_Movement>().SetupDefender(tempPip.transform, tempPip.transform);
 
                 this.playerDefendingPips.Add(tempPip);
                 this.enemyDefendingPips.Add(tempBlockPip);
-            } else
+            } 
+            else
             {
-                Transform enemyPos = GameManager.instance.CUI.uiCoordinator.GetEnemySpriteObject().transform;
-                tempPip.GetComponent<Damage_Pip_Movement>().SetupAttacker(enemyPos);
+                tempPip.GetComponent<Damage_Pip_Movement>().SetupAttacker(enemyPos, enemyPos);
 
                 this.playerAttackingPips.Add(tempPip);
             }
@@ -53,20 +54,20 @@ public class Combat_Pip_Controller : MonoBehaviour
         {
             GameObject tempPip = Instantiate(this.pip, enemyRes.card.transform.position, Quaternion.identity);
 
+            Transform playerPos = GameManager.instance.CUI.uiCoordinator.GetPlayerSpriteObject().transform;
             if (i < playerBlockPips)
             {
                 GameObject tempBlockPip = Instantiate(this.pip, playerRes.card.transform.position, Quaternion.identity);
 
-                tempPip.GetComponent<Damage_Pip_Movement>().SetupDefender(tempBlockPip.transform);
-                tempBlockPip.GetComponent<Damage_Pip_Movement>().SetupDefender(tempPip.transform);
+                tempPip.GetComponent<Damage_Pip_Movement>().SetupDefender(tempBlockPip.transform, playerPos);
+                tempBlockPip.GetComponent<Damage_Pip_Movement>().SetupDefender(tempPip.transform, tempPip.transform);
 
                 this.enemyDefendingPips.Add(tempPip);
                 this.playerDefendingPips.Add(tempBlockPip);
             }
             else
             {
-                Transform playerPos = GameManager.instance.CUI.uiCoordinator.GetPlayerSpriteObject().transform;
-                tempPip.GetComponent<Damage_Pip_Movement>().SetupAttacker(playerPos);
+                tempPip.GetComponent<Damage_Pip_Movement>().SetupAttacker(playerPos, playerPos);
 
                 this.enemyAttackingPips.Add(tempPip);
             }

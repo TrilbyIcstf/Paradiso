@@ -63,7 +63,7 @@ public class Combat_UI_Manager : ManagerBehavior
             gravityScript.SetLocked(true);
 
             // Alter card UI as necessary
-            card.GetComponent<Card_UI>().SetToDefaultSorting(1);
+            card.GetComponent<Card_UI_Controller>().SetToDefaultSorting(1);
 
             // Assign card stats to field space
             GM.CF.SetPlayerSpace(spacePosition, card);
@@ -93,7 +93,7 @@ public class Combat_UI_Manager : ManagerBehavior
             gravityScript.SetLocked(true);
 
             // Alter card UI as necessary
-            card.GetComponent<Card_UI>().SetToDefaultSorting(1);
+            card.GetComponent<Card_UI_Controller>().SetToDefaultSorting(1);
 
             // Assign card stats to field space
             GM.CF.SetEnemySpace(position, card);
@@ -253,7 +253,7 @@ public class Combat_UI_Manager : ManagerBehavior
 
         if (emphasizePlayerCard)
         {
-            Card_UI cardScript = playerResults.card.GetComponent<Card_UI>();
+            Card_UI_Controller cardScript = playerResults.card.GetComponent<Card_UI_Controller>();
             animations.Add(StartCoroutine(cardScript.EmphasizeCard()));
             cardScript.SetPower((int)playerResults.totalAttack);
             cardScript.SetDefense((int)playerResults.totalDefense);
@@ -265,7 +265,7 @@ public class Combat_UI_Manager : ManagerBehavior
 
         if (emphasizeEnemyCard)
         {
-            Card_UI cardScript = enemyResults.card.GetComponent<Card_UI>();
+            Card_UI_Controller cardScript = enemyResults.card.GetComponent<Card_UI_Controller>();
             animations.Add(StartCoroutine(cardScript.EmphasizeCard()));
             cardScript.SetPower((int)enemyResults.totalAttack);
             cardScript.SetDefense((int)enemyResults.totalDefense);

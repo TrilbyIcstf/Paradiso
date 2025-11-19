@@ -13,13 +13,13 @@ public class Item_Behavior_Manager : ManagerBehavior
         {
             case Item.Default:
                 break;
-            case Item.DamageTest:
+            case Item.RunicHammer:
                 Active_Card randCard = GM.CPH.PickRandomCard()?.GetComponent<Active_Card>();
                 if (randCard == null) { break; }
                 randCard.AddMultPower(1.2f);
-                randCard.GetComponent<Card_UI>().EmphasizeCardCo();
+                randCard.GetComponent<Card_UI_Controller>().EmphasizeCardCo();
                 break;
-            case Item.CheapDrawTest:
+            case Item.ManaRune:
                 GM.CPS.DrawCard();
                 break;
             case Item.AGun:
@@ -99,9 +99,9 @@ public class Item_Behavior_Manager : ManagerBehavior
         {
             case Item.Default:
                 return true;
-            case Item.DamageTest:
+            case Item.RunicHammer:
                 return GM.CPH.HandSize() > 0;
-            case Item.CheapDrawTest:
+            case Item.ManaRune:
                 return !GM.CPD.DeckIsEmpty() && !GM.CPH.AtHandLimit();
             case Item.AGun:
                 return true;

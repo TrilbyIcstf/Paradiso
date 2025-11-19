@@ -9,7 +9,7 @@ public class Damage_Pip_Movement : MonoBehaviour
     private Transform goal;
 
     private float speed = 12.5f;
-    private float rotSpeed = 90.0f;
+    private float rotSpeed = 30.0f;
 
     private float rotAccel = 0;
 
@@ -17,27 +17,27 @@ public class Damage_Pip_Movement : MonoBehaviour
 
     private bool started = false;
 
-    private void Setup(Transform goal) {
+    private void Setup(Transform goal, Transform opponentPos) {
         this.goal = goal;
         float randRotation = Random.Range(-20.0f, 20.0f);
 
-        // Sets direction to oposite of goal
-        this.direction = ((Vector2)transform.position - GoalPos()).normalized;
+        // Sets direction to oposite of opponent
+        this.direction = (transform.position - opponentPos.position).normalized;
         this.direction = this.direction.Rotate(randRotation);
 
         this.started = true;
     }
 
-    public void SetupAttacker(Transform goal)
+    public void SetupAttacker(Transform goal, Transform opponentPos)
     {
-        this.rotAccel = 30.0f;
-        Setup(goal);
+        this.rotAccel = 90.0f;
+        Setup(goal, opponentPos);
     }
 
-    public void SetupDefender(Transform goal)
+    public void SetupDefender(Transform goal, Transform opponentPos)
     {
-        this.rotAccel = 100.0f;
-        Setup(goal);
+        this.rotAccel = 240.0f;
+        Setup(goal, opponentPos);
     }
 
     private void Update()
@@ -63,10 +63,12 @@ public class Damage_Pip_Movement : MonoBehaviour
             float rotDegrees = this.rotSpeed * time;
             Vector2 dirToGoal = GoalPos() - (Vector2)transform.position;
             float angle = Vector2.SignedAngle(this.direction, dirToGoal);
-            if (Mathf.Abs(angle) <= rotDegrees)
+            
+            if (Mathf.Abs(angle) <= rotDegrees || velocity.magnitude * 5 >= dist)
             {
                 this.direction = dirToGoal.normalized;
-            } else
+            } 
+            else
             {
                 float rotDirection = Mathf.Sign(angle);
                 this.direction = this.direction.Rotate(rotDegrees * rotDirection);
@@ -75,12 +77,15 @@ public class Damage_Pip_Movement : MonoBehaviour
             // Calculate speed changes
             if (Mathf.Abs(angle) > 90)
             {
-                this.speed = Mathf.Max(this.speed - (15.0f * time), 6.0f);
-            } else
+                this.speed = Mathf.Max(this.speed - (15.0f * time), 3.0f);
+            } 
+            else
             {
-                this.speed += 20.0f * time;
+                this.speed += 30.0f * time;
             }
             this.rotSpeed += time * this.rotAccel * Mathf.Max(this.lifespan, 1.0f);
+
+
 
             this.lifespan += time;
         }

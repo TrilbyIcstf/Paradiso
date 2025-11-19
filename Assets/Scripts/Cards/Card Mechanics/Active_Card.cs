@@ -10,7 +10,7 @@ public class Active_Card : MonoBehaviour
     [SerializeField]
     private Card_Base cardStats;
 
-    private Card_UI ui;
+    private Card_UI_Controller ui;
 
     // Card's stats that can be overriden from the base
     private float activePower = 0;
@@ -29,7 +29,7 @@ public class Active_Card : MonoBehaviour
         this.activeElement = this.cardStats.GetElement();
         this.activeEffects = this.cardStats.GetEffects();
 
-        this.ui = GetComponent<Card_UI>();
+        this.ui = GetComponent<Card_UI_Controller>();
 
         this.ui.SetPower(GetPower());
         this.ui.SetDefense(GetDefense());

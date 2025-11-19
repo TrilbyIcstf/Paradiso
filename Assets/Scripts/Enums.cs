@@ -67,6 +67,27 @@ public static class ElementMethods
     }
 }
 
+public enum Affinity
+{
+    Sun,
+    Earth,
+    Moon
+}
+
+public static class AffinityMethods
+{
+    public static Affinity RandomAffinity()
+    {
+        int elementIndex = UnityEngine.Random.Range(0, 3);
+        return elementIndex switch
+        {
+            0 => Affinity.Sun,
+            1 => Affinity.Earth,
+            _ => Affinity.Moon
+        };
+    }
+}
+
 public enum EffectTiming
 {
     Pickup,
@@ -82,14 +103,17 @@ public enum EffectTiming
 public enum Item
 {
     Default,
-    DamageTest,
-    CheapDrawTest,
-    AGun,
-    PageRipper,
-    Antiquifier,
-    Solidifier,
-    Bandage,
-    CrystalBall
+    RunicHammer, // Active: Buffs card
+    ManaRune, // Active: Draw card
+    AGun, // Active: Gun
+    PageRipper, // Active: Splits page
+    Antiquifier, // Passive: Buffs power on play
+    Solidifier, // Passive: Buffs defense on play
+    Bandage, // Passive: Heal after fight
+    CrystalBall, // Pickup: Increases max mana
+    DiamondBall, // Pickup: Increases max mana
+    ManaReservoir, // Active: Refills mana
+    ClairvoyantGem // Pickup: Increases mana regen
 }
 
 public static class ItemMethods { 
@@ -97,13 +121,18 @@ public static class ItemMethods {
     {
         switch (item)
         {
-            case Item.DamageTest:
-            case Item.CheapDrawTest:
+            case Item.RunicHammer:
+            case Item.ManaRune:
             case Item.AGun:
             case Item.PageRipper:
+            case Item.ManaReservoir:
                 return true;
             case Item.Antiquifier:
             case Item.Solidifier:
+            case Item.Bandage:
+            case Item.CrystalBall:
+            case Item.DiamondBall:
+            case Item.ClairvoyantGem:
                 return false;
             default:
                 return false;
@@ -135,7 +164,9 @@ public enum CardEffect
     Incinerate,
     Flow,
     Tremor,
-    Spread
+    Spread,
+    SynergyLeft,
+    SynergyRight
 }
 
 public enum Direction

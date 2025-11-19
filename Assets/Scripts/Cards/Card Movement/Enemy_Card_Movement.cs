@@ -12,7 +12,6 @@ public class Enemy_Card_Movement : MonoBehaviour
     /// </summary>
     private bool isHoldingCard = false;
 
-    [SerializeField]
     private SpriteRenderer sr;
     private Card_Gravity cardGravity;
 
@@ -20,6 +19,7 @@ public class Enemy_Card_Movement : MonoBehaviour
 
     private void Awake()
     {
+        this.sr = GetComponent<SpriteRenderer>();
         this.cardGravity = GetComponent<Card_Gravity>();
     }
 
