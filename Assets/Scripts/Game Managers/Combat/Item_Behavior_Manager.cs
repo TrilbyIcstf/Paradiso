@@ -133,7 +133,7 @@ public class PassiveEffectParameters
 {
     public GameObject triggeredCard;
 
-    public static PassiveEffectParameters TriggeredCard(GameObject triggeredCard)
+    public static PassiveEffectParameters TriggeredCard(GameObject triggeredCard, GameObject opposingCard)
     {
         PassiveEffectParameters ret = new PassiveEffectParameters();
         ret.triggeredCard = triggeredCard;

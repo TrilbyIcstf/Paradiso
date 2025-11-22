@@ -218,11 +218,11 @@ public class Combat_UI_Manager : ManagerBehavior
     /// <param name="pos">The field position</param>
     /// <param name="playerResults">The player's field results</param>
     /// <param name="enemyResults">The enemy's field results</param>
-    public IEnumerator PlayFieldResultAnimations(int pos, Field_Card_Results playerResults, Field_Card_Results enemyResults)
+    public IEnumerator PlayCardResultAnimations(int pos, Field_Card_Results playerResults, Field_Card_Results enemyResults)
     {
         List<Coroutine> animations = new List<Coroutine>();
 
-        PassiveEffectParameters passParams = PassiveEffectParameters.TriggeredCard(playerResults.card);
+        PassiveEffectParameters passParams = PassiveEffectParameters.TriggeredCard(playerResults.card, enemyResults.card);
         bool emphasizePlayerCard = WillEmphasize(playerResults, passParams);
         bool emphasizeEnemyCard = WillEmphasize(enemyResults);
 
@@ -272,6 +272,45 @@ public class Combat_UI_Manager : ManagerBehavior
             foreach (CardEffect effect in enemyResults.effects)
             {
                 animations.Add(StartCoroutine(GM.CCE.TriggerCardEffect(effect, enemyResults.card, enemyResults.effParams, false)));
+            }
+        }
+
+        foreach (Coroutine c in animations)
+        {
+            yield return c;
+        }
+    }
+
+    /// <summary>
+    /// Plays relevant animations for the full field
+    /// </summary>
+    /// <param name="results"></param>
+    /// <returns></returns>
+    public IEnumerator PlayFieldResultAnimations(Field_Full_Results results)
+    {
+        List<Coroutine> animations = new List<Coroutine>();
+
+        if (results.GetPlayerAffinity())
+        {
+            for (int i = 0; i < results.GetSize(); i++)
+            {
+                Field_Card_Results result = results.GetPlayerResult(i);
+                Card_UI_Controller cardScript = result.card.GetComponent<Card_UI_Controller>();
+                animations.Add(StartCoroutine(cardScript.EmphasizeCard()));
+                cardScript.SetPower((int)result.totalAttack);
+                cardScript.SetDefense((int)result.totalDefense);
+            }
+        }
+
+        if (results.GetEnemyAffinity())
+        {
+            for (int i = 0; i < results.GetSize(); i++)
+            {
+                Field_Card_Results result = results.GetEnemyResult(i);
+                Card_UI_Controller cardScript = result.card.GetComponent<Card_UI_Controller>();
+                animations.Add(StartCoroutine(cardScript.EmphasizeCard()));
+                cardScript.SetPower((int)result.totalAttack);
+                cardScript.SetDefense((int)result.totalDefense);
             }
         }
 

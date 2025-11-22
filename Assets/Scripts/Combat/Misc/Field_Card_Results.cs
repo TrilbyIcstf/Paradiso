@@ -26,6 +26,9 @@ public class Field_Full_Results
 
     private int size;
 
+    private bool playerAffinity = false;
+    private bool enemyAffinity = false;
+
     public Field_Full_Results(int size)
     {
         this.playerResults = new Field_Card_Results[size];
@@ -43,6 +46,16 @@ public class Field_Full_Results
         return this.enemyResults[pos];
     }
 
+    public bool GetPlayerAffinity()
+    {
+        return this.playerAffinity;
+    }
+
+    public bool GetEnemyAffinity()
+    {
+        return this.enemyAffinity;
+    }
+
     public int GetSize()
     {
         return this.size;
@@ -56,5 +69,15 @@ public class Field_Full_Results
     public void SetEnemyResult(int pos, Field_Card_Results val)
     {
         this.enemyResults[pos] = val;
+    }
+
+    public void SetPlayerAffinity(bool val)
+    {
+        this.playerAffinity = val;
+    }
+
+    public void SetEnemyAffinity(bool val)
+    {
+        this.enemyAffinity = val;
     }
 }

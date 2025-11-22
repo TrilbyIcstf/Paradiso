@@ -43,6 +43,7 @@ public class Enemy_Draw_Controller : MonoBehaviour
         int power = RollForStat(minPow, maxPow, powQuality);
         int defense = RollForStat(minDef, maxDef, defQuality);
         CardElement element = ElementMethods.RandomElement();
+        CardAffinity affinity = AffinityMethods.RandomAffinity();
 
         if (drawnCards.Count >= 5)
         {
@@ -79,7 +80,7 @@ public class Enemy_Draw_Controller : MonoBehaviour
             effects.Add(CardEffect.Spread);
         }
 
-        Card_Base cardBase = Card_Base.NewCard("", cardName, power, defense, element, effects);
+        Card_Base cardBase = Card_Base.NewCard("", cardName, power, defense, element, affinity, effects);
 
         return cardBase;
     }
@@ -97,6 +98,7 @@ public class Enemy_Draw_Controller : MonoBehaviour
         string cardName = "Page";
         int power = RollForStat(minPow, maxPow, powQuality);
         int defense = RollForStat(minDef, maxDef, defQuality);
+        CardAffinity affinity = AffinityMethods.RandomAffinity();
         
         if (drawnCards.Count >= 5) {
             power = AdjustStatTowardsAverage(power, minPow, maxPow, powQuality, DrawnAveragePower(drawnCards));
@@ -127,7 +129,7 @@ public class Enemy_Draw_Controller : MonoBehaviour
             
         }
 
-        Card_Base cardBase = Card_Base.NewCard("", cardName, power, defense, element, effects);
+        Card_Base cardBase = Card_Base.NewCard("", cardName, power, defense, element, affinity, effects);
 
         return cardBase;
     }
@@ -145,6 +147,7 @@ public class Enemy_Draw_Controller : MonoBehaviour
         string cardName = "Page";
         int power = RollForStat(minPow, maxPow, powQuality);
         int defense = RollForStat(minDef, maxDef, defQuality);
+        CardAffinity affinity = AffinityMethods.RandomAffinity();
 
         if (drawnCards.Count >= 5)
         {
@@ -191,7 +194,7 @@ public class Enemy_Draw_Controller : MonoBehaviour
 
         }
 
-        Card_Base cardBase = Card_Base.NewCard("", cardName, power, defense, randElement, effects);
+        Card_Base cardBase = Card_Base.NewCard("", cardName, power, defense, randElement, affinity, effects);
 
         return cardBase;
     }

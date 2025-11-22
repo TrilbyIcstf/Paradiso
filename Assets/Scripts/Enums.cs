@@ -67,25 +67,41 @@ public static class ElementMethods
     }
 }
 
-public enum Affinity
+public enum CardAffinity
 {
-    Sun,
-    Earth,
-    Moon
+    Sol,
+    Terra,
+    Luna
 }
 
 public static class AffinityMethods
 {
-    public static Affinity RandomAffinity()
+    public static CardAffinity RandomAffinity()
     {
-        int elementIndex = UnityEngine.Random.Range(0, 3);
+        int elementIndex = UnityEngine.Random.Range(0, 5);
         return elementIndex switch
         {
-            0 => Affinity.Sun,
-            1 => Affinity.Earth,
-            _ => Affinity.Moon
+            0 => CardAffinity.Sol,
+            < 3 => CardAffinity.Terra,
+            _ => CardAffinity.Luna
         };
     }
+
+    public static float AffinityPowerBoost(this CardAffinity? affinity) => affinity switch
+    {
+        CardAffinity.Sol => 1.5f,
+        CardAffinity.Terra => 1.5f,
+        CardAffinity.Luna => 1.0f,
+        _ => 1.0f
+    };
+
+    public static float AffinityDefenseBoost(this CardAffinity? affinity) => affinity switch
+    {
+        CardAffinity.Sol => 2.0f,
+        CardAffinity.Terra => 1.0f,
+        CardAffinity.Luna => 2.0f,
+        _ => 1.0f
+    };
 }
 
 public enum EffectTiming

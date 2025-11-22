@@ -16,6 +16,7 @@ public static class Starting_Decks
         List<int> powerList = new List<int>();
         List<int> defenseList = new List<int>();
         List<CardElement> elementList = new List<CardElement>();
+        List<CardAffinity> affinityList = new List<CardAffinity>();
         int flowCount = 0;
         int incinerateCount = 0;
         int tremorCount = 0;
@@ -43,6 +44,12 @@ public static class Starting_Decks
             elementList.Add(CardElement.Nil);
             elementList.Add(CardElement.Water);
             elementList.Add(CardElement.Wind);
+
+            affinityList.Add(CardAffinity.Terra);
+            affinityList.Add(CardAffinity.Terra);
+            affinityList.Add(CardAffinity.Luna);
+            affinityList.Add(CardAffinity.Luna);
+            affinityList.Add(CardAffinity.Sol);
         }
 
         for (int i = 0; i < 30; i++)
@@ -50,12 +57,15 @@ public static class Starting_Decks
             int randAttack = Random.Range(0, powerList.Count);
             int randDefense = Random.Range(0, defenseList.Count);
             int randElement = Random.Range(0, elementList.Count);
+            int randAffinity = Random.Range(0, affinityList.Count);
             int cardAttack = powerList[randAttack];
             powerList.RemoveAt(randAttack);
             int cardDefense = defenseList[randDefense];
             defenseList.RemoveAt(randDefense);
             CardElement cardElement = elementList[randElement];
             elementList.RemoveAt(randElement);
+            CardAffinity cardAffinity = affinityList[randAffinity];
+            affinityList.RemoveAt(randAffinity);
             CardEffect? cardEffect = null;
             switch(cardElement)
             {
@@ -111,8 +121,9 @@ public static class Starting_Decks
             if (cardEffect is { } effectValue)
             {
                 cardEffects.Add(effectValue);
+                cardEffects.Add(CardEffect.Spread);
             }
-            Card_Base card = Card_Base.NewCard(i.ToString(), "Scroll", cardAttack, cardDefense, cardElement, cardEffects);
+            Card_Base card = Card_Base.NewCard(i.ToString(), "Scroll", cardAttack, cardDefense, cardElement, cardAffinity, cardEffects);
             deck[i.ToString()] = card;
         }
 

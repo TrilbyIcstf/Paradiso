@@ -19,6 +19,9 @@ public class Active_Card : MonoBehaviour
     // Card's element that can be overriden from the base
     private CardElement activeElement;
 
+    // Card's affinity that can be overriden from the base
+    private CardAffinity activeAffinity;
+
     // Card's effects that can be overriden from the base
     private List<CardEffect> activeEffects = new List<CardEffect>();
 
@@ -27,6 +30,7 @@ public class Active_Card : MonoBehaviour
         this.activePower = this.cardStats.GetPower();
         this.activeDefense = this.cardStats.GetDefense();
         this.activeElement = this.cardStats.GetElement();
+        this.activeAffinity = this.cardStats.GetAffinity();
         this.activeEffects = this.cardStats.GetEffects();
 
         this.ui = GetComponent<Card_UI_Controller>();
@@ -34,6 +38,7 @@ public class Active_Card : MonoBehaviour
         this.ui.SetPower(GetPower());
         this.ui.SetDefense(GetDefense());
         this.ui.SetElement(GetElement());
+        this.ui.SetAffinity(GetAffinity());
         this.ui.SetEffects(GetEffects());
     }
 
@@ -79,6 +84,12 @@ public class Active_Card : MonoBehaviour
         this.ui.SetElement(GetElement());
     }
 
+    public void SetAffinity(CardAffinity val)
+    {
+        this.activeAffinity = val;
+        this.ui.SetAffinity(GetAffinity());
+    }
+
     public Card_Base GetBase()
     {
         return this.cardStats;
@@ -97,6 +108,11 @@ public class Active_Card : MonoBehaviour
     public CardElement GetElement()
     {
         return this.activeElement;
+    }
+
+    public CardAffinity GetAffinity()
+    {
+        return this.activeAffinity;
     }
 
     public List<CardEffect> GetEffects()

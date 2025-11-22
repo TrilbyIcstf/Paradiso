@@ -62,4 +62,11 @@ public class Static_Object_Manager : MonoBehaviour
     [SerializeField]
     private ElementIcons elementIcons;
     public Sprite GetElementIcon(CardElement element) { return this.elementIcons[element]; }
+
+    // Affinity icons
+    [Serializable]
+    public class AffinityIcons : SerializableDictionary<CardAffinity, Sprite> { }
+    [SerializeField]
+    private AffinityIcons affinityIcons;
+    public Sprite GetAffinityIcon(CardAffinity affinity) { return this.affinityIcons[affinity]; }
 }

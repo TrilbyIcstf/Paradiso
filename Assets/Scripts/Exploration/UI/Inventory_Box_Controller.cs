@@ -88,6 +88,7 @@ public class Inventory_Box_Controller : MonoBehaviour
             tempController.SetPower(deckCard.GetPower());
             tempController.SetDefense(deckCard.GetDefense());
             tempController.SetElement(deckCard.GetElement());
+            tempController.SetAffinity(deckCard.GetAffinity());
             tempController.SetEffects(deckCard.GetEffects());
             Inventory_Mouse_Hover_Card hoverScript = tempCard.GetComponent<Inventory_Mouse_Hover_Card>();
             hoverScript.SetBaseStats(deckCard);

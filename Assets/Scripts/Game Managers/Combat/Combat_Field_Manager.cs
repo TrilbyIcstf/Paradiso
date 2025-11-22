@@ -43,7 +43,7 @@ public class Combat_Field_Manager : ManagerBehavior
     public void SetFieldLock(bool val)
     {
         this.fieldLocked = val;
-        foreach(Combat_Item item in GM.CPI.GetPlayerItems())
+        foreach (Combat_Item item in GM.CPI.GetPlayerItems())
         {
             item.SetLock(val);
         }
@@ -74,7 +74,7 @@ public class Combat_Field_Manager : ManagerBehavior
         for (int i = 0; i < this.playerSpaces.Length; i++)
         {
             // Tracks parameters of each field space to determine damage and effects
-            PassiveEffectParameters passParams = PassiveEffectParameters.TriggeredCard(this.playerSpaces[i].GetCardObject());
+            PassiveEffectParameters passParams = PassiveEffectParameters.TriggeredCard(this.playerSpaces[i].GetCardObject(), this.enemySpaces[i].GetCardObject());
 
             // Trigger passive effects BEFORE damage calcs
             GM.PM.ActivatePassiveItems(EffectTiming.CardScoredBefore, passParams);
@@ -86,11 +86,23 @@ public class Combat_Field_Manager : ManagerBehavior
             GM.PM.ActivatePassiveItems(EffectTiming.CardScoredAfter, passParams);
 
             // Play animations from calcs
-            yield return StartCoroutine(GM.CUI.PlayFieldResultAnimations(i, playerResults, enemyResults));
+            yield return StartCoroutine(GM.CUI.PlayCardResultAnimations(i, playerResults, enemyResults));
 
             // Add to results
             results.SetPlayerResult(i, playerResults);
             results.SetEnemyResult(i, enemyResults);
+        }
+
+        results = CalculateAffinityBonus(results, this.playerSpaces, this.enemySpaces);
+
+        yield return StartCoroutine(GM.CUI.PlayFieldResultAnimations(results));
+
+        results = FinalizeResults(results);
+
+        for (int i = 0; i < this.playerSpaces.Length; i++)
+        {
+            Field_Card_Results playerResults = results.GetPlayerResult(i);
+            Field_Card_Results enemyResults = results.GetEnemyResult(i);
 
             debugPlayerAttacks += $"Card {i} deals {playerResults.totalDamage}, ";
             debugEnemyAttacks += $"Card {i} deals {enemyResults.totalDamage}, ";
@@ -132,9 +144,6 @@ public class Combat_Field_Manager : ManagerBehavior
         Field_Card_Results playerResults = CalculateCard(pos, playerCards, enemyCards);
         Field_Card_Results enemyResults = CalculateCard(pos, enemyCards, playerCards);
 
-        // Calculates damage
-        (playerResults, enemyResults) = CalculateDamage(playerResults, enemyResults);
-
         // Calculates effect parameters
         (playerResults, enemyResults) = CalculateEffectParametersShared(playerResults, enemyResults);
 
@@ -174,6 +183,18 @@ public class Combat_Field_Manager : ManagerBehavior
         if (results.effects.Count != 0)
         {
             results = CalculateEffectParametersIndividual(results);
+        }
+
+        return results;
+    }
+
+    private Field_Full_Results FinalizeResults(Field_Full_Results results)
+    {
+        for (int i = 0; i < results.GetSize(); i++)
+        {
+            (Field_Card_Results playerResult, Field_Card_Results enemyResult) = CalculateDamage(results.GetPlayerResult(i), results.GetEnemyResult(i));
+            results.SetPlayerResult(i, playerResult);
+            results.SetEnemyResult(i, enemyResult);
         }
 
         return results;
@@ -299,6 +320,64 @@ public class Combat_Field_Manager : ManagerBehavior
         }
 
         return cardResults;
+    }
+
+    private Field_Full_Results CalculateAffinityBonus(Field_Full_Results results, Player_Field_Space[] playerSpaces, Enemy_Field_Space[] enemySpaces)
+    {
+        bool playerBonus = true;
+        bool enemyBonus = true;
+
+        CardAffinity? playerAffinity = null;
+        CardAffinity? enemyAffinity = null;
+
+        if (playerSpaces[0].GetCard() != null)
+        {
+            playerAffinity = playerSpaces[0].GetCard().GetAffinity();
+        }
+
+        if (enemySpaces[0].GetCard() != null)
+        {
+            enemyAffinity = enemySpaces[0].GetCard().GetAffinity();
+        }
+
+        for (int i = 0; i < playerSpaces.Length; i++)
+        {
+            if (!playerBonus || playerSpaces[i].GetCard() == null || playerSpaces[i].GetCard().GetAffinity() != playerAffinity)
+            {
+                playerBonus = false;
+            }
+
+            if (!enemyBonus || enemySpaces[i].GetCard() == null || enemySpaces[i].GetCard().GetAffinity() != enemyAffinity)
+            {
+                enemyBonus = false;
+            }
+        }
+
+        if (playerBonus)
+        {
+            results.SetPlayerAffinity(true);
+            for (int i = 0; i < playerSpaces.Length; i++)
+            {
+                Field_Card_Results result = results.GetPlayerResult(i);
+                result.totalAttack *= playerAffinity.AffinityPowerBoost();
+                result.totalDefense *= playerAffinity.AffinityDefenseBoost();
+                results.SetPlayerResult(i, result);
+            }
+        }
+
+        if (enemyBonus)
+        {
+            results.SetEnemyAffinity(true);
+            for (int i = 0; i < enemySpaces.Length; i++)
+            {
+                Field_Card_Results result = results.GetEnemyResult(i);
+                result.totalAttack *= enemyAffinity.AffinityPowerBoost();
+                result.totalDefense *= enemyAffinity.AffinityDefenseBoost();
+                results.SetEnemyResult(i, result);
+            }
+        }
+
+        return results;
     }
 
     /// <summary>

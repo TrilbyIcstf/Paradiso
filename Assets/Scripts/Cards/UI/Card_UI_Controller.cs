@@ -14,6 +14,9 @@ public class Card_UI_Controller : MonoBehaviour
     protected Image elementIcon;
 
     [SerializeField]
+    protected Image affinityIcon;
+
+    [SerializeField]
     protected List<Image> effectIcons;
 
     [SerializeField]
@@ -88,6 +91,11 @@ public class Card_UI_Controller : MonoBehaviour
     public void SetElement(CardElement val)
     {
         this.elementIcon.sprite = Static_Object_Manager.instance.GetElementIcon(val);
+    }
+
+    public void SetAffinity(CardAffinity val)
+    {
+        this.affinityIcon.sprite = Static_Object_Manager.instance.GetAffinityIcon(val);
     }
 
     public void SetEffects(List<CardEffect> val)

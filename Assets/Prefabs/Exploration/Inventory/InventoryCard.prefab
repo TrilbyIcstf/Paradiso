@@ -211,6 +211,7 @@ MonoBehaviour:
   powerText: {fileID: 8128138105284719281}
   defenseText: {fileID: 7583372473581238502}
   elementIcon: {fileID: 5067058683884763527}
+  affinityIcon: {fileID: 2596754889733690116}
   effectIcons:
   - {fileID: 6779950744170567503}
   - {fileID: 1822403565174644973}
@@ -367,6 +368,17 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2596754889733690116 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2717698934567590819, guid: 8a55ccd8bb3c7f946982e2c3e9dd9c27, type: 3}
+  m_PrefabInstance: {fileID: 125733657138563239}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
