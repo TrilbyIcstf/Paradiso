@@ -23,6 +23,23 @@ public static class Starting_Decks
         int quillCount = 0;
         int spreadCount = 0;
 
+        int synergyLeftCard = Random.Range(0, 30);
+        int synergyRightCard = Random.Range(0, 30);
+
+        int synthesisLeftCard;
+        int synthesisRightCard;
+
+        do
+        {
+            synthesisLeftCard = Random.Range(0, 30);
+        } while (synergyLeftCard == synthesisLeftCard);
+
+        do
+        {
+            synthesisRightCard = Random.Range(0, 30);
+        } while (synergyRightCard == synthesisRightCard);
+
+
         // Build stat lists
         for (int i = 5; i < 19; i++)
         {
@@ -121,8 +138,28 @@ public static class Starting_Decks
             if (cardEffect is { } effectValue)
             {
                 cardEffects.Add(effectValue);
-                cardEffects.Add(CardEffect.Spread);
             }
+
+            if (i == synergyLeftCard)
+            {
+                cardEffects.Add(CardEffect.SynergyLeft);
+            }
+
+            if (i == synergyRightCard)
+            {
+                cardEffects.Add(CardEffect.SynergyRight);
+            }
+
+            if (i == synthesisLeftCard)
+            {
+                //cardEffects.Add(CardEffect.);
+            }
+
+            if (i == synthesisRightCard)
+            {
+                //cardEffects.Add(CardEffect.);
+            }
+
             Card_Base card = Card_Base.NewCard(i.ToString(), "Scroll", cardAttack, cardDefense, cardElement, cardAffinity, cardEffects);
             deck[i.ToString()] = card;
         }

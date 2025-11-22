@@ -6,11 +6,13 @@ public abstract class Mouse_Hover_Card : ManagerBehavior
 {
     [SerializeField]
     private GameObject infoBox;
+    [SerializeField]
+    private GameObject infoBoxController;
 
     [SerializeField]
     private bool isPlayerCard;
 
-    private List<GameObject> tempInfoBoxes = new List<GameObject>();
+    private GameObject tempInfoBoxController;
 
     private float hoverDuration = 0.5f;
     private Coroutine hoverCoroutine;
@@ -49,10 +51,7 @@ public abstract class Mouse_Hover_Card : ManagerBehavior
         {
             StopCoroutine(this.hoverCoroutine);
         }
-        foreach (GameObject box in this.tempInfoBoxes)
-        {
-            Destroy(box);
-        }
+        Destroy(tempInfoBoxController);
     }
 
     /// <summary>
@@ -60,18 +59,21 @@ public abstract class Mouse_Hover_Card : ManagerBehavior
     /// </summary>
     IEnumerator DisplayInfoOnHover()
     {
+        List<CardEffect> effectList = GetEffects();
+        if (effectList.Count == 0) { yield break;}
         yield return new WaitForSeconds(this.hoverDuration);
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
-        List<CardEffect> effectList = GetEffects();
+        this.tempInfoBoxController = Instantiate(infoBoxController, mousePos, Quaternion.identity);
+        Info_Box_Controller controller = this.tempInfoBoxController.GetComponent<Info_Box_Controller>();
         for (int i = 0; i < effectList.Count; i++)
         {
-            GameObject newBox = Instantiate(infoBox, mousePos, Quaternion.identity);
+            GameObject newBox = Instantiate(infoBox, this.tempInfoBoxController.transform);
             Effect_Info_Box boxScript = newBox.GetComponent<Effect_Info_Box>();
             Card_Effect_Description eff = GameManager.instance.STR.GetCardEffectDescription(effectList[i]);
-            boxScript.UpdateText(eff, this.isPlayerCard, i);
+            boxScript.UpdateText(eff, this.isPlayerCard);
             newBox.SetActive(true);
-            this.tempInfoBoxes.Add(newBox);
+            controller.AddInfoBox(newBox);
         }
     }
 

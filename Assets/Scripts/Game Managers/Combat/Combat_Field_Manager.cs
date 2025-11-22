@@ -170,6 +170,7 @@ public class Combat_Field_Manager : ManagerBehavior
         results.effParams = new CardEffectParameters();
         results.totalAttack = attackingCard?.GetPower() ?? 0;
         results.totalDefense = attackingCard?.GetDefense() ?? 0;
+        results.position = pos;
 
         // Apply elemental and adjacency buffs (adjacency only buffs attack so defending card isn't factored in)
         results = ApplyElementalWeakness(results, attackingCard, defendingCard);
@@ -304,6 +305,7 @@ public class Combat_Field_Manager : ManagerBehavior
                 cardResults.totalAttack *= Consts.adj;
                 cardResults.flashLeft = true;
                 cardResults.effParams.adjacency++;
+                cardResults.effParams.leftAdjacency = true;
             }
         }
 
@@ -316,6 +318,7 @@ public class Combat_Field_Manager : ManagerBehavior
                 cardResults.totalAttack *= Consts.adj;
                 cardResults.flashRight = true;
                 cardResults.effParams.adjacency++;
+                cardResults.effParams.rightAdjacency = true;
             }
         }
 
@@ -389,6 +392,7 @@ public class Combat_Field_Manager : ManagerBehavior
     {
         results.effParams.power = results.totalAttack;
         results.effParams.defense = results.totalDefense;
+        results.effParams.pos = results.position;
 
         return results;
     }

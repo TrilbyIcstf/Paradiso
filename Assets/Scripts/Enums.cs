@@ -185,6 +185,22 @@ public enum CardEffect
     SynergyRight
 }
 
+public static class EffectMethods
+{
+    public static Direction DirectionOverride(this CardEffect effect)
+    {
+        switch (effect)
+        {
+            case CardEffect.SynergyLeft:
+                return Direction.Left;
+            case CardEffect.SynergyRight:
+                return Direction.Right;
+            default:
+                return Direction.None;
+        }
+    }
+}
+
 public enum Direction
 {
     None,

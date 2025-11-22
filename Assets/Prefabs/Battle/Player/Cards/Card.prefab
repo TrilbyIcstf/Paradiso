@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infoBox: {fileID: 4552180020137425204, guid: b5719750722d48b45b52db3cdbd0565e, type: 3}
+  infoBoxController: {fileID: 6974460656756982225, guid: 662944f17ebf1b547b271786d6ca3315, type: 3}
   isPlayerCard: 1
   cardStats: {fileID: 4189466139966896813}
 --- !u!212 &6488148737989354506

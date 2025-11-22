@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// Base stats and effects for a card. Used to track contents in a deck.
@@ -122,6 +123,11 @@ public class Card_Base : ScriptableObject
             4 => CardElement.Water,
             _ => CardElement.Nil,
         };
+    }
+
+    public bool HasDirectionEffect(Direction val)
+    {
+        return this.effects.Any(e => e.DirectionOverride() == val);
     }
 
     public string GetName()

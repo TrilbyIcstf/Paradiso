@@ -34,6 +34,12 @@ public class Combat_Card_Effect_Manager : ManagerBehavior
             case CardEffect.Spread:
                 SpreadEffect(card, effParams, isPlayer);
                 break;
+            case CardEffect.SynergyLeft:
+                SynergyLeftEffect(card, effParams, isPlayer);
+                break;
+            case CardEffect.SynergyRight:
+                SynergyRightEffect(card, effParams, isPlayer);
+                break;
             default:
                 break;
         }
@@ -125,6 +131,26 @@ public class Combat_Card_Effect_Manager : ManagerBehavior
         }
     }
 
+    private void SynergyLeftEffect(GameObject card, CardEffectParameters effParams, bool isPlayer)
+    {
+        if (effParams.pos <= 0) { return; }
+        int buffedPos = effParams.pos - 1;
+        GameObject targetCard = (isPlayer ? GM.CF.GetPlayerSpace(buffedPos).GetCardObject() : GM.CF.GetEnemySpace(buffedPos).GetCardObject());
+        if (targetCard == null) { return; }
+        targetCard.GetComponent<Active_Card>().AddPowerBuff(effParams.power);
+        targetCard.GetComponent<Card_UI_Controller>().EmphasizeCardCo();
+    }
+
+    private void SynergyRightEffect(GameObject card, CardEffectParameters effParams, bool isPlayer)
+    {
+        if (effParams.pos >= 3) { return; }
+        int buffedPos = effParams.pos + 1;
+        GameObject targetCard = (isPlayer ? GM.CF.GetPlayerSpace(buffedPos).GetCardObject() : GM.CF.GetEnemySpace(buffedPos).GetCardObject());
+        if (targetCard == null) { return; }
+        targetCard.GetComponent<Active_Card>().AddPowerBuff(effParams.power);
+        targetCard.GetComponent<Card_UI_Controller>().EmphasizeCardCo();
+    }
+
     /// <summary>
     /// Checks if an effect from the list will be triggered
     /// </summary>
@@ -157,6 +183,10 @@ public class Combat_Card_Effect_Manager : ManagerBehavior
                         return true;
                     }
                     break;
+                case CardEffect.SynergyLeft:
+                    return effParams.leftAdjacency;
+                case CardEffect.SynergyRight:
+                    return effParams.rightAdjacency;
                 default:
                     break;
             }
@@ -168,6 +198,12 @@ public class Combat_Card_Effect_Manager : ManagerBehavior
 public class CardEffectParameters {
     // Number of adjacent cards with the same element
     public int adjacency;
+
+    public bool leftAdjacency = false;
+    public bool rightAdjacency = false;
+
+    // Card's position in the field
+    public int pos;
 
     // Power an defense of the triggering card
     public float power;

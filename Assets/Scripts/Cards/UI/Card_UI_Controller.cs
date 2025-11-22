@@ -100,18 +100,46 @@ public class Card_UI_Controller : MonoBehaviour
 
     public void SetEffects(List<CardEffect> val)
     {
-        for (int i = 0; i < val.Count; i++)
+        foreach (Image im in this.effectIcons)
         {
-            CardEffect effect = val[i];
-            switch (effect)
+            im.enabled = false;
+        }
+
+        Dictionary<int, CardEffect> effectPositions = new Dictionary<int, CardEffect>();
+        int pos = 0;
+
+        foreach (CardEffect effect in val)
+        {
+            int effectPos = effect.DirectionOverride() switch
+            {
+                Direction.Left => 2,
+                Direction.Right => 1,
+                _ => pos
+            };
+
+            if (!effectPositions.ContainsKey(effectPos))
+            {
+                effectPositions[effectPos] = effect;
+            } else
+            {
+                effectPositions[effectPos + 1] = effectPositions[effectPos];
+                effectPositions[effectPos] = effect;
+            }
+
+            if (effectPos == pos) { pos++; }
+        }
+
+        foreach (KeyValuePair<int, CardEffect> effect in effectPositions)
+        {
+            switch (effect.Value)
             {
                 case CardEffect.None:
-                    this.effectIcons[i].enabled = false;
+                    this.effectIcons[effect.Key].enabled = false;
                     break;
                 default:
-                    this.effectIcons[i].enabled = true;
-                    Sprite effectSprite = GameManager.instance.STR.GetCardEffectDescription(effect).effectSprite;
-                    this.effectIcons[i].sprite = effectSprite;
+                    this.effectIcons[effect.Key].enabled = true;
+                    Sprite effectSprite = GameManager.instance.STR.GetCardEffectDescription(effect.Value).effectSprite;
+                    this.effectIcons[effect.Key].sprite = effectSprite;
                     break;
             }
         }

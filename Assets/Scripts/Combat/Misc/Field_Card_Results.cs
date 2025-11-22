@@ -14,6 +14,8 @@ public class Field_Card_Results
 
     internal bool advantage = false;
 
+    internal int position = 0;
+
     internal float totalDamage = 0;
     internal float totalAttack = 0;
     internal float totalDefense = 0;

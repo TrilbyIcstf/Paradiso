@@ -242,6 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infoBox: {fileID: 8525086612989131269, guid: dd23c838a7cf87a479944771b7e3fec6, type: 3}
+  infoBoxController: {fileID: 6974460656756982225, guid: 662944f17ebf1b547b271786d6ca3315, type: 3}
   isPlayerCard: 1
 --- !u!1001 &125733657138563239
 PrefabInstance:
@@ -320,6 +321,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3144038479275770504, guid: 8a55ccd8bb3c7f946982e2c3e9dd9c27, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3447772335969821646, guid: 8a55ccd8bb3c7f946982e2c3e9dd9c27, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3447772335969821646, guid: 8a55ccd8bb3c7f946982e2c3e9dd9c27, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}

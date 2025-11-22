@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 5177938677466291718, guid: fb5994dc1571adf468ae69d8467797d8, type: 3}
+  enemy: {fileID: 0}
 --- !u!114 &3555046578125482730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,6 +370,14 @@ MonoBehaviour:
       Value: {fileID: 21300000, guid: 1b2c6d7e0b5a24941831aced08e962cb, type: 3}
     - Key: 4
       Value: {fileID: 21300000, guid: d54f014b48e71c5458654071d8a1c9ab, type: 3}
+  affinityIcons:
+    _serializableList:
+    - Key: 0
+      Value: {fileID: 8740491524576469797, guid: 05ae06b7676a97c4fa92cbb890ad155f, type: 3}
+    - Key: 1
+      Value: {fileID: 6423806749927177598, guid: 791cc82933c1c4d4482a3080c5878b3a, type: 3}
+    - Key: 2
+      Value: {fileID: 7699978436774145253, guid: 5ed111976d7b63d47ad0c2e7a54252f7, type: 3}
 --- !u!114 &3555046578125482721
 MonoBehaviour:
   m_ObjectHideFlags: 0
