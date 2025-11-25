@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary>
 /// Manages UI elements during a combat scene
@@ -421,14 +420,14 @@ public class Combat_UI_Manager : ManagerBehavior
         this.playerDeck = deck;
     }
 
-    public void NotifyEnergyUpdated(float fraction)
+    public void NotifyManaUpdated(float fraction)
     {
-        this.uiCoordinator.energyBar.SetEnergyFill(fraction);
+        this.uiCoordinator.manaBar.SetManaFill(fraction);
     }
 
-    public void NotifyEnemyEnergyUpdated(float fraction)
+    public void NotifyEnemyManaUpdated(float fraction)
     {
-        this.uiCoordinator.enemyEnergyBar.SetEnergyFill(fraction);
+        this.uiCoordinator.enemyManaBar.SetManaFill(fraction);
     }
 
     public void NotifyPlayerHealthUpdate(float current, float max)
@@ -458,19 +457,19 @@ public class Combat_UI_Manager : ManagerBehavior
         this.playerDeck.GetComponent<SpriteRenderer>().enabled = false;
     }
 
-    public void SetEnergyPreview(float energyCost)
+    public void SetManaPreview(float manaCost)
     {
-        float fillAmount = GM.CPS.GetEnergyFraction(energyCost);
+        float fillAmount = GM.CPS.GetManaFraction(manaCost);
         this.uiCoordinator.SetPreviewFill(fillAmount);
     }
 
-    public void RemoveEnergyPreview()
+    public void RemoveManaPreview()
     {
         this.uiCoordinator.SetPreviewFill(0);
     }
 
-    public void InvalidEnergyCost()
+    public void InvalidManaCost()
     {
-        this.uiCoordinator.energyBar.FlashRed();
+        this.uiCoordinator.manaBar.FlashRed();
     }
 }

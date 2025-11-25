@@ -182,7 +182,9 @@ public enum CardEffect
     Tremor,
     Spread,
     SynergyLeft,
-    SynergyRight
+    SynergyRight,
+    SynthesisLeft,
+    SynthesisRight
 }
 
 public static class EffectMethods
@@ -192,8 +194,10 @@ public static class EffectMethods
         switch (effect)
         {
             case CardEffect.SynergyLeft:
+            case CardEffect.SynthesisLeft:
                 return Direction.Left;
             case CardEffect.SynergyRight:
+            case CardEffect.SynthesisRight:
                 return Direction.Right;
             default:
                 return Direction.None;

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0af15f01f2752ee4c807e6b5f5b07484, type: 3}
-  m_Name: Synergy Right
+  m_Name: Synthesis Left
   m_EditorClassIdentifier: Assembly-CSharp::Card_Effect_Description
-  effect: 7
-  title: Synergy
-  playerDescription: Adds this page's power to the page on its right if their elements
+  effect: 8
+  title: Synthesis
+  playerDescription: Adds this page's defense to the page on its left if their elements
     match.
-  EnemyDescription: Adds this page's power to the page on its right if their elements
+  EnemyDescription: Adds this page's defense to the page on its left if their elements
     match.
-  effectSprite: {fileID: -2202244469937098179, guid: b7994c0bb1b797849ba66f69abbd5846, type: 3}
+  effectSprite: {fileID: 1275137563724039492, guid: 20fda97f15a22704ca8b20cf4ece787a, type: 3}

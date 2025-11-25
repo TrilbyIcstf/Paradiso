@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
     {
         ToggleCombatUpdates(true);
         this.CPS.InitializeHealth(this.PM.GetMaxHealth(), this.PM.GetCurrentHealth());
-        this.CPS.InitializeEnergy(this.PM.GetMaxEnergy());
+        this.CPS.InitializeEnergy(this.PM.GetMaxEnergy(), this.PM.GetEnergyRegen());
         this.CPD.SetDeck(this.PM.GetDeck());
         this.CPD.ShuffleDeck();
 

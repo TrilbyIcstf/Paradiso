@@ -6,8 +6,8 @@ using UnityEngine.UI;
 /// </summary>
 public class UI_Coordinator : ManagerBehavior
 {
-    public Energy_Bar_UI energyBar;
-    public Energy_Bar_UI enemyEnergyBar;
+    public Mana_Bar_UI manaBar;
+    public Mana_Bar_UI enemyManaBar;
 
     [SerializeField]
     private Image previewBar;

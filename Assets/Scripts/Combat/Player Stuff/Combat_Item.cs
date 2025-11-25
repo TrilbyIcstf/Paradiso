@@ -29,6 +29,10 @@ public class Combat_Item : ManagerBehavior
         if (this.item != null)
         {
             this.itemSprite.sprite = this.item.GetSprite();
+
+            if (this.item.GetStartsOnCooldown()) {
+                StartCooldown();
+            }
         }
     }
 
@@ -48,9 +52,9 @@ public class Combat_Item : ManagerBehavior
 
         if (this.item.CanActivate())
         {
-            if (GM.CPS.CanAffordEnergy(this.item.energyCost))
+            if (GM.CPS.CanAffordEnergy(this.item.GetCost()))
             {
-                GM.CPS.SubtractEnergy(this.item.energyCost, true);
+                GM.CPS.SubtractEnergy(this.item.GetCost(), true);
                 this.item.Activate();
 
                 if (this.item.GetCooldown() > 0)
@@ -60,7 +64,7 @@ public class Combat_Item : ManagerBehavior
             }
             else
             {
-                GM.CUI.InvalidEnergyCost();
+                GM.CUI.InvalidManaCost();
             }
         }
     }

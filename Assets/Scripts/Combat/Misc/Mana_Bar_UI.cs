@@ -3,11 +3,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Handles UI for the energy bars in combat
+/// Handles UI for the mana bars in combat
 /// </summary>
-public class Energy_Bar_UI : MonoBehaviour
+public class Mana_Bar_UI : MonoBehaviour
 {
-    private Image energyBar;
+    private Image manaBar;
 
     private Color baseColor;
 
@@ -16,13 +16,13 @@ public class Energy_Bar_UI : MonoBehaviour
 
     private void Awake()
     {
-        this.energyBar = GetComponent<Image>();
-        this.baseColor = this.energyBar.color;
+        this.manaBar = GetComponent<Image>();
+        this.baseColor = this.manaBar.color;
     }
 
-    public void SetEnergyFill(float fraction)
+    public void SetManaFill(float fraction)
     {
-        this.energyBar.fillAmount = fraction;
+        this.manaBar.fillAmount = fraction;
     }
 
     public void FlashRed()
@@ -34,15 +34,15 @@ public class Energy_Bar_UI : MonoBehaviour
     private IEnumerator IEFlashRed()
     {
         float timer = 0;
-        this.energyBar.color = this.pulseColor;
+        this.manaBar.color = this.pulseColor;
 
         while (timer < this.pulseDuration)
         {
             timer += Time.deltaTime;
-            this.energyBar.color = Color.Lerp(this.pulseColor, this.baseColor, timer / this.pulseDuration);
+            this.manaBar.color = Color.Lerp(this.pulseColor, this.baseColor, timer / this.pulseDuration);
             yield return null;
         }
 
-        this.energyBar.color = this.baseColor;
+        this.manaBar.color = this.baseColor;
     }
 }

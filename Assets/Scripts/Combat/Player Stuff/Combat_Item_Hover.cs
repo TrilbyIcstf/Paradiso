@@ -5,18 +5,10 @@ using UnityEngine;
 /// <summary>
 /// Handles interaction of the player hovering over an item in combat
 /// </summary>
-public class Combat_Item_Hover : MonoBehaviour
+public class Combat_Item_Hover : Mouse_Hover_Item
 {
     [SerializeField]
-    private GameObject infoBox;
-
-    [SerializeField]
-    private Combat_Item itemHolder;
-
-    private GameObject tempInfoBox;
-
-    private float hoverDuration = 0.5f;
-    private Coroutine hoverCoroutine;
+    protected Combat_Item itemHolder;
 
     private void OnMouseDown()
     {
@@ -44,36 +36,6 @@ public class Combat_Item_Hover : MonoBehaviour
         DestroyBox();
     }
 
-    private void DestroyBox()
-    {
-        if (this.hoverCoroutine != null)
-        {
-            StopCoroutine(this.hoverCoroutine);
-        }
-        if (this.tempInfoBox != null)
-        {
-            Destroy(this.tempInfoBox);
-        }
-    }
-
-    /// <summary>
-    /// Displays the item's info box after a certain amount of time if player keeps mouse over item
-    /// </summary>
-    IEnumerator DisplayInfoOnHover()
-    {
-        yield return new WaitForSeconds(this.hoverDuration);
-        if (this.itemHolder.GetBase() != null)
-        {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0;
-            this.tempInfoBox = Instantiate(infoBox, mousePos, Quaternion.identity);
-            Effect_Info_Box boxScript = this.tempInfoBox.GetComponent<Effect_Info_Box>();
-            Item_Description item = GameManager.instance.STR.GetItemDescription(this.itemHolder.GetBase().GetItemType());
-            boxScript.UpdateText(item);
-            this.tempInfoBox.SetActive(true);
-        }
-    }
-
     /// <summary>
     /// Turns on the preview showing the item's energy cost on the player's energy bar
     /// </summary>
@@ -81,7 +43,7 @@ public class Combat_Item_Hover : MonoBehaviour
     {
         if (this.itemHolder.GetBase() != null)
         {
-            GameManager.instance.CUI.SetEnergyPreview(this.itemHolder.GetBase().energyCost);
+            GameManager.instance.CUI.SetManaPreview(this.itemHolder.GetBase().GetCost());
         }
     }
 
@@ -90,6 +52,11 @@ public class Combat_Item_Hover : MonoBehaviour
     /// </summary>
     private void CostPreviewOff()
     {
-        GameManager.instance.CUI.RemoveEnergyPreview();
+        GameManager.instance.CUI.RemoveManaPreview();
+    }
+
+    protected override Item_Base GetBase()
+    {
+        return this.itemHolder.GetBase();
     }
 }

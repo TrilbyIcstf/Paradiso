@@ -47,8 +47,8 @@ public class Combat_Field_Manager : ManagerBehavior
         {
             item.SetLock(val);
         }
-        GM.CPS.SetEnergyLock(val);
-        GM.CES.SetEnergyLock(val);
+        GM.CPS.SetManaLock(val);
+        GM.CES.SetManaLock(val);
     }
 
     /// <summary>

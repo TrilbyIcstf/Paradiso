@@ -10,8 +10,8 @@ public class Combat_Player_Stats_Manager : Stats_Manager
 
     public Combat_Player_Stats_Manager()
     {
-        this.currentEnergy = 30.0f;
-        this.maxEnergy = 30.0f;
+        this.currentMana = 30.0f;
+        this.maxMana = 30.0f;
     }
 
     private void FixedUpdate()
@@ -33,10 +33,11 @@ public class Combat_Player_Stats_Manager : Stats_Manager
         this.currentHealth = current;
     }
 
-    public void InitializeEnergy(int max)
+    public void InitializeEnergy(int max, float regen)
     {
-        this.maxEnergy = max;
-        this.currentEnergy = max;
+        this.maxMana = max;
+        this.currentMana = max;
+        this.energyRegen = regen;
     }
 
     public override bool DealDamage(float amount)
@@ -121,50 +122,50 @@ public class Combat_Player_Stats_Manager : Stats_Manager
         return newCard.GetComponent<Active_Card>();
     }
 
-    public override bool SetEnergy(float val, bool delay)
+    public override bool SetMana(float val, bool delay)
     {
-        this.currentEnergy = Mathf.Min(val, this.maxEnergy);
+        this.currentMana = Mathf.Min(val, this.maxMana);
         NotifyEnergyUpdated();
         if (delay)
         {
             StartCoroutine(RegenDelay());
         }
 
-        return this.currentEnergy >= this.maxEnergy;
+        return this.currentMana >= this.maxMana;
     }
 
     public override bool AddEnergy(float val)
     {
-        this.currentEnergy = Mathf.Min(this.currentEnergy + val, this.maxEnergy);
+        this.currentMana = Mathf.Min(this.currentMana + val, this.maxMana);
         NotifyEnergyUpdated();
-        return this.currentEnergy >= this.maxEnergy;
+        return this.currentMana >= this.maxMana;
     }
 
     public void MaxEnergy()
     {
-        this.currentEnergy = this.maxEnergy;
+        this.currentMana = this.maxMana;
         NotifyEnergyUpdated();
     }
 
     public override bool SubtractEnergy(float val, bool delay)
     {
-        this.currentEnergy = Mathf.Max(this.currentEnergy - val, 0);
+        this.currentMana = Mathf.Max(this.currentMana - val, 0);
         NotifyEnergyUpdated();
         if (delay)
         {
             StartCoroutine(RegenDelay());
         }
 
-        return this.currentEnergy <= 0;
+        return this.currentMana <= 0;
     }
 
     public float EnergyFraction()
     {
-        return this.currentEnergy / this.maxEnergy;
+        return this.currentMana / this.maxMana;
     }
 
     protected override void NotifyEnergyUpdated()
     {
-        GM.CUI.NotifyEnergyUpdated(EnergyFraction());
+        GM.CUI.NotifyManaUpdated(EnergyFraction());
     }
 }

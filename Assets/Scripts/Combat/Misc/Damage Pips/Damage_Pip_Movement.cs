@@ -81,7 +81,7 @@ public class Damage_Pip_Movement : MonoBehaviour
             } 
             else
             {
-                this.speed += 30.0f * time;
+                this.speed += 30.0f * time * this.lifespan;
             }
             this.rotSpeed += time * this.rotAccel * Mathf.Max(this.lifespan, 1.0f);
 

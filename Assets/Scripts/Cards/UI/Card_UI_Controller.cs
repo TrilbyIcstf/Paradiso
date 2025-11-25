@@ -44,11 +44,11 @@ public class Card_UI_Controller : MonoBehaviour
     /// <summary>
     /// Emphasizes the card by making it pulse larger for a short time.
     /// </summary>
-    public IEnumerator EmphasizeCard()
+    public IEnumerator EmphasizeCard(float goal = 1.25f)
     {
         GameObject spriteObject = gameObject;
         Vector3 originalScale = spriteObject.transform.localScale;
-        float sizeGoal = originalScale.x * 1.25f;
+        float sizeGoal = originalScale.x * goal;
 
         // Pulse larger
         yield return new WaitUntilOrTimeout(() =>
@@ -75,7 +75,12 @@ public class Card_UI_Controller : MonoBehaviour
 
     public void EmphasizeCardCo()
     {
-        StartCoroutine(EmphasizeCard());
+        StartCoroutine(EmphasizeCard(1.25f));
+    }
+
+    public void EmphasizeCardSmallCo()
+    {
+        StartCoroutine(EmphasizeCard(1.1f));
     }
 
     public void SetPower(int power)

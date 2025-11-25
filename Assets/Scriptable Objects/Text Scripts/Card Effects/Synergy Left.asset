@@ -18,4 +18,4 @@ MonoBehaviour:
     match.
   EnemyDescription: Adds this page's power to the page on its left if their elements
     match.
-  effectSprite: {fileID: 0}
+  effectSprite: {fileID: 2987077281672497824, guid: b198de2945ccd8c4e91aa47c66f8dd7c, type: 3}

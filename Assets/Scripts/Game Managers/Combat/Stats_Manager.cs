@@ -10,8 +10,8 @@ public abstract class Stats_Manager : ManagerBehavior
     protected float maxHealth;
     protected float currentHealth;
 
-    protected float currentEnergy;
-    protected float maxEnergy;
+    protected float currentMana;
+    protected float maxMana;
 
     protected bool regenOn = true;
 
@@ -29,7 +29,7 @@ public abstract class Stats_Manager : ManagerBehavior
     public abstract void DrawCard();
     public abstract void FreeDrawCard();
     protected abstract IEnumerator DealFreeCard();
-    public abstract bool SetEnergy(float val, bool delay);
+    public abstract bool SetMana(float val, bool delay);
     public abstract bool AddEnergy(float val);
     public abstract bool SubtractEnergy(float val, bool delay);
     protected abstract void NotifyEnergyUpdated();
@@ -38,7 +38,7 @@ public abstract class Stats_Manager : ManagerBehavior
     public bool CanAffordEnergy(float cost)
     {
         if (this.energyLock) { return false; }
-        return cost <= this.currentEnergy;
+        return cost <= this.currentMana;
     }
 
     public bool SetRegen(bool regen)
@@ -48,7 +48,7 @@ public abstract class Stats_Manager : ManagerBehavior
         return oldRegen == this.regenOn;
     }
 
-    public void SetEnergyLock(bool val)
+    public void SetManaLock(bool val)
     {
         this.energyLock = val;
     }
@@ -65,9 +65,19 @@ public abstract class Stats_Manager : ManagerBehavior
         return this.maxHealth;
     }
 
+    public float GetMaxMana()
+    {
+        return this.maxMana;
+    }
+
     public float GetCurrentHealth()
     {
         return this.currentHealth;
+    }
+
+    public float GetCurrentMana()
+    {
+        return this.currentMana;
     }
 
     public void AddFreeCards(int val)
@@ -75,8 +85,8 @@ public abstract class Stats_Manager : ManagerBehavior
         this.bonusCardDraw += val;
     }
 
-    public float GetEnergyFraction(float energy)
+    public float GetManaFraction(float mana)
     {
-        return energy / this.maxEnergy;
+        return mana / this.maxMana;
     }
 }

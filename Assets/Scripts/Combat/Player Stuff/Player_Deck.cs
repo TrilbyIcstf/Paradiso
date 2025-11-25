@@ -38,7 +38,7 @@ public class Player_Deck : ManagerBehavior
         }
         else
         {
-            GM.CUI.InvalidEnergyCost();
+            GM.CUI.InvalidManaCost();
         }
     }
 
@@ -47,7 +47,7 @@ public class Player_Deck : ManagerBehavior
     /// </summary>
     private void CostPreviewOn()
     {
-        GM.CUI.SetEnergyPreview(this.drawCost);
+        GM.CUI.SetManaPreview(this.drawCost);
     }
 
     /// <summary>
@@ -55,6 +55,6 @@ public class Player_Deck : ManagerBehavior
     /// </summary>
     private void CostPreviewOff()
     {
-        GM.CUI.RemoveEnergyPreview();
+        GM.CUI.RemoveManaPreview();
     }
 }

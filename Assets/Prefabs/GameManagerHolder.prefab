@@ -329,6 +329,12 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 590339ae25115774cad5d58ed83e9675, type: 2}
     - Key: 8
       Value: {fileID: 11400000, guid: 4b2958d3f7d76da46ad0882c31aabf3e, type: 2}
+    - Key: 9
+      Value: {fileID: 11400000, guid: a4136719963e9c347b9826c6eb8f0949, type: 2}
+    - Key: 10
+      Value: {fileID: 11400000, guid: d24f5fddcd6bea740a4397e12456831e, type: 2}
+    - Key: 8
+      Value: {fileID: 11400000, guid: 4b2958d3f7d76da46ad0882c31aabf3e, type: 2}
   enemies:
     _serializableList:
     - Key: 0
@@ -402,6 +408,14 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 9a2ec4973cfe92946a211f1dceec300b, type: 2}
     - Key: 5
       Value: {fileID: 11400000, guid: 8eec9d6ace6df8f42b1d2ef1274f9dc2, type: 2}
+    - Key: 6
+      Value: {fileID: 11400000, guid: c485b8554d1d57a4a941327d87c42eb2, type: 2}
+    - Key: 7
+      Value: {fileID: 11400000, guid: e20eca7e2e52654498e153b6a103ae80, type: 2}
+    - Key: 8
+      Value: {fileID: 11400000, guid: dd082c2c2adbc5f419f4200f2de605ac, type: 2}
+    - Key: 9
+      Value: {fileID: 11400000, guid: 431ff6326c0a3dd4d84587d49ba89a59, type: 2}
   items:
     _serializableList:
     - Key: 1
@@ -420,3 +434,9 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 6699f24c4eff3234eb00358148c5ba0a, type: 2}
     - Key: 8
       Value: {fileID: 11400000, guid: 88878a0fde1f869418db8e2d270a8491, type: 2}
+    - Key: 9
+      Value: {fileID: 11400000, guid: e409938ac0a4f9943b0f4f96a783e6eb, type: 2}
+    - Key: 10
+      Value: {fileID: 11400000, guid: 5b831228b61902e4cb0997f53603eb2e, type: 2}
+    - Key: 11
+      Value: {fileID: 11400000, guid: 26d6b381041fdcc4c8d4342a2748e082, type: 2}

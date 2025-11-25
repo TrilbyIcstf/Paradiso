@@ -152,12 +152,12 @@ public static class Starting_Decks
 
             if (i == synthesisLeftCard)
             {
-                //cardEffects.Add(CardEffect.);
+                cardEffects.Add(CardEffect.SynthesisLeft);
             }
 
             if (i == synthesisRightCard)
             {
-                //cardEffects.Add(CardEffect.);
+                cardEffects.Add(CardEffect.SynthesisRight);
             }
 
             Card_Base card = Card_Base.NewCard(i.ToString(), "Scroll", cardAttack, cardDefense, cardElement, cardAffinity, cardEffects);

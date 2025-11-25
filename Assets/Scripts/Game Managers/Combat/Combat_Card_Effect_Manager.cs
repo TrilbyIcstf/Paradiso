@@ -40,6 +40,12 @@ public class Combat_Card_Effect_Manager : ManagerBehavior
             case CardEffect.SynergyRight:
                 SynergyRightEffect(card, effParams, isPlayer);
                 break;
+            case CardEffect.SynthesisLeft:
+                SynthesisLeftEffect(card, effParams, isPlayer);
+                break;
+            case CardEffect.SynthesisRight:
+                SynthesisRightEffect(card, effParams, isPlayer);
+                break;
             default:
                 break;
         }
@@ -127,7 +133,7 @@ public class Combat_Card_Effect_Manager : ManagerBehavior
         {
             GameObject targetCard = (isPlayer ? (Hand_Manager)GM.CPH : GM.CEH).GetCard(pos);
             targetCard.GetComponent<Active_Card>().SetElement(elem);
-            targetCard.GetComponent<Card_UI_Controller>().EmphasizeCardCo();
+            targetCard.GetComponent<Card_UI_Controller>().EmphasizeCardSmallCo();
         }
     }
 
@@ -138,7 +144,7 @@ public class Combat_Card_Effect_Manager : ManagerBehavior
         GameObject targetCard = (isPlayer ? GM.CF.GetPlayerSpace(buffedPos).GetCardObject() : GM.CF.GetEnemySpace(buffedPos).GetCardObject());
         if (targetCard == null) { return; }
         targetCard.GetComponent<Active_Card>().AddPowerBuff(effParams.power);
-        targetCard.GetComponent<Card_UI_Controller>().EmphasizeCardCo();
+        targetCard.GetComponent<Card_UI_Controller>().EmphasizeCardSmallCo();
     }
 
     private void SynergyRightEffect(GameObject card, CardEffectParameters effParams, bool isPlayer)
@@ -148,7 +154,27 @@ public class Combat_Card_Effect_Manager : ManagerBehavior
         GameObject targetCard = (isPlayer ? GM.CF.GetPlayerSpace(buffedPos).GetCardObject() : GM.CF.GetEnemySpace(buffedPos).GetCardObject());
         if (targetCard == null) { return; }
         targetCard.GetComponent<Active_Card>().AddPowerBuff(effParams.power);
-        targetCard.GetComponent<Card_UI_Controller>().EmphasizeCardCo();
+        targetCard.GetComponent<Card_UI_Controller>().EmphasizeCardSmallCo();
+    }
+
+    private void SynthesisLeftEffect(GameObject card, CardEffectParameters effParams, bool isPlayer)
+    {
+        if (effParams.pos <= 0) { return; }
+        int buffedPos = effParams.pos - 1;
+        GameObject targetCard = (isPlayer ? GM.CF.GetPlayerSpace(buffedPos).GetCardObject() : GM.CF.GetEnemySpace(buffedPos).GetCardObject());
+        if (targetCard == null) { return; }
+        targetCard.GetComponent<Active_Card>().AddDefenseBuff(effParams.defense);
+        targetCard.GetComponent<Card_UI_Controller>().EmphasizeCardSmallCo();
+    }
+
+    private void SynthesisRightEffect(GameObject card, CardEffectParameters effParams, bool isPlayer)
+    {
+        if (effParams.pos >= 3) { return; }
+        int buffedPos = effParams.pos + 1;
+        GameObject targetCard = (isPlayer ? GM.CF.GetPlayerSpace(buffedPos).GetCardObject() : GM.CF.GetEnemySpace(buffedPos).GetCardObject());
+        if (targetCard == null) { return; }
+        targetCard.GetComponent<Active_Card>().AddDefenseBuff(effParams.defense);
+        targetCard.GetComponent<Card_UI_Controller>().EmphasizeCardSmallCo();
     }
 
     /// <summary>
@@ -184,8 +210,10 @@ public class Combat_Card_Effect_Manager : ManagerBehavior
                     }
                     break;
                 case CardEffect.SynergyLeft:
+                case CardEffect.SynthesisLeft:
                     return effParams.leftAdjacency;
                 case CardEffect.SynergyRight:
+                case CardEffect.SynthesisRight:
                     return effParams.rightAdjacency;
                 default:
                     break;

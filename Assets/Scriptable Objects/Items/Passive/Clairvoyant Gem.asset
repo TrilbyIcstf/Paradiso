@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 768957ad5c87ff94fa8a5409f0445c43, type: 3}
-  m_Name: CrystalBall
+  m_Name: Clairvoyant Gem
   m_EditorClassIdentifier: 
-  item: 8
-  itemName: Crystal Ball
-  sprite: {fileID: 21300000, guid: 6a3ec2c82269a95438f9100235a16bd0, type: 3}
+  item: 11
+  itemName: Clairvoyant Gem
+  sprite: {fileID: -4122560597652936795, guid: 08c3330a164fe3a438ffba0a85d203dc, type: 3}
   timing: 0

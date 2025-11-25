@@ -13,6 +13,8 @@ public class Player_Manager : ManagerBehavior
 
     private int maxEnergy = 30;
 
+    private float energyRegen = 0.08f;
+
     [SerializeField]
     private List<Item_Base> playerItems = new List<Item_Base>();
     private List<Item> discardedItems = new List<Item>();
@@ -71,6 +73,11 @@ public class Player_Manager : ManagerBehavior
     public int GetMaxEnergy()
     {
         return this.maxEnergy;
+    }
+
+    public float GetEnergyRegen()
+    {
+        return this.energyRegen;
     }
 
     public List<Item_Base> GetItems()
@@ -155,6 +162,11 @@ public class Player_Manager : ManagerBehavior
     public void AddMaxEnergy(int val)
     {
         this.maxEnergy += val;
+    }
+
+    public void AddEnergyRegen(float val)
+    {
+        this.energyRegen += val;
     }
 
     public void AddItem(Item_Base item)

@@ -9,10 +9,14 @@ using UnityEngine;
 [System.Serializable]
 public class Item_Active : Item_Base
 {
-    public float energyCost = 1;
+    [SerializeField]
+    private float energyCost = 1;
 
     [SerializeField]
     private float cooldown = 0;
+
+    [SerializeField]
+    private bool startsOnCooldown = false;
 
     public void Activate()
     {
@@ -27,5 +31,15 @@ public class Item_Active : Item_Base
     public float GetCooldown()
     {
         return this.cooldown;
+    }
+
+    public float GetCost()
+    {
+        return this.energyCost;
+    }
+
+    public bool GetStartsOnCooldown()
+    {
+        return this.startsOnCooldown;
     }
 }

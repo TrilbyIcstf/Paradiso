@@ -22,8 +22,8 @@ public class Combat_Enemy_Stats_Manager : Stats_Manager
 
     public Combat_Enemy_Stats_Manager()
     {
-        this.currentEnergy = 0.0f;
-        this.maxEnergy = 1.0f;
+        this.currentMana = 0.0f;
+        this.maxMana = 1.0f;
     }
 
     private void FixedUpdate()
@@ -83,7 +83,7 @@ public class Combat_Enemy_Stats_Manager : Stats_Manager
 
     public override void DrawCard()
     {
-        SetEnergy(0, true);
+        SetMana(0, true);
         ResetDelay();
         if (this.bonusCardDrawer == null)
         {
@@ -133,23 +133,23 @@ public class Combat_Enemy_Stats_Manager : Stats_Manager
         return newCard.GetComponent<Active_Card>();
     }
 
-    public override bool SetEnergy(float val, bool delay)
+    public override bool SetMana(float val, bool delay)
     {
-        this.currentEnergy = Mathf.Min(val, RequiredEnergy());
+        this.currentMana = Mathf.Min(val, RequiredEnergy());
         NotifyEnergyUpdated();
         if (delay)
         {
             StartCoroutine(RegenDelay());
         }
 
-        return this.currentEnergy >= RequiredEnergy();
+        return this.currentMana >= RequiredEnergy();
     }
 
     public override bool AddEnergy(float val)
     {
-        this.currentEnergy = Mathf.Min(this.currentEnergy + val, RequiredEnergy());
+        this.currentMana = Mathf.Min(this.currentMana + val, RequiredEnergy());
         NotifyEnergyUpdated();
-        return this.currentEnergy >= RequiredEnergy();
+        return this.currentMana >= RequiredEnergy();
     }
 
     public void AddEnergyDelay(float val)
@@ -164,28 +164,28 @@ public class Combat_Enemy_Stats_Manager : Stats_Manager
 
     public override bool SubtractEnergy(float val, bool delay)
     {
-        this.currentEnergy = Mathf.Max(this.currentEnergy - val, 0);
+        this.currentMana = Mathf.Max(this.currentMana - val, 0);
         NotifyEnergyUpdated();
         if (delay)
         {
             StartCoroutine(RegenDelay());
         }
 
-        return this.currentEnergy <= 0;
+        return this.currentMana <= 0;
     }
 
     public float RequiredEnergy()
     {
-        return this.maxEnergy + this.energyDelay;
+        return this.maxMana + this.energyDelay;
     }
 
     public float EnergyFraction()
     {
-        return this.currentEnergy / RequiredEnergy();
+        return this.currentMana / RequiredEnergy();
     }
 
     protected override void NotifyEnergyUpdated()
     {
-        GM.CUI.NotifyEnemyEnergyUpdated(EnergyFraction());
+        GM.CUI.NotifyEnemyManaUpdated(EnergyFraction());
     }
 }

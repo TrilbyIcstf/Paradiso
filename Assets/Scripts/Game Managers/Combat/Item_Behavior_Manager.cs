@@ -28,6 +28,9 @@ public class Item_Behavior_Manager : ManagerBehavior
             case Item.PageRipper:
                 PageRipperActive();
                 break;
+            case Item.ManaReservoir:
+                ManaReservoirActive();
+                break;
             default:
                 break;
         }
@@ -73,6 +76,13 @@ public class Item_Behavior_Manager : ManagerBehavior
         {
             case Item.CrystalBall:
                 GM.PM.AddMaxEnergy(10);
+                GM.PM.AddEnergyRegen(0.008f);
+                break;
+            case Item.DiamondBall:
+                GM.PM.AddMaxEnergy(15);
+                break;
+            case Item.ClairvoyantGem:
+                GM.PM.AddEnergyRegen(0.02f);
                 break;
             default:
                 break;
@@ -92,6 +102,11 @@ public class Item_Behavior_Manager : ManagerBehavior
         newCard.SetPower(halvedPower);
         newCard.SetDefense(halvedDefense);
     }
+    
+    private void ManaReservoirActive()
+    {
+        GM.CPS.SetMana(GM.CPS.GetMaxMana(), false);
+    }
 
     public bool CanTriggerActive(Item item)
     {
@@ -107,6 +122,8 @@ public class Item_Behavior_Manager : ManagerBehavior
                 return true;
             case Item.PageRipper:
                 return GM.CPH.HandSize() > 0;
+            case Item.ManaReservoir:
+                return GM.CPS.GetCurrentMana() < GM.CPS.GetMaxMana();
             default:
                 return false;
         }

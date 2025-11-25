@@ -64,11 +64,11 @@ public abstract class Mouse_Hover_Card : ManagerBehavior
         yield return new WaitForSeconds(this.hoverDuration);
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
-        this.tempInfoBoxController = Instantiate(infoBoxController, mousePos, Quaternion.identity);
+        this.tempInfoBoxController = Instantiate(this.infoBoxController, mousePos, Quaternion.identity);
         Info_Box_Controller controller = this.tempInfoBoxController.GetComponent<Info_Box_Controller>();
         for (int i = 0; i < effectList.Count; i++)
         {
-            GameObject newBox = Instantiate(infoBox, this.tempInfoBoxController.transform);
+            GameObject newBox = Instantiate(this.infoBox, this.tempInfoBoxController.transform);
             Effect_Info_Box boxScript = newBox.GetComponent<Effect_Info_Box>();
             Card_Effect_Description eff = GameManager.instance.STR.GetCardEffectDescription(effectList[i]);
             boxScript.UpdateText(eff, this.isPlayerCard);
