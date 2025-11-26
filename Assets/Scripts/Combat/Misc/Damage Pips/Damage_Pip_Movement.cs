@@ -51,7 +51,8 @@ public class Damage_Pip_Movement : MonoBehaviour
             float dist = Vector2.Distance(GoalPos(), transform.position);
             if (velocity.magnitude >= dist || GoalDestroyed())
             {
-                Destroy(gameObject);
+                GoalReached();
+                return;
             }
 
             // Move pip
@@ -94,6 +95,16 @@ public class Damage_Pip_Movement : MonoBehaviour
     private void OnDestroy()
     {
         GameManager.instance.CUI.GetPipController().RemovePip(gameObject);
+    }
+
+    private void GoalReached()
+    {
+        if (!GoalDestroyed() && this.goal.gameObject.TryGetComponent<Combat_Damage_Flash>(out Combat_Damage_Flash script))
+        {
+            script.FlashOn();
+        }
+
+        Destroy(gameObject);
     }
 
     private Vector2 GoalPos()

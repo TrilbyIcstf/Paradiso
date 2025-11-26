@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class Starting_Decks
@@ -23,20 +24,20 @@ public static class Starting_Decks
         int quillCount = 0;
         int spreadCount = 0;
 
-        int synergyLeftCard = Random.Range(0, 30);
-        int synergyRightCard = Random.Range(0, 30);
+        int synergyLeftCard = Random.Range(0, 24);
+        int synergyRightCard = Random.Range(0, 24);
 
         int synthesisLeftCard;
         int synthesisRightCard;
 
         do
         {
-            synthesisLeftCard = Random.Range(0, 30);
+            synthesisLeftCard = Random.Range(0, 24);
         } while (synergyLeftCard == synthesisLeftCard);
 
         do
         {
-            synthesisRightCard = Random.Range(0, 30);
+            synthesisRightCard = Random.Range(0, 24);
         } while (synergyRightCard == synthesisRightCard);
 
 
@@ -135,27 +136,27 @@ public static class Starting_Decks
             }
 
             List<CardEffect> cardEffects = new List<CardEffect>();
-            if (cardEffect is { } effectValue)
+            if (cardElement != CardElement.Nil && cardEffect is { } effectValue)
             {
                 cardEffects.Add(effectValue);
             }
 
-            if (i == synergyLeftCard)
+            if (cardElement != CardElement.Nil && ElementCount(deck) == synergyLeftCard)
             {
                 cardEffects.Add(CardEffect.SynergyLeft);
             }
 
-            if (i == synergyRightCard)
+            if (cardElement != CardElement.Nil && ElementCount(deck) == synergyRightCard)
             {
                 cardEffects.Add(CardEffect.SynergyRight);
             }
 
-            if (i == synthesisLeftCard)
+            if (cardElement != CardElement.Nil && ElementCount(deck) == synthesisLeftCard)
             {
                 cardEffects.Add(CardEffect.SynthesisLeft);
             }
 
-            if (i == synthesisRightCard)
+            if (cardElement != CardElement.Nil && ElementCount(deck) == synthesisRightCard)
             {
                 cardEffects.Add(CardEffect.SynthesisRight);
             }
@@ -165,5 +166,10 @@ public static class Starting_Decks
         }
 
         return deck;
+    }
+
+    private static int ElementCount(Dictionary<string, Card_Base> deck)
+    {
+        return deck.Count(c => c.Value.GetElement() != CardElement.Nil);
     }
 }
