@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6272938387908602901}
   - component: {fileID: 8630643478197474481}
   m_Layer: 0
-  m_Name: SelectionScreen
+  m_Name: UpgradeSelectionScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,7 +203,7 @@ GameObject:
   - component: {fileID: 4571887826286782566}
   - component: {fileID: 7564598770507906054}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: UpgradeTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -150,6 +150,15 @@ public class Card_UI_Controller : MonoBehaviour
         }
     }
 
+    public void SetCardBase(Card_Base val)
+    {
+        SetPower(val.GetPower());
+        SetDefense(val.GetDefense());
+        SetElement(val.GetElement());
+        SetAffinity(val.GetAffinity());
+        SetEffects(val.GetEffects());
+    }
+
     public void SetSortingOrder(int val)
     {
         this.sortingOrder = val;
