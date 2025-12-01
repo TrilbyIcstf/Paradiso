@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: 5
   title: Antiquifier
-  description: Each time you play a card, permanently increase its power by 1.
+  description: Each time you play a page, permanently increase its power by 1.
   itemSprite: {fileID: 21300000, guid: a099db6969dc694488af02c9fea8a8aa, type: 3}

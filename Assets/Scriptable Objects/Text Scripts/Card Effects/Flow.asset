@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effect: 3
   title: Flow
-  playerDescription: Draw a card for each adjacent matching card.
-  EnemyDescription: The enemy draws a card for each adjacent matching card.
+  playerDescription: Draw a page for each adjacent matching element.
+  EnemyDescription: The enemy draws a page for each adjacent matching element.
   effectSprite: {fileID: 21300000, guid: f33bf7fe1a359f941bac6d9414e21ccf, type: 3}

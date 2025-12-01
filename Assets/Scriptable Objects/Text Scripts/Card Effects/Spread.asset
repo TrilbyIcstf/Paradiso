@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effect: 5
   title: Spread
-  playerDescription: Converts a random card in your hand to this card's element for
-    each adjacent matching card.
-  EnemyDescription: Converts a random card in the enemy's hand to this card's element
-    for each adjacent matching card.
+  playerDescription: Converts a random page in your hand to this page's element for
+    each adjacent matching element.
+  EnemyDescription: Converts a random page in the enemy's hand to this page's element
+    for each adjacent matching element.
   effectSprite: {fileID: 21300000, guid: 2e95cae9ba06e6645a73b5bdbe971ff5, type: 3}
