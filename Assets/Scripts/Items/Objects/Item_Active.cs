@@ -20,12 +20,12 @@ public class Item_Active : Item_Base
 
     public void Activate()
     {
-        GameManager.instance.IBM.TriggerActiveEffect(this.item);
+        GameManager.instance.IB.TriggerActiveEffect(this.item);
     }
 
     public bool CanActivate()
     {
-        return GameManager.instance.IBM.CanTriggerActive(this.item);
+        return GameManager.instance.IB.CanTriggerActive(this.item);
     }
 
     public float GetCooldown()

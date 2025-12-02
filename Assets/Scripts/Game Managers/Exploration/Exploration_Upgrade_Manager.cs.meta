@@ -1,9 +1,10 @@
 fileFormatVersion: 2
-guid: ecf4ff5b296153c4bb2ee74173040263
+guid: 7fc616f34a47adb4fabe55fbf1a9bf8a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - upgradeScreen: {fileID: 2192034062183850495, guid: 11e998ec54ec539488276403eb9a120b, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

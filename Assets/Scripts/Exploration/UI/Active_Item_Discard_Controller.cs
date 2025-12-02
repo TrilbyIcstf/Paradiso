@@ -17,7 +17,7 @@ public class Active_Item_Discard_Controller : MonoBehaviour
 
     public void SetupDiscard(Item_Active newItem)
     {
-        List<Item_Active> activeItems = GameManager.instance.PM.GetActiveItems();
+        List<Item_Active> activeItems = GameManager.instance.PL.GetActiveItems();
 
         for (int i = 0; i < 3; i++)
         {
@@ -35,10 +35,10 @@ public class Active_Item_Discard_Controller : MonoBehaviour
 
         if (pos <= 2)
         {
-            GameManager.instance.PM.DiscardForTentativeItem(item);
+            GameManager.instance.PL.DiscardForTentativeItem(item);
         } else
         {
-            GameManager.instance.PM.DiscardTentativeItem();
+            GameManager.instance.PL.DiscardTentativeItem();
         }
 
         GameManager.instance.EP.SetMovementLock(false);

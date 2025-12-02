@@ -76,7 +76,7 @@ public class Inventory_Box_Controller : MonoBehaviour
     {
         DestroyTempItems();
 
-        List<Card_Base> playerDeck = GameManager.instance.PM.GetDeck();
+        List<Card_Base> playerDeck = GameManager.instance.PL.GetDeck();
 
         float boxWidth = this.innerBox.GetComponent<RectTransform>().rect.width - (CardPaddingX * 2);
 
@@ -152,7 +152,7 @@ public class Inventory_Box_Controller : MonoBehaviour
     {
         DestroyTempCards();
 
-        List<Item_Base> playerItems = GameManager.instance.PM.GetItems();
+        List<Item_Base> playerItems = GameManager.instance.PL.GetItems();
 
         float boxWidth = this.innerBox.GetComponent<RectTransform>().rect.width - (CardPaddingX * 2);
         for (int i = 0; i < playerItems.Count; i++)

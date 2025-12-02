@@ -48,7 +48,7 @@ public class Item_Behavior_Manager : ManagerBehavior
 
                     cardScript.AddPowerBuff(1);
                     cardStats.BuffPower(1);
-                    GM.PM.UpdateCard(cardStats.GetID(), cardStats);
+                    GM.PL.UpdateCard(cardStats.GetID(), cardStats);
                 }
                 break;
             case Item.Solidifier:
@@ -59,11 +59,11 @@ public class Item_Behavior_Manager : ManagerBehavior
 
                     cardScript.AddDefenseBuff(1);
                     cardStats.BuffDefense(1);
-                    GM.PM.UpdateCard(cardStats.GetID(), cardStats);
+                    GM.PL.UpdateCard(cardStats.GetID(), cardStats);
                 }
                 break;
             case Item.Bandage:
-                GM.PM.HealHealth(25);
+                GM.PL.HealHealth(25);
                 break;
             default:
                 break;
@@ -75,14 +75,14 @@ public class Item_Behavior_Manager : ManagerBehavior
         switch (item)
         {
             case Item.CrystalBall:
-                GM.PM.AddMaxEnergy(10);
-                GM.PM.AddEnergyRegen(0.008f);
+                GM.PL.AddMaxEnergy(10);
+                GM.PL.AddEnergyRegen(0.008f);
                 break;
             case Item.DiamondBall:
-                GM.PM.AddMaxEnergy(15);
+                GM.PL.AddMaxEnergy(15);
                 break;
             case Item.ClairvoyantGem:
-                GM.PM.AddEnergyRegen(0.02f);
+                GM.PL.AddEnergyRegen(0.02f);
                 break;
             default:
                 break;

@@ -13,11 +13,11 @@ public class GameManager : MonoBehaviour
     }
     private static GameManager _instance;
 
-    public Static_Object_Manager SOM;
+    public Static_Object_Manager SO;
     public Transition_Manager TR;
 
-    public Player_Manager PM;
-    public Item_Behavior_Manager IBM;
+    public Player_Manager PL;
+    public Item_Behavior_Manager IB;
 
     public Combat_UI_Manager CUI;
     public Combat_Field_Manager CF;
@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     public Exploration_Room_Manager ER;
     public Exploration_Player_Manager EP;
     public Exploration_Item_Manager EI;
+    public Exploration_Upgrade_Manager EU;
 
     public Screen_Fade SF;
 
@@ -42,7 +43,7 @@ public class GameManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         GameManager.instance = this;
-        this.PM.SetBasicStartingDeck();
+        this.PL.SetBasicStartingDeck();
     }
 
     private void Update()
@@ -59,29 +60,5 @@ public class GameManager : MonoBehaviour
         this.CPH.enabled = val;
         this.CES.enabled = val;
         this.CEH.enabled = val;
-    }
-
-    public void InitCombat()
-    {
-        ToggleCombatUpdates(true);
-        this.CPS.InitializeHealth(this.PM.GetMaxHealth(), this.PM.GetCurrentHealth());
-        this.CPS.InitializeEnergy(this.PM.GetMaxEnergy(), this.PM.GetEnergyRegen());
-        this.CPD.SetDeck(this.PM.GetDeck());
-        this.CPD.ShuffleDeck();
-
-        this.CES.AddFreeCards(3);
-        this.CPS.AddFreeCards(3);
-    }
-
-    public void EndCombat()
-    {
-        this.PM.SetCurrentHealth((int)this.CPS.GetCurrentHealth());
-        this.PM.ActivatePassiveItems(EffectTiming.CombatEnd, null);
-        ToggleCombatUpdates(false);
-        this.TR.UnloadScene("TestCombat", () => {
-            this.CPH.ResetHand();
-            this.CEH.ResetHand();
-            this.ER.SetRoomActive(true);
-        });
     }
 }

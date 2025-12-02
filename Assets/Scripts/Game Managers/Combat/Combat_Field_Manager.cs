@@ -77,13 +77,13 @@ public class Combat_Field_Manager : ManagerBehavior
             PassiveEffectParameters passParams = PassiveEffectParameters.TriggeredCard(this.playerSpaces[i].GetCardObject(), this.enemySpaces[i].GetCardObject());
 
             // Trigger passive effects BEFORE damage calcs
-            GM.PM.ActivatePassiveItems(EffectTiming.CardScoredBefore, passParams);
+            GM.PL.ActivatePassiveItems(EffectTiming.CardScoredBefore, passParams);
 
             // Calculate damage, buffs, etc.
             (Field_Card_Results playerResults, Field_Card_Results enemyResults) = CalculatePosition(i, this.playerSpaces, this.enemySpaces);
 
             // Trigger passive effects AFTER damage calcs
-            GM.PM.ActivatePassiveItems(EffectTiming.CardScoredAfter, passParams);
+            GM.PL.ActivatePassiveItems(EffectTiming.CardScoredAfter, passParams);
 
             // Play animations from calcs
             yield return StartCoroutine(GM.CUI.PlayCardResultAnimations(i, playerResults, enemyResults));

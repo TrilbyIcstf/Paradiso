@@ -203,7 +203,7 @@ public class Combat_UI_Manager : ManagerBehavior
             return true;
         }
 
-        if (GM.PM.WillPassiveTrigger(EffectTiming.CardScoredBefore, passParams) || GM.PM.WillPassiveTrigger(EffectTiming.CardScoredAfter, passParams))
+        if (GM.PL.WillPassiveTrigger(EffectTiming.CardScoredBefore, passParams) || GM.PL.WillPassiveTrigger(EffectTiming.CardScoredAfter, passParams))
         {
             return true;
         }

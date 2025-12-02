@@ -54,6 +54,14 @@ public class Card_Base : ScriptableObject
         this.defense += buff;
     }
 
+    public void AddEffect(CardEffect effect)
+    {
+        if (this.effects.Count < 3)
+        {
+            this.effects.Add(effect);
+        }
+    }
+
     public string GetID()
     {
         return this.cardID;
@@ -158,5 +166,18 @@ public class Card_Base : ScriptableObject
     public List<CardEffect> GetEffects()
     {
         return this.effects;
+    }
+
+    public Card_Base ApplyUpgrade(Upgrade_Stats upgrade)
+    {
+        Card_Base copy = Instantiate(this);
+        copy.BuffPower(upgrade.GetPowerBuff());
+        copy.BuffDefense(upgrade.GetDefenseBuff());
+        if (upgrade.GetNewEffect() != CardEffect.None && copy.GetEffects().Count < 3)
+        {
+            copy.AddEffect(upgrade.GetNewEffect());
+        }
+
+        return copy;
     }
 }

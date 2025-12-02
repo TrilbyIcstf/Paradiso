@@ -90,4 +90,30 @@ public class Transition_Manager : ManagerBehavior
         }
         yield return StartCoroutine(GM.SF.ScreenFade(false));
     }
+
+    public void InitCombat()
+    {
+        GM.ToggleCombatUpdates(true);
+        GM.CPS.InitializeHealth(GM.PL.GetMaxHealth(), GM.PL.GetCurrentHealth());
+        GM.CPS.InitializeEnergy(GM.PL.GetMaxEnergy(), GM.PL.GetEnergyRegen());
+        GM.CPD.SetDeck(GM.PL.GetDeck());
+        GM.CPD.ShuffleDeck();
+
+        GM.CES.AddFreeCards(3);
+        GM.CPS.AddFreeCards(3);
+    }
+
+    public void EndCombat(string sceneName = "Combat")
+    {
+        GM.PL.SetCurrentHealth((int)GM.CPS.GetCurrentHealth());
+        GM.PL.ActivatePassiveItems(EffectTiming.CombatEnd, null);
+        GM.ToggleCombatUpdates(false);
+        UnloadScene(sceneName, () => {
+            GM.CPH.ResetHand();
+            GM.CEH.ResetHand();
+            GM.ER.SetRoomActive(true);
+        }, () => {
+            GM.EU.TriggerUpgrade();
+        });
+    }
 }

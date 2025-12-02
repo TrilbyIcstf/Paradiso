@@ -27,6 +27,7 @@ GameObject:
   - component: {fileID: 3558180179293404840}
   - component: {fileID: 2475389648954751715}
   - component: {fileID: 5976122729001831649}
+  - component: {fileID: 3034169315892094207}
   - component: {fileID: 3555046578125482734}
   - component: {fileID: 3555046578125482721}
   m_Layer: 0
@@ -63,10 +64,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc20a9270b817814e99f4acb240b9c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SOM: {fileID: 3555046578125482734}
+  SO: {fileID: 3555046578125482734}
   TR: {fileID: 5069544072207160086}
-  PM: {fileID: 3555046578125482733}
-  IBM: {fileID: 7010220958928871138}
+  PL: {fileID: 3555046578125482733}
+  IB: {fileID: 7010220958928871138}
   CUI: {fileID: 3555046578125482711}
   CF: {fileID: 3555046578125482729}
   CPS: {fileID: 3555046578125482710}
@@ -80,6 +81,7 @@ MonoBehaviour:
   ER: {fileID: 3558180179293404840}
   EP: {fileID: 2475389648954751715}
   EI: {fileID: 5976122729001831649}
+  EU: {fileID: 3034169315892094207}
   SF: {fileID: 0}
   STR: {fileID: 3555046578125482721}
 --- !u!114 &5069544072207160086
@@ -299,6 +301,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871c5901c343a384eaba582bce0e6753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3034169315892094207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3555046578125482706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fc616f34a47adb4fabe55fbf1a9bf8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Exploration_Upgrade_Manager
+  upgradeScreen: {fileID: 2192034062183850495, guid: 11e998ec54ec539488276403eb9a120b, type: 3}
 --- !u!114 &3555046578125482734
 MonoBehaviour:
   m_ObjectHideFlags: 0

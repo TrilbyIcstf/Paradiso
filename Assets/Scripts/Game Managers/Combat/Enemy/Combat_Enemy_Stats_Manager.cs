@@ -63,7 +63,7 @@ public class Combat_Enemy_Stats_Manager : Stats_Manager
 
         if (this.currentHealth <= 0)
         {
-            GM.EndCombat();
+            GM.TR.EndCombat();
         }
 
         return this.currentHealth <= 0;

@@ -1,15 +1,14 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Upgrade_Card_Hover : MonoBehaviour
+public class Upgrade_Card_Hover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    private const float SelectTime = 0.5f;
-    private const float SelectSize = 0.3f;
+    private const float SelectSpeed = 2.5f;
+    private const float SelectSize = 1.15f;
 
-    private bool selected = false;
-
-    private Card_Base cardBase;
-    private Card_Base cardUpgrade;
+    public Card_Base cardBase;
+    public Card_Base cardUpgrade;
 
     private Vector3 baseScale;
 
@@ -26,7 +25,7 @@ public class Upgrade_Card_Hover : MonoBehaviour
         this.baseScale = this.spriteObject.transform.localScale;
     }
 
-    private void OnMouseEnter()
+    public void OnPointerEnter(PointerEventData pointerEventData)
     {
         if (this.emphasisCo != null)
         {
@@ -34,11 +33,11 @@ public class Upgrade_Card_Hover : MonoBehaviour
             this.emphasisCo = null;
         }
 
-        //this.cardUI.SetCardBase(this.cardUpgrade);
+        this.cardUI.SetCardBase(this.cardUpgrade);
         this.emphasisCo = StartCoroutine(HoverCard());
     }
 
-    private void OnMouseExit()
+    public void OnPointerExit(PointerEventData pointerEventData)
     {
         if (this.emphasisCo != null)
         {
@@ -46,7 +45,7 @@ public class Upgrade_Card_Hover : MonoBehaviour
             this.emphasisCo = null;
         }
 
-        //this.cardUI.SetCardBase(this.cardBase);
+        this.cardUI.SetCardBase(this.cardBase);
         this.emphasisCo = StartCoroutine(UnhoverCard());
     }
 
@@ -60,33 +59,33 @@ public class Upgrade_Card_Hover : MonoBehaviour
 
     private IEnumerator HoverCard()
     {
-        float time = 0.0f;
+        float ratio = spriteObject.transform.localScale.magnitude / this.baseScale.magnitude;
 
         yield return new WaitUntil(() =>
         {
-            time += Time.deltaTime;
-            float timeRatio = time / SelectTime;
-            float sizeRatio = SelectSize * timeRatio;
-            Vector3 scale = this.baseScale * (1.0f + sizeRatio);
+            float time = Time.deltaTime;
+            ratio += time * SelectSpeed;
+            ratio = Mathf.Min(SelectSize, ratio);
+            Vector3 scale = this.baseScale * ratio;
             spriteObject.transform.localScale = scale;
 
-            return time >= SelectTime;
+            return ratio >= SelectSize;
         });
     }
 
     private IEnumerator UnhoverCard()
     {
-        float time = 0.0f;
+        float ratio = spriteObject.transform.localScale.magnitude / this.baseScale.magnitude;
 
         yield return new WaitUntil(() =>
         {
-            time += Time.deltaTime;
-            float timeRatio = 1.0f - (time / SelectTime);
-            float sizeRatio = SelectSize * timeRatio;
-            Vector3 scale = this.baseScale * (1.0f + sizeRatio);
+            float time = Time.deltaTime;
+            ratio -= time * SelectSpeed;
+            ratio = Mathf.Max(1.0f, ratio);
+            Vector3 scale = this.baseScale * ratio;
             spriteObject.transform.localScale = scale;
 
-            return time >= SelectTime;
+            return ratio <= 1;
         });
     }
 }

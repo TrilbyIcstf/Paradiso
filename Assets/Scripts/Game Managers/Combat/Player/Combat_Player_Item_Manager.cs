@@ -13,7 +13,7 @@ public class Combat_Player_Item_Manager : ManagerBehavior
 
     public void SetPlayersItems()
     {
-        List<Item_Active> activeItems = GM.PM.GetActiveItems();
+        List<Item_Active> activeItems = GM.PL.GetActiveItems();
 
         for (int i = 0; i < activeItems.Count; i++)
         {
@@ -26,7 +26,7 @@ public class Combat_Player_Item_Manager : ManagerBehavior
 
     public void SetItemSlot(GameObject slot, int pos)
     {
-        List<Item_Active> activeItems = GM.PM.GetActiveItems();
+        List<Item_Active> activeItems = GM.PL.GetActiveItems();
         this.itemSlots[pos] = slot;
         if (pos < activeItems.Count)
         {

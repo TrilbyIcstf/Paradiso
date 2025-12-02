@@ -34,9 +34,9 @@ public class Player_Manager : ManagerBehavior
         List<Item_Passive> passiveItems = GetPassiveItems().Where(i => i.IsCorrectTiming(timing)).ToList();
         foreach (Item_Passive item in passiveItems)
         {
-            if (GM.IBM.WillTriggerPassive(item.GetItemType(), passParams))
+            if (GM.IB.WillTriggerPassive(item.GetItemType(), passParams))
             {
-                GM.IBM.TriggerPassiveItem(item.GetItemType(), passParams);
+                GM.IB.TriggerPassiveItem(item.GetItemType(), passParams);
             }
         }
     }
@@ -52,12 +52,54 @@ public class Player_Manager : ManagerBehavior
         List<Item_Passive> passiveItems = GetPassiveItems().Where(i => i.IsCorrectTiming(timing)).ToList();
         foreach (Item_Passive item in passiveItems)
         {
-            if (GM.IBM.WillTriggerPassive(item.GetItemType(), passParams))
+            if (GM.IB.WillTriggerPassive(item.GetItemType(), passParams))
             {
                 return true;
             }
         }
         return false;
+    }
+
+    private void TriggerPickupPassive(Item item)
+    {
+        GM.IB.TriggerItemPickup(item, null);
+    }
+
+    public void DiscardTentativeItem()
+    {
+        this.discardedItems.Add(this.tentativeItem.GetItemType());
+        this.tentativeItem = null;
+    }
+
+    public void DiscardForTentativeItem(Item discardItem)
+    {
+        Item_Base itemToDiscard = this.playerItems.FirstOrDefault(i => i.GetItemType() == discardItem);
+
+        if (itemToDiscard != null)
+        {
+            this.discardedItems.Add(discardItem);
+            this.playerItems.Remove(itemToDiscard);
+            AddTentativeItem();
+        }
+    }
+
+    public void TestRandomDeck(int size)
+    {
+        this.playerDeck = new Dictionary<string, Card_Base>();
+
+        for (int i = 0; i < size; i++)
+        {
+            Card_Base randCard = Card_Base.RandomizeStats();
+            randCard.SetID(i.ToString());
+            this.playerDeck[i.ToString()] = randCard;
+            this.deckIDCounter = i;
+        }
+    }
+
+    public void SetBasicStartingDeck()
+    {
+        this.playerDeck = Starting_Decks.BasicStartingDeck();
+        this.deckIDCounter = this.playerDeck.Count;
     }
 
     public int GetMaxHealth()
@@ -129,6 +171,34 @@ public class Player_Manager : ManagerBehavior
         return this.playerDeck[id];
     }
 
+    public List<Card_Base> GetRandomCards(int amount)
+    {
+        List<Card_Base> deck = this.playerDeck.Values.ToList();
+
+        if (amount >= this.playerDeck.Count)
+        {
+            return deck;
+        }
+
+        List<int> listPos = new List<int>();
+        while (listPos.Count < amount)
+        {
+            int randInt = Random.Range(0, this.playerDeck.Count);
+            if (!listPos.Contains(randInt))
+            {
+                listPos.Add(randInt);
+            }
+        }
+
+        List<Card_Base> randCards = new List<Card_Base>();
+        foreach (int i in listPos)
+        {
+            randCards.Add(deck[i]);
+        }
+
+        return randCards;
+    }
+
     public bool UpdateCard(string id, Card_Base card)
     {
         if (this.playerDeck.ContainsKey(id))
@@ -185,47 +255,5 @@ public class Player_Manager : ManagerBehavior
         this.playerItems.Add(this.tentativeItem);
         TriggerPickupPassive(this.tentativeItem.GetItemType());
         this.tentativeItem = null;
-    }
-
-    private void TriggerPickupPassive(Item item)
-    {
-        GM.IBM.TriggerItemPickup(item, null);
-    }
-
-    public void DiscardTentativeItem()
-    {
-        this.discardedItems.Add(this.tentativeItem.GetItemType());
-        this.tentativeItem = null;
-    }
-
-    public void DiscardForTentativeItem(Item discardItem)
-    {
-        Item_Base itemToDiscard = this.playerItems.FirstOrDefault(i => i.GetItemType() == discardItem);
-
-        if (itemToDiscard != null)
-        {
-            this.discardedItems.Add(discardItem);
-            this.playerItems.Remove(itemToDiscard);
-            AddTentativeItem();
-        }
-    }
-
-    public void TestRandomDeck(int size)
-    {
-        this.playerDeck = new Dictionary<string, Card_Base>();
-
-        for (int i = 0; i < size; i++)
-        {
-            Card_Base randCard = Card_Base.RandomizeStats();
-            randCard.SetID(i.ToString());
-            this.playerDeck[i.ToString()] = randCard;
-            this.deckIDCounter = i;
-        }
-    }
-
-    public void SetBasicStartingDeck()
-    {
-        this.playerDeck = Starting_Decks.BasicStartingDeck();
-        this.deckIDCounter = this.playerDeck.Count;
     }
 }

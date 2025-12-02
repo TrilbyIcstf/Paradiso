@@ -26,13 +26,13 @@ public class Room_UI_Coordinator : ManagerBehavior
 
     public void OnAcceptItemPickup()
     {
-        if (GM.PM.IsTentativeActive() && GM.PM.GetActiveItems().Count >= 3)
+        if (GM.PL.IsTentativeActive() && GM.PL.GetActiveItems().Count >= 3)
         {
-            Item_Active pickupItem = GM.PM.GetTentativeActive();
+            Item_Active pickupItem = GM.PL.GetTentativeActive();
             this.activeDiscardBox.SetupDiscard(pickupItem);
         } else
         {
-            GM.PM.AddTentativeItem();
+            GM.PL.AddTentativeItem();
             GM.EP.SetMovementLock(false);
         }
     }

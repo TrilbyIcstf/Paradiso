@@ -11,8 +11,10 @@ public class Exploration_Enemy_Contact : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            GameManager.instance.TR.FadeTransition("TestCombat", true, () => {
+            GameManager.instance.EP.SetMovementLock(true);
+            GameManager.instance.TR.FadeTransition("Combat", true, () => {
                 Destroy(gameObject);
+                GameManager.instance.TR.InitCombat();
                 Enemy_Room_Object currentRoom = (Enemy_Room_Object)GameManager.instance.EL.GetCurrentRoom();
                 currentRoom.SetEnemyDefeated(true);
                 GameManager.instance.ER.GetCurrentRoom().UnlockRoom(currentRoom);

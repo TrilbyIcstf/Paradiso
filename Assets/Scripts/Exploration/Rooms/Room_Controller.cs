@@ -44,8 +44,8 @@ public class Room_Controller : ManagerBehavior
 
             GM.CES.SetEnemy(enemyRoom.GetEnemy());
 
-            TileBase oldWall = GM.SOM.GetWallTile(GM.EL.GetFloor());
-            TileBase newWall = GM.SOM.GetLockTile(GM.EL.GetFloor());
+            TileBase oldWall = GM.SO.GetWallTile(GM.EL.GetFloor());
+            TileBase newWall = GM.SO.GetLockTile(GM.EL.GetFloor());
 
             if (enemyRoom.IsEnemyDefeated())
             {
