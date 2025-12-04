@@ -199,6 +199,16 @@ public class Player_Manager : ManagerBehavior
         return randCards;
     }
 
+    public float GetAverageDeckPower()
+    {
+        return (float)this.playerDeck.Values.ToList().Average(c => c.GetPower());
+    }
+    
+    public float GetAverageDeckDefense()
+    {
+        return (float)this.playerDeck.Values.ToList().Average(c => c.GetDefense());
+    }
+
     public bool UpdateCard(string id, Card_Base card)
     {
         if (this.playerDeck.ContainsKey(id))

@@ -399,6 +399,8 @@ MonoBehaviour:
       Value: {fileID: 6423806749927177598, guid: 791cc82933c1c4d4482a3080c5878b3a, type: 3}
     - Key: 2
       Value: {fileID: 7699978436774145253, guid: 5ed111976d7b63d47ad0c2e7a54252f7, type: 3}
+  <PowerIcon>k__BackingField: {fileID: -1344053862893166480, guid: 452bd712fc0d76842bf9fdf8c8023bb2, type: 3}
+  <DefenseIcon>k__BackingField: {fileID: 7116004456955076645, guid: dcf3be40ba3092b4b820cd7ad8bb8ec8, type: 3}
 --- !u!114 &3555046578125482721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -455,3 +457,23 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 5b831228b61902e4cb0997f53603eb2e, type: 2}
     - Key: 11
       Value: {fileID: 11400000, guid: 26d6b381041fdcc4c8d4342a2748e082, type: 2}
+  elements:
+    _serializableList:
+    - Key: 0
+      Value: {fileID: 11400000, guid: 5a100e7b8c7b532458cbfc9c6e18e483, type: 2}
+    - Key: 1
+      Value: {fileID: 11400000, guid: 70a0e27bef0ccd344ad79cb91f805684, type: 2}
+    - Key: 2
+      Value: {fileID: 11400000, guid: f238b737b294aef43988a38456adb864, type: 2}
+    - Key: 3
+      Value: {fileID: 11400000, guid: 39a25791d7f159546858547f7bd3090f, type: 2}
+    - Key: 4
+      Value: {fileID: 11400000, guid: a07907fae0455494a97c9f3bf92243b2, type: 2}
+  affinities:
+    _serializableList:
+    - Key: 0
+      Value: {fileID: 11400000, guid: db7913d45ee5a4e44ac0e63615353f19, type: 2}
+    - Key: 1
+      Value: {fileID: 11400000, guid: 336699006b7659242bc8271c35918165, type: 2}
+    - Key: 2
+      Value: {fileID: 11400000, guid: 46af48b088ee5574ab2390f788f372d2, type: 2}

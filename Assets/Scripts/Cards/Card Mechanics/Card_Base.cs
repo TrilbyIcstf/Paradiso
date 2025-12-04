@@ -177,6 +177,14 @@ public class Card_Base : ScriptableObject
         {
             copy.AddEffect(upgrade.GetNewEffect());
         }
+        if (upgrade.GetNewElement() != null)
+        {
+            copy.element = (CardElement)upgrade.GetNewElement();
+        }
+        if (upgrade.GetNewAffinity() != null)
+        {
+            copy.affinity = (CardAffinity)upgrade.GetNewAffinity();
+        }
 
         return copy;
     }

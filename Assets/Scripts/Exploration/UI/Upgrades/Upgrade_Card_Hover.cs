@@ -1,14 +1,15 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Upgrade_Card_Hover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class Upgrade_Card_Hover : Mouse_Hover_Card, IPointerEnterHandler, IPointerExitHandler
 {
     private const float SelectSpeed = 2.5f;
     private const float SelectSize = 1.15f;
 
-    public Card_Base cardBase;
-    public Card_Base cardUpgrade;
+    private Card_Base cardBase;
+    private Card_Base cardUpgrade;
 
     private Vector3 baseScale;
 
@@ -35,6 +36,8 @@ public class Upgrade_Card_Hover : MonoBehaviour, IPointerEnterHandler, IPointerE
 
         this.cardUI.SetCardBase(this.cardUpgrade);
         this.emphasisCo = StartCoroutine(HoverCard());
+
+        MouseEnter();
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
@@ -47,6 +50,8 @@ public class Upgrade_Card_Hover : MonoBehaviour, IPointerEnterHandler, IPointerE
 
         this.cardUI.SetCardBase(this.cardBase);
         this.emphasisCo = StartCoroutine(UnhoverCard());
+
+        MouseExit();
     }
 
     public void SetCards(Card_Base cardBase, Card_Base cardUpgrade)
@@ -87,5 +92,10 @@ public class Upgrade_Card_Hover : MonoBehaviour, IPointerEnterHandler, IPointerE
 
             return ratio <= 1;
         });
+    }
+
+    protected override List<CardEffect> GetEffects()
+    {
+        return this.cardUpgrade.GetEffects();
     }
 }

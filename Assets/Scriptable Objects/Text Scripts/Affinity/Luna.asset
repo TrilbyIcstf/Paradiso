@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6dbfba9625b0c6499bc19983b5bc6e6, type: 3}
+  m_Name: Luna
+  m_EditorClassIdentifier: Assembly-CSharp::Affinity_Description
+  <Name>k__BackingField: Luna
+  <UpgradeDescription>k__BackingField: Change to Luna

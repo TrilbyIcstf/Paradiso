@@ -69,4 +69,9 @@ public class Static_Object_Manager : MonoBehaviour
     [SerializeField]
     private AffinityIcons affinityIcons;
     public Sprite GetAffinityIcon(CardAffinity affinity) { return this.affinityIcons[affinity]; }
+
+    [field: SerializeField]
+    public Sprite PowerIcon { get; set; }
+    [field: SerializeField]
+    public Sprite DefenseIcon { get; set; }
 }

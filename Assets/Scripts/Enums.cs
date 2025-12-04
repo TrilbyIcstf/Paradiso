@@ -293,3 +293,23 @@ public enum Enemy
     SpiritedCrusader,
     BurningSeraph
 }
+
+public enum UpgradeType
+{
+    PowerSmall,
+    PowerBig,
+    DefenseSmall,
+    DefenseBig,
+    WeakEffect,
+    StrongEffect,
+    NewElement,
+    NewAffinity
+}
+
+public static class UpgradeTypeMethods
+{
+    public static List<UpgradeType> TestUpgradeList()
+    {
+        return new List<UpgradeType> { UpgradeType.PowerBig, UpgradeType.PowerSmall, UpgradeType.DefenseBig, UpgradeType.DefenseSmall, UpgradeType.WeakEffect, UpgradeType.NewAffinity, UpgradeType.NewElement };
+    }
+}

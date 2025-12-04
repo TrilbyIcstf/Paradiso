@@ -258,7 +258,10 @@ public class Combat_UI_Manager : ManagerBehavior
             cardScript.SetDefense((int)playerResults.totalDefense);
             foreach (CardEffect effect in playerResults.effects)
             {
-                animations.Add(StartCoroutine(GM.CCE.TriggerCardEffect(effect, playerResults.card, playerResults.effParams, true)));
+                if (GM.CCE.EffectIsTriggered(effect, playerResults.effParams))
+                {
+                    animations.Add(StartCoroutine(GM.CCE.TriggerCardEffect(effect, playerResults.card, playerResults.effParams, true)));
+                }
             }
         }
 
@@ -270,7 +273,10 @@ public class Combat_UI_Manager : ManagerBehavior
             cardScript.SetDefense((int)enemyResults.totalDefense);
             foreach (CardEffect effect in enemyResults.effects)
             {
-                animations.Add(StartCoroutine(GM.CCE.TriggerCardEffect(effect, enemyResults.card, enemyResults.effParams, false)));
+                if (GM.CCE.EffectIsTriggered(effect, enemyResults.effParams))
+                {
+                    animations.Add(StartCoroutine(GM.CCE.TriggerCardEffect(effect, enemyResults.card, enemyResults.effParams, false)));
+                }
             }
         }
 

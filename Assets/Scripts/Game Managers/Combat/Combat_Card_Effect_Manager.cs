@@ -187,37 +187,46 @@ public class Combat_Card_Effect_Manager : ManagerBehavior
     {
         foreach (CardEffect effect in effects)
         {
-            switch (effect)
+            if (EffectIsTriggered(effect, effParams))
             {
-                case CardEffect.Quills:
-                case CardEffect.Flow:
-                case CardEffect.Tremor:
-                    if (effParams.adjacency > 0)
-                    {
-                        return true;
-                    }
-                    break;
-                case CardEffect.Incinerate:
-                    if (effParams.adjacency > 0 && effParams.opponentHandSize > 0)
-                    {
-                        return true;
-                    }
-                    break;
-                case CardEffect.Spread:
-                    if (effParams.adjacency > 0 && effParams.handSize > 0)
-                    {
-                        return true;
-                    }
-                    break;
-                case CardEffect.SynergyLeft:
-                case CardEffect.SynthesisLeft:
-                    return effParams.leftAdjacency;
-                case CardEffect.SynergyRight:
-                case CardEffect.SynthesisRight:
-                    return effParams.rightAdjacency;
-                default:
-                    break;
+                return true;
             }
+        }
+        return false;
+    }
+
+    public bool EffectIsTriggered(CardEffect effect, CardEffectParameters effParams)
+    {
+        switch (effect)
+        {
+            case CardEffect.Quills:
+            case CardEffect.Flow:
+            case CardEffect.Tremor:
+                if (effParams.adjacency > 0)
+                {
+                    return true;
+                }
+                break;
+            case CardEffect.Incinerate:
+                if (effParams.adjacency > 0 && effParams.opponentHandSize > 0)
+                {
+                    return true;
+                }
+                break;
+            case CardEffect.Spread:
+                if (effParams.adjacency > 0 && effParams.handSize > 0)
+                {
+                    return true;
+                }
+                break;
+            case CardEffect.SynergyLeft:
+            case CardEffect.SynthesisLeft:
+                return effParams.leftAdjacency;
+            case CardEffect.SynergyRight:
+            case CardEffect.SynthesisRight:
+                return effParams.rightAdjacency;
+            default:
+                break;
         }
         return false;
     }

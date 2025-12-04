@@ -7,6 +7,6 @@ public class EnemyTesting : MonoBehaviour
     private void OnMouseDown()
     {
         //Enemy_Mouse_Controller.testPause = !Enemy_Mouse_Controller.testPause;
-        //GameManager.instance.EndCombat();
+        GameManager.instance.TR.EndCombat();
     }
 }

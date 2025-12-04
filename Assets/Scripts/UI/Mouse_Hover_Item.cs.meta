@@ -1,2 +1,13 @@
 fileFormatVersion: 2
 guid: 7dcea1c82e0e9034a9c445259ef37ead
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - infoBox: {fileID: 4552180020137425204, guid: b5719750722d48b45b52db3cdbd0565e, type: 3}
+  - infoBoxController: {fileID: 6974460656756982225, guid: 662944f17ebf1b547b271786d6ca3315, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
