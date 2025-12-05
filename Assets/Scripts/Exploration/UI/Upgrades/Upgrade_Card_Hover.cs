@@ -8,9 +8,6 @@ public class Upgrade_Card_Hover : Mouse_Hover_Card, IPointerEnterHandler, IPoint
     private const float SelectSpeed = 2.5f;
     private const float SelectSize = 1.15f;
 
-    private Card_Base cardBase;
-    private Card_Base cardUpgrade;
-
     private Vector3 baseScale;
 
     [SerializeField]
@@ -34,7 +31,7 @@ public class Upgrade_Card_Hover : Mouse_Hover_Card, IPointerEnterHandler, IPoint
             this.emphasisCo = null;
         }
 
-        this.cardUI.SetCardBase(this.cardUpgrade);
+        this.cardUI.UpgradeCard();
         this.emphasisCo = StartCoroutine(HoverCard());
 
         MouseEnter();
@@ -48,18 +45,10 @@ public class Upgrade_Card_Hover : Mouse_Hover_Card, IPointerEnterHandler, IPoint
             this.emphasisCo = null;
         }
 
-        this.cardUI.SetCardBase(this.cardBase);
+        this.cardUI.BaseCard();
         this.emphasisCo = StartCoroutine(UnhoverCard());
 
         MouseExit();
-    }
-
-    public void SetCards(Card_Base cardBase, Card_Base cardUpgrade)
-    {
-        this.cardBase = cardBase;
-        this.cardUpgrade = cardUpgrade;
-
-        this.cardUI.SetCardBase(cardBase);
     }
 
     private IEnumerator HoverCard()
@@ -96,6 +85,7 @@ public class Upgrade_Card_Hover : Mouse_Hover_Card, IPointerEnterHandler, IPoint
 
     protected override List<CardEffect> GetEffects()
     {
-        return this.cardUpgrade.GetEffects();
+        Card_Base cardUpgrade = GetComponent<Upgrade_Card>().GetUpgrade();
+        return cardUpgrade.GetEffects();
     }
 }

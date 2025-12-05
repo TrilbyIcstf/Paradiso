@@ -20,8 +20,9 @@ public class Upgrade_Screen_Controller : MonoBehaviour
             Card_Base upgradedCard = cards[i].ApplyUpgrade(upgrade);
             this.upgradeSlots[i] = new Upgrade_Slot(cards[i], upgradedCard, upgrade);
 
-            Upgrade_Card_Hover cardScript = this.upgradeCards[i].GetComponent<Upgrade_Card_Hover>();
+            Upgrade_Card cardScript = this.upgradeCards[i].GetComponent<Upgrade_Card>();
             cardScript.SetCards(cards[i], upgradedCard);
+            this.upgradeCards[i].GetComponent<Upgrade_Card_UI>().BaseCard();
 
             SetUpgradeDescription(upgrade, i);
         }
@@ -168,6 +169,14 @@ public class Upgrade_Screen_Controller : MonoBehaviour
             this.upgradeDescriptions[pos].SetUpgrade(upgradeDescription, defSprite, upgradeNum);
             upgradeNum++;
         }
+    }
+
+    public void UpgradeSelected(int pos)
+    {
+        Destroy(gameObject);
+        Card_Base selectedUpgrade = this.upgradeSlots[pos].GetCardUpgrade();
+        GameManager.instance.PL.UpdateCard(selectedUpgrade.GetID(), selectedUpgrade);
+        GameManager.instance.ER.NextPopup();
     }
 }
 

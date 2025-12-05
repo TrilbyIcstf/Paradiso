@@ -173,7 +173,7 @@ public class Player_Manager : ManagerBehavior
 
     public List<Card_Base> GetRandomCards(int amount)
     {
-        List<Card_Base> deck = this.playerDeck.Values.ToList();
+        List<Card_Base> deck = GetDeck();
 
         if (amount >= this.playerDeck.Count)
         {
@@ -201,12 +201,12 @@ public class Player_Manager : ManagerBehavior
 
     public float GetAverageDeckPower()
     {
-        return (float)this.playerDeck.Values.ToList().Average(c => c.GetPower());
+        return (float)GetDeck().Average(c => c.GetPower());
     }
     
     public float GetAverageDeckDefense()
     {
-        return (float)this.playerDeck.Values.ToList().Average(c => c.GetDefense());
+        return (float)GetDeck().Average(c => c.GetDefense());
     }
 
     public bool UpdateCard(string id, Card_Base card)

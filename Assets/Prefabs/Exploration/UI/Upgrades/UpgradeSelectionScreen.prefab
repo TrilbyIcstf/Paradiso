@@ -165,8 +165,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7385935527687923588}
   - {fileID: 6523568611089268416}
+  - {fileID: 7385935527687923588}
   - {fileID: 8970447084475579162}
   m_Father: {fileID: 1645122906224482823}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -742,6 +742,34 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1494896788335106567}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpgradeSelected
+      objectReference: {fileID: 0}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Upgrade_Screen_Controller, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 484500840436692993, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -881,6 +909,38 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1494896788335106567}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpgradeSelected
+      objectReference: {fileID: 0}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Upgrade_Screen_Controller, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 484500840436692993, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -1019,6 +1079,38 @@ PrefabInstance:
     - target: {fileID: 198270569980451143, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1494896788335106567}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpgradeSelected
+      objectReference: {fileID: 0}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Upgrade_Screen_Controller, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 238324352049830645, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 484500840436692993, guid: c3d97c94f82e1744aa25a3d98d6101ab, type: 3}
       propertyPath: m_SizeDelta.x

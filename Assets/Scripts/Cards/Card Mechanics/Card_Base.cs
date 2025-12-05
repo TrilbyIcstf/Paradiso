@@ -171,6 +171,7 @@ public class Card_Base : ScriptableObject
     public Card_Base ApplyUpgrade(Upgrade_Stats upgrade)
     {
         Card_Base copy = Instantiate(this);
+        copy.SetID(this.cardID);
         copy.BuffPower(upgrade.GetPowerBuff());
         copy.BuffDefense(upgrade.GetDefenseBuff());
         if (upgrade.GetNewEffect() != CardEffect.None && copy.GetEffects().Count < 3)

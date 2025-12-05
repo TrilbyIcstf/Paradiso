@@ -113,7 +113,12 @@ public class Transition_Manager : ManagerBehavior
             GM.CEH.ResetHand();
             GM.ER.SetRoomActive(true);
         }, () => {
-            GM.EU.TriggerUpgrade();
+            GM.ER.AddPopup(PopupType.Upgrade);
+            if (RandMeth.RollDie(5))
+            {
+                GM.ER.AddPopup(PopupType.Upgrade);
+            }
+            GM.ER.NextPopup();
         });
     }
 }

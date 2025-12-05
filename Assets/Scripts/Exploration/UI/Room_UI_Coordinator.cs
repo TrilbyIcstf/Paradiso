@@ -39,8 +39,7 @@ public class Room_UI_Coordinator : ManagerBehavior
 
     public void OpenInventory()
     {
-        this.minimap.SetVisible(false);
-        this.inventoryButton.SetVisible(false);
+        BaseUIVisibility(false);
 
         this.inventoryBox.OpenInventory();
 
@@ -49,11 +48,16 @@ public class Room_UI_Coordinator : ManagerBehavior
 
     public void CloseInventory()
     {
-        this.minimap.SetVisible(true);
-        this.inventoryButton.SetVisible(true);
+        BaseUIVisibility(true);
 
         this.inventoryBox.CloseInventory();
 
         GM.EP.SetMovementLock(false);
+    }
+
+    public void BaseUIVisibility(bool val)
+    {
+        this.minimap.SetVisible(val);
+        this.inventoryButton.SetVisible(val);
     }
 }

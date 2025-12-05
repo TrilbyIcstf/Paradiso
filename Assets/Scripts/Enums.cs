@@ -313,3 +313,8 @@ public static class UpgradeTypeMethods
         return new List<UpgradeType> { UpgradeType.PowerBig, UpgradeType.PowerSmall, UpgradeType.DefenseBig, UpgradeType.DefenseSmall, UpgradeType.WeakEffect, UpgradeType.NewAffinity, UpgradeType.NewElement };
     }
 }
+
+public enum PopupType
+{
+    Upgrade
+}
