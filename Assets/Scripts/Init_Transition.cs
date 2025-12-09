@@ -5,8 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Init_Transition : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void GameStart()
     {
         GameManager.instance.EL.RandomizeFloor(5, 5);
         GameManager.instance.TR.InstantTransmission("Scenes/TestMovementRoom");
