@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     public Static_Object_Manager SO;
     public Transition_Manager TR;
+    public Tutorial_Manager TU;
 
     public Player_Manager PL;
     public Item_Behavior_Manager IB;

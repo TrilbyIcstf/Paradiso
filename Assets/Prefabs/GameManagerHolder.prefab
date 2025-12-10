@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3555046578125482708}
   - component: {fileID: 3555046578125482709}
   - component: {fileID: 5069544072207160086}
+  - component: {fileID: 8118102179937584171}
   - component: {fileID: 3555046578125482711}
   - component: {fileID: 591822116712437597}
   - component: {fileID: 3555046578125482710}
@@ -66,6 +67,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SO: {fileID: 3555046578125482734}
   TR: {fileID: 5069544072207160086}
+  TU: {fileID: 8118102179937584171}
   PL: {fileID: 3555046578125482733}
   IB: {fileID: 7010220958928871138}
   CUI: {fileID: 3555046578125482711}
@@ -96,6 +98,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea93d560f94591f439d772ade29191e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8118102179937584171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3555046578125482706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 919979e261446d9479fe0e8e9e804f91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tutorial_Manager
+  tutorialBoxes: []
 --- !u!114 &3555046578125482711
 MonoBehaviour:
   m_ObjectHideFlags: 0
