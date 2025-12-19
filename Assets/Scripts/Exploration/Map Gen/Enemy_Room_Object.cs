@@ -40,10 +40,14 @@ public class Enemy_Room_Object : Room_Object
     /// <returns>An enemy room object</returns>
     public static Enemy_Room_Object ConvertToEnemyRoom(Room_Object room)
     {
+        return ConvertToEnemyRoom(room, DecideEnemy());
+    }
+    public static Enemy_Room_Object ConvertToEnemyRoom(Room_Object room, Enemy enemy)
+    {
         Enemy_Room_Object newRoom = new Enemy_Room_Object(room.GetEntranceDirection(), room.GetDistance());
         newRoom.connections = room.GetConnections();
         newRoom.roomType = room.GetRoomType();
-        newRoom.enemy = Static_Object_Manager.instance.GetEnemy(DecideEnemy());
+        newRoom.enemy = Static_Object_Manager.instance.GetEnemy(enemy);
         return newRoom;
     }
 

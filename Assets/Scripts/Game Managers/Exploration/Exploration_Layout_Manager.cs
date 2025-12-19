@@ -98,6 +98,23 @@ public class Exploration_Layout_Manager : ManagerBehavior
         }
     }
 
+    public void BossFloor()
+    {
+        ResetFloorGenVars();
+        this.floorLayout = new Room_Object[1, 2];
+        this.startingPos = Vector2Int.zero;
+        this.currentPos = this.startingPos;
+
+        Room_Object startingRoom = new Room_Object(Direction.None, 0);
+        startingRoom.AddConnection(new Vector2Int(0, 1), Direction.Up);
+        this.floorLayout[0, 0] = startingRoom;
+        Room_Object bossRoom = new Room_Object(Direction.Down, 1);
+        bossRoom.AddConnection(Vector2Int.zero, Direction.Down);
+        bossRoom.SetRoomType(RoomType.Enemy);
+        bossRoom = Enemy_Room_Object.ConvertToEnemyRoom(bossRoom, Enemy.BurningSeraph);
+        this.floorLayout[0, 1] = bossRoom;
+    }
+
     private Room_Object RecursiveAddRoom(Vector2Int pos, float continuePercent, float splitPercent, Direction entranceDirection, int distance)
     {
         Room_Object thisRoom = new Room_Object(entranceDirection, distance);

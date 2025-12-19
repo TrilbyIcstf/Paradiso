@@ -110,7 +110,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 919979e261446d9479fe0e8e9e804f91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tutorial_Manager
-  tutorialBoxes: []
+  tutorialBoxes:
+  - {fileID: 8393019491248809579, guid: c63cbab1cb3ce9942bd96723234997c4, type: 3}
+  - {fileID: 5567200446212700564, guid: ca53e177ae849c245ae9da9a65784b54, type: 3}
+  - {fileID: 1399176109481325408, guid: 55beee3104917aa4ba09bb6cd45d10c2, type: 3}
+  - {fileID: 4638207749050014533, guid: c4ee5ad019d98be4d9f8b3dfd2768d8e, type: 3}
+  - {fileID: 2085553362334558379, guid: c998f0d920ab24949aef4d1efcbc5d08, type: 3}
+  - {fileID: 1435772657453852855, guid: 4be42ebd561c35345ac53284625d750d, type: 3}
+  - {fileID: 1991065498703422107, guid: 93e1b41ea46de3345acb5abe1f21449e, type: 3}
+  - {fileID: 81424640235904881, guid: b954e484850e38449a6325d545e334bc, type: 3}
 --- !u!114 &3555046578125482711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,8 +371,8 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: a4136719963e9c347b9826c6eb8f0949, type: 2}
     - Key: 10
       Value: {fileID: 11400000, guid: d24f5fddcd6bea740a4397e12456831e, type: 2}
-    - Key: 8
-      Value: {fileID: 11400000, guid: 4b2958d3f7d76da46ad0882c31aabf3e, type: 2}
+    - Key: 11
+      Value: {fileID: 11400000, guid: f40d903945649e6469363137604980c8, type: 2}
   enemies:
     _serializableList:
     - Key: 0
