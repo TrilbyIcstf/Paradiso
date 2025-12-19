@@ -301,42 +301,6 @@ PrefabInstance:
       propertyPath: 'playerItems.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: d24f5fddcd6bea740a4397e12456831e, type: 2}
-    - target: {fileID: 8118102179937584171, guid: 093ddd2ed654de34c8a13b51aca9cebe, type: 3}
-      propertyPath: tutorialBoxes.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8118102179937584171, guid: 093ddd2ed654de34c8a13b51aca9cebe, type: 3}
-      propertyPath: 'tutorialBoxes.Array.data[0]'
-      value: 
-      objectReference: {fileID: 8393019491248809579, guid: c63cbab1cb3ce9942bd96723234997c4, type: 3}
-    - target: {fileID: 8118102179937584171, guid: 093ddd2ed654de34c8a13b51aca9cebe, type: 3}
-      propertyPath: 'tutorialBoxes.Array.data[1]'
-      value: 
-      objectReference: {fileID: 5567200446212700564, guid: ca53e177ae849c245ae9da9a65784b54, type: 3}
-    - target: {fileID: 8118102179937584171, guid: 093ddd2ed654de34c8a13b51aca9cebe, type: 3}
-      propertyPath: 'tutorialBoxes.Array.data[2]'
-      value: 
-      objectReference: {fileID: 1399176109481325408, guid: 55beee3104917aa4ba09bb6cd45d10c2, type: 3}
-    - target: {fileID: 8118102179937584171, guid: 093ddd2ed654de34c8a13b51aca9cebe, type: 3}
-      propertyPath: 'tutorialBoxes.Array.data[3]'
-      value: 
-      objectReference: {fileID: 4638207749050014533, guid: c4ee5ad019d98be4d9f8b3dfd2768d8e, type: 3}
-    - target: {fileID: 8118102179937584171, guid: 093ddd2ed654de34c8a13b51aca9cebe, type: 3}
-      propertyPath: 'tutorialBoxes.Array.data[4]'
-      value: 
-      objectReference: {fileID: 2085553362334558379, guid: c998f0d920ab24949aef4d1efcbc5d08, type: 3}
-    - target: {fileID: 8118102179937584171, guid: 093ddd2ed654de34c8a13b51aca9cebe, type: 3}
-      propertyPath: 'tutorialBoxes.Array.data[5]'
-      value: 
-      objectReference: {fileID: 1435772657453852855, guid: 4be42ebd561c35345ac53284625d750d, type: 3}
-    - target: {fileID: 8118102179937584171, guid: 093ddd2ed654de34c8a13b51aca9cebe, type: 3}
-      propertyPath: 'tutorialBoxes.Array.data[6]'
-      value: 
-      objectReference: {fileID: 1991065498703422107, guid: 93e1b41ea46de3345acb5abe1f21449e, type: 3}
-    - target: {fileID: 8118102179937584171, guid: 093ddd2ed654de34c8a13b51aca9cebe, type: 3}
-      propertyPath: 'tutorialBoxes.Array.data[7]'
-      value: 
-      objectReference: {fileID: 81424640235904881, guid: b954e484850e38449a6325d545e334bc, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

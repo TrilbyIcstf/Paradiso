@@ -7,6 +7,7 @@ public class Field_Card_Results
 
     internal List<CardEffect> effects = new List<CardEffect>();
     internal CardEffectParameters effParams;
+    internal Active_Card stats;
 
     internal bool flashLeft = false;
     internal bool flashMiddle = false;
@@ -17,8 +18,8 @@ public class Field_Card_Results
     internal int position = 0;
 
     internal float totalDamage = 0;
-    internal float totalAttack = 0;
-    internal float totalDefense = 0;
+    internal float finalPower = 0;
+    internal float finalDefense = 0;
 }
 
 public class Field_Full_Results

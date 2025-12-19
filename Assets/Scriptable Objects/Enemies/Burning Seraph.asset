@@ -16,7 +16,7 @@ MonoBehaviour:
   drawType: 1
   baseStats:
     maxHealth: 200
-    regenRate: 0.4
+    regenRate: 0.5
     minPower: 8
     maxPower: 25
     minDefense: 5

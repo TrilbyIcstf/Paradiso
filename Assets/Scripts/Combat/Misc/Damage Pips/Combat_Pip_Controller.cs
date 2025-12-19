@@ -18,11 +18,11 @@ public class Combat_Pip_Controller : MonoBehaviour
         Field_Card_Results playerRes = results.GetPlayerResult(pos);
         Field_Card_Results enemyRes = results.GetEnemyResult(pos);
 
-        int playerAttPips = PipAmount(playerRes.totalAttack);
-        int enemyAttPips = PipAmount(enemyRes.totalAttack);
+        int playerAttPips = PipAmount(playerRes.finalPower);
+        int enemyAttPips = PipAmount(enemyRes.finalPower);
 
-        float playerAttThroughRate = Mathf.Min(playerRes.totalDamage / playerRes.totalAttack, 1);
-        float enemyAttThroughRate = Mathf.Min(enemyRes.totalDamage / enemyRes.totalAttack, 1);
+        float playerAttThroughRate = Mathf.Min(playerRes.totalDamage / playerRes.finalPower, 1);
+        float enemyAttThroughRate = Mathf.Min(enemyRes.totalDamage / enemyRes.finalPower, 1);
 
         int playerBlockPips = Mathf.FloorToInt(enemyAttPips * (1 - enemyAttThroughRate));
         int enemyBlockPips = Mathf.FloorToInt(playerAttPips * (1 - playerAttThroughRate));

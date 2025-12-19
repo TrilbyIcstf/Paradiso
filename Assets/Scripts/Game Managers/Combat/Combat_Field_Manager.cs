@@ -166,19 +166,14 @@ public class Combat_Field_Manager : ManagerBehavior
 
         // Set defaults
         results.card = attackingCards[pos].GetCardObject();
+        results.stats = attackingCard;
         results.effects = attackingCard?.GetEffects() ?? new List<CardEffect>();
         results.effParams = new CardEffectParameters();
-        results.totalAttack = attackingCard?.GetPower() ?? 0;
-        results.totalDefense = attackingCard?.GetDefense() ?? 0;
         results.position = pos;
 
         // Apply elemental and adjacency buffs (adjacency only buffs attack so defending card isn't factored in)
         results = ApplyElementalWeakness(results, attackingCard, defendingCard);
         results = ApplyAdjacencyBuffs(results, pos, attackingCards, attackingCard);
-
-        // Rounds stats to int
-        results.totalAttack = Mathf.Ceil(results.totalAttack);
-        results.totalDefense = Mathf.Ceil(results.totalDefense);
 
         // Calculates parameters for effects on the card
         if (results.effects.Count != 0)
@@ -209,8 +204,12 @@ public class Combat_Field_Manager : ManagerBehavior
     /// <returns>The damage results for the player and enemy</returns>
     private (Field_Card_Results, Field_Card_Results) CalculateDamage(Field_Card_Results playerResults, Field_Card_Results enemyResults)
     {
-        playerResults.totalDamage = Mathf.Max(0, playerResults.totalAttack - enemyResults.totalDefense);
-        enemyResults.totalDamage = Mathf.Max(0, enemyResults.totalAttack - playerResults.totalDefense);
+        playerResults.finalPower = playerResults.stats?.GetPower() ?? 0;
+        playerResults.finalDefense = playerResults.stats?.GetDefense() ?? 0;
+        enemyResults.finalPower = enemyResults.stats?.GetPower() ?? 0;
+        enemyResults.finalDefense = enemyResults.stats?.GetDefense() ?? 0;
+        playerResults.totalDamage = Mathf.Max(0, playerResults.finalPower - enemyResults.finalDefense);
+        enemyResults.totalDamage = Mathf.Max(0, enemyResults.finalPower - playerResults.finalDefense);
         return (playerResults, enemyResults);
     }
 
@@ -224,7 +223,7 @@ public class Combat_Field_Manager : ManagerBehavior
     private Field_Card_Results ApplyElementalWeakness(Field_Card_Results cardResults, Active_Card attacking, Active_Card defending)
     {
         (float mult, bool isWeakness, bool advantage) = ElementalMultResults(attacking, defending);
-        cardResults.totalAttack *= mult;
+        attacking?.AddMultPower(mult);
         cardResults.flashMiddle = isWeakness;
         cardResults.advantage = advantage;
         return cardResults;
@@ -302,7 +301,7 @@ public class Combat_Field_Manager : ManagerBehavior
             CardElement leftElement = cards[pos - 1].GetCard()?.GetElement() ?? CardElement.Nil;
             if (cardElement == leftElement)
             {
-                cardResults.totalAttack *= Consts.adj;
+                card.AddMultPower(Consts.adj);
                 cardResults.flashLeft = true;
                 cardResults.effParams.adjacency++;
                 cardResults.effParams.leftAdjacency = true;
@@ -315,7 +314,7 @@ public class Combat_Field_Manager : ManagerBehavior
             CardElement rightElement = cards[pos + 1].GetCard()?.GetElement() ?? CardElement.Nil;
             if (cardElement == rightElement)
             {
-                cardResults.totalAttack *= Consts.adj;
+                card.AddMultPower(Consts.adj);
                 cardResults.flashRight = true;
                 cardResults.effParams.adjacency++;
                 cardResults.effParams.rightAdjacency = true;
@@ -362,8 +361,8 @@ public class Combat_Field_Manager : ManagerBehavior
             for (int i = 0; i < playerSpaces.Length; i++)
             {
                 Field_Card_Results result = results.GetPlayerResult(i);
-                result.totalAttack *= playerAffinity.AffinityPowerBoost();
-                result.totalDefense *= playerAffinity.AffinityDefenseBoost();
+                result.stats.AddMultPower(playerAffinity.AffinityPowerBoost());
+                result.stats.AddDefenseBuff(playerAffinity.AffinityDefenseBoost());
                 results.SetPlayerResult(i, result);
             }
         }
@@ -374,8 +373,8 @@ public class Combat_Field_Manager : ManagerBehavior
             for (int i = 0; i < enemySpaces.Length; i++)
             {
                 Field_Card_Results result = results.GetEnemyResult(i);
-                result.totalAttack *= enemyAffinity.AffinityPowerBoost();
-                result.totalDefense *= enemyAffinity.AffinityDefenseBoost();
+                result.stats.AddMultPower(enemyAffinity.AffinityPowerBoost());
+                result.stats.AddDefenseBuff(enemyAffinity.AffinityDefenseBoost());
                 results.SetEnemyResult(i, result);
             }
         }
@@ -390,8 +389,8 @@ public class Combat_Field_Manager : ManagerBehavior
     /// <returns>Relevent effect parameters</returns>
     private Field_Card_Results CalculateEffectParametersIndividual(Field_Card_Results results)
     {
-        results.effParams.power = results.totalAttack;
-        results.effParams.defense = results.totalDefense;
+        results.effParams.power = results.stats.GetPower();
+        results.effParams.defense = results.stats.GetDefense();
         results.effParams.pos = results.position;
 
         return results;

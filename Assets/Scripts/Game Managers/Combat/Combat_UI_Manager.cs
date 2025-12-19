@@ -254,8 +254,8 @@ public class Combat_UI_Manager : ManagerBehavior
         {
             Card_UI_Controller cardScript = playerResults.card.GetComponent<Card_UI_Controller>();
             animations.Add(StartCoroutine(cardScript.EmphasizeCard()));
-            cardScript.SetPower((int)playerResults.totalAttack);
-            cardScript.SetDefense((int)playerResults.totalDefense);
+            cardScript.SetPower((int)playerResults.stats.GetPower());
+            cardScript.SetDefense((int)playerResults.stats.GetDefense());
             foreach (CardEffect effect in playerResults.effects)
             {
                 if (GM.CCE.EffectIsTriggered(effect, playerResults.effParams))
@@ -269,8 +269,8 @@ public class Combat_UI_Manager : ManagerBehavior
         {
             Card_UI_Controller cardScript = enemyResults.card.GetComponent<Card_UI_Controller>();
             animations.Add(StartCoroutine(cardScript.EmphasizeCard()));
-            cardScript.SetPower((int)enemyResults.totalAttack);
-            cardScript.SetDefense((int)enemyResults.totalDefense);
+            cardScript.SetPower((int)enemyResults.stats.GetPower());
+            cardScript.SetDefense((int)enemyResults.stats.GetDefense());
             foreach (CardEffect effect in enemyResults.effects)
             {
                 if (GM.CCE.EffectIsTriggered(effect, enemyResults.effParams))
@@ -302,8 +302,8 @@ public class Combat_UI_Manager : ManagerBehavior
                 Field_Card_Results result = results.GetPlayerResult(i);
                 Card_UI_Controller cardScript = result.card.GetComponent<Card_UI_Controller>();
                 animations.Add(StartCoroutine(cardScript.EmphasizeCard()));
-                cardScript.SetPower((int)result.totalAttack);
-                cardScript.SetDefense((int)result.totalDefense);
+                cardScript.SetPower((int)result.stats.GetPower());
+                cardScript.SetDefense((int)result.stats.GetDefense());
             }
         }
 
@@ -314,8 +314,8 @@ public class Combat_UI_Manager : ManagerBehavior
                 Field_Card_Results result = results.GetEnemyResult(i);
                 Card_UI_Controller cardScript = result.card.GetComponent<Card_UI_Controller>();
                 animations.Add(StartCoroutine(cardScript.EmphasizeCard()));
-                cardScript.SetPower((int)result.totalAttack);
-                cardScript.SetDefense((int)result.totalDefense);
+                cardScript.SetPower((int)result.stats.GetPower());
+                cardScript.SetDefense((int)result.stats.GetDefense());
             }
         }
 
