@@ -63,7 +63,15 @@ public class Combat_Enemy_Stats_Manager : Stats_Manager
 
         if (this.currentHealth <= 0)
         {
-            GM.TR.EndCombat();
+            Room_Object currentRoom = GM.EL.GetCurrentRoom();
+            if (currentRoom is Enemy_Room_Object enemyRoom && enemyRoom.IsBoss())
+            {
+                GM.TR.InstantTransmission("Win");
+            }
+            else
+            {
+                GM.TR.EndCombat();
+            }
         }
 
         return this.currentHealth <= 0;

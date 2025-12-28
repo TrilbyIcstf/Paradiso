@@ -23,7 +23,7 @@ public class Item_Behavior_Manager : ManagerBehavior
                 GM.CPS.DrawCard();
                 break;
             case Item.AGun:
-                GM.CES.DealDamage(25.0f);
+                GM.CES.DealDamage(15.0f);
                 break;
             case Item.PageRipper:
                 PageRipperActive();

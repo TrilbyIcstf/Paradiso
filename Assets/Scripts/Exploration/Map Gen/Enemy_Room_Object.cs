@@ -11,6 +11,7 @@ public class Enemy_Room_Object : Room_Object
     private Enemy_Stats enemy;
 
     private bool enemyIsDefeated = false;
+    private bool demoBoss = false;
 
     public Enemy_Room_Object(Direction entranceDirection, int distance) : base(entranceDirection, distance) { }
 
@@ -28,9 +29,19 @@ public class Enemy_Room_Object : Room_Object
         return this.enemyIsDefeated;
     }
 
+    public bool IsBoss()
+    {
+        return this.demoBoss;
+    }
+
     public void SetEnemyDefeated(bool val)
     {
         this.enemyIsDefeated = val;
+    }
+
+    public void SetIsBoss(bool val)
+    {
+        this.demoBoss = val;
     }
 
     /// <summary>
