@@ -58,10 +58,9 @@ public class Exploration_Layout_Manager : ManagerBehavior
         ResetFloorGenVars();
         this.floorLayout = new Room_Object[width, height];
         this.startingPos = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
-        this.currentPos = this.startingPos;
         float startingContinuePower = GetAverageFloorSize() * 50;
         RecursiveAddRoom(this.startingPos, startingContinuePower, 80.0f, Direction.None, 0);
-        GetRoom(this.currentPos).SetEntered(true);
+        MoveTo(this.startingPos);
 
         for (int i = floorLayout.GetLength(1) - 1; i >= 0; i--)
         {
@@ -203,9 +202,20 @@ public class Exploration_Layout_Manager : ManagerBehavior
     public Room_Object MoveInDirection(Direction dir)
     {
         Vector2Int dirVect = dir.NumericalDirection();
-        this.currentPos += dirVect;
         GM.ER.EnteredDirection = dir;
-        GetRoom(this.currentPos).SetEntered(true);
+        return MoveTo(currentPos + dirVect);
+    }
+
+    public Room_Object MoveTo(Vector2Int pos)
+    {
+        this.currentPos = pos;
+        Room_Object newRoom = GetRoom(this.currentPos);
+        newRoom.SetEntered(true);
+        newRoom.SetSeen(true);
+        foreach (Vector2Int connPos in newRoom.GetConnections().Values)
+        {
+            GetRoom(connPos).SetSeen(true);
+        }
         return GetCurrentRoom();
     }
 

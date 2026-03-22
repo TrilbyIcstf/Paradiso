@@ -26,5 +26,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Win.unity
     guid: c8c0b85313d3aa8468d1a72e96d20ebd
+  - enabled: 1
+    path: Assets/Scenes/FloorMap.unity
+    guid: fe6e608ff79d02d46aa3fb5d43302363
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

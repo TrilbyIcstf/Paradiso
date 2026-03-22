@@ -293,6 +293,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3555046578125482734, guid: 093ddd2ed654de34c8a13b51aca9cebe, type: 3}
+      propertyPath: roomIcons._serializableList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3555046578125482734, guid: 093ddd2ed654de34c8a13b51aca9cebe, type: 3}
+      propertyPath: roomIcons._serializableList.Array.data[0].Key
+      value: DarkRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 3555046578125482734, guid: 093ddd2ed654de34c8a13b51aca9cebe, type: 3}
+      propertyPath: roomIcons._serializableList.Array.data[1].Key
+      value: LightRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 3555046578125482734, guid: 093ddd2ed654de34c8a13b51aca9cebe, type: 3}
+      propertyPath: roomIcons._serializableList.Array.data[2].Key
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3555046578125482734, guid: 093ddd2ed654de34c8a13b51aca9cebe, type: 3}
+      propertyPath: roomIcons._serializableList.Array.data[0].Value
+      value: 
+      objectReference: {fileID: 4627122794221362472, guid: c0f0496b1977c81479cee43c6a69aa04, type: 3}
+    - target: {fileID: 3555046578125482734, guid: 093ddd2ed654de34c8a13b51aca9cebe, type: 3}
+      propertyPath: roomIcons._serializableList.Array.data[1].Value
+      value: 
+      objectReference: {fileID: 968987423659505046, guid: 2eacdb76ac4c0694c8569f3a8aeafc60, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

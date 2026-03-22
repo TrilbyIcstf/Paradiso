@@ -21,6 +21,9 @@ public class Room_Object
     // Tracks if the player has been in the room
     protected bool entered = false;
 
+    // Tracks if the room has been seen (the player has been adjacent) and should be lit up
+    protected bool seen = false;
+
     public Room_Object(Direction entranceDirection, int distance)
     {
         this.entranceDirection = entranceDirection;
@@ -62,6 +65,16 @@ public class Room_Object
         return this.entered;
     }
 
+    public bool GetSeen()
+    {
+        return this.seen;
+    }
+    
+    public Sprite GetIcon()
+    {
+        return null;
+    }
+
     public void SetRoomType(RoomType val)
     {
         this.roomType = val;
@@ -70,5 +83,10 @@ public class Room_Object
     public void SetEntered(bool val)
     {
         this.entered = val;
+    }
+
+    public void SetSeen(bool val)
+    {
+        this.seen = val;
     }
 }

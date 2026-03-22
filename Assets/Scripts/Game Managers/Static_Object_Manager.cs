@@ -70,6 +70,13 @@ public class Static_Object_Manager : MonoBehaviour
     private AffinityIcons affinityIcons;
     public Sprite GetAffinityIcon(CardAffinity affinity) { return this.affinityIcons[affinity]; }
 
+    // Room icons
+    [Serializable]
+    public class RoomIcons : SerializableDictionary<String, Sprite> { }
+    [SerializeField]
+    private RoomIcons roomIcons;
+    public Sprite GetRoomIcon(String icon) { return this.roomIcons[icon]; }
+
     [field: SerializeField]
     public Sprite PowerIcon { get; set; }
     [field: SerializeField]
