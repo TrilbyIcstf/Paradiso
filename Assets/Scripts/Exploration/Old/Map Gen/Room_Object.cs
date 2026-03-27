@@ -24,10 +24,14 @@ public class Room_Object
     // Tracks if the room has been seen (the player has been adjacent) and should be lit up
     protected bool seen = false;
 
-    public Room_Object(Direction entranceDirection, int distance)
+    // Tracks position on map
+    protected Vector2Int position;
+
+    public Room_Object(Direction entranceDirection, int distance, Vector2Int pos)
     {
         this.entranceDirection = entranceDirection;
         this.distance = distance;
+        this.position = pos;
     }
 
     public void AddConnection(Vector2Int pos, Direction dir)
@@ -73,6 +77,11 @@ public class Room_Object
     public Sprite GetIcon()
     {
         return null;
+    }
+
+    public Vector2Int GetPos()
+    {
+        return this.position;
     }
 
     public void SetRoomType(RoomType val)

@@ -8,6 +8,8 @@ public class Room_Tile : ManagerBehavior
 
     private Room_Object room;
 
+    private Vector2Int position;
+
     public void Setup(Room_Object room)
     {
         UpdateRoom(room);
@@ -18,7 +20,7 @@ public class Room_Tile : ManagerBehavior
             doors[conn].SetActive(false);
         }
 
-
+        this.position = room.GetPos();
     }
 
     public void UpdateRoom(Room_Object room)
@@ -33,5 +35,10 @@ public class Room_Tile : ManagerBehavior
         {
             GetComponent<SpriteRenderer>().sprite = Static_Object_Manager.instance.GetRoomIcon("DarkRoom");
         }
+    }
+
+    public Vector2Int GetPos()
+    {
+        return this.position;
     }
 }

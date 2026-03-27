@@ -104,11 +104,12 @@ public class Exploration_Layout_Manager : ManagerBehavior
         this.startingPos = Vector2Int.zero;
         this.currentPos = this.startingPos;
 
-        Room_Object startingRoom = new Room_Object(Direction.None, 0);
+        Room_Object startingRoom = new Room_Object(Direction.None, 0, this.startingPos);
         startingRoom.AddConnection(new Vector2Int(0, 1), Direction.Up);
         startingRoom.SetEntered(true);
         this.floorLayout[0, 0] = startingRoom;
-        Room_Object bossRoom = new Room_Object(Direction.Down, 1);
+        Vector2Int bossPos = new Vector2Int(0, 1);
+        Room_Object bossRoom = new Room_Object(Direction.Down, 1, bossPos);
         bossRoom.AddConnection(Vector2Int.zero, Direction.Down);
         bossRoom.SetRoomType(RoomType.Enemy);
         bossRoom = Enemy_Room_Object.ConvertToEnemyRoom(bossRoom, Enemy.BurningSeraph);
@@ -118,7 +119,7 @@ public class Exploration_Layout_Manager : ManagerBehavior
 
     private Room_Object RecursiveAddRoom(Vector2Int pos, float continuePercent, float splitPercent, Direction entranceDirection, int distance)
     {
-        Room_Object thisRoom = new Room_Object(entranceDirection, distance);
+        Room_Object thisRoom = new Room_Object(entranceDirection, distance, pos);
         if (entranceDirection != Direction.None)
         {
             thisRoom.AddConnection(pos + entranceDirection.NumericalDirection(), entranceDirection);
@@ -322,6 +323,11 @@ public class Exploration_Layout_Manager : ManagerBehavior
     {
         Vector2Int dirVect = dir.NumericalDirection();
         return this.floorLayout[this.currentPos.x + dirVect.x, this.currentPos.y + dirVect.y];
+    }
+
+    public bool IsConnected(Vector2Int pos)
+    {
+        return new List<Vector2Int>(this.GetCurrentRoom().GetConnections().Values).Contains(pos);
     }
 
     private float GetAverageFloorSize()

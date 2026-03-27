@@ -9,6 +9,7 @@ TagManager:
   - Card
   - RoomCanvas
   - TutorialHolder
+  - MapGen
   layers:
   - Default
   - TransparentFX

@@ -19,11 +19,11 @@ public class Map_Generation : ManagerBehavior
 
         Vector2Int currentPos = GM.EL.GetStartingCoords();
 
-        for (int i = 0; i < height; i++)
+        for (int y = 0; y < height; y++)
         {
-            for (int j = 0; j < width; j++)
+            for (int x = 0; x < width; x++)
             {
-                Vector2Int pos = new Vector2Int(j, i);
+                Vector2Int pos = new Vector2Int(x, y);
 
                 Room_Object room = GM.EL.GetRoom(pos);
 
@@ -44,9 +44,27 @@ public class Map_Generation : ManagerBehavior
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void MoveTo(Vector2Int pos)
     {
-        
+        GM.EL.MoveTo(pos);
+        UpdateFloor();
+    }
+
+    public void UpdateFloor()
+    {
+        for (int x = 0; x < this.mapLayout.GetLength(0); x++)
+        {
+            for (int y = 0; y < this.mapLayout.GetLength(1); y++)
+            {
+                if (this.mapLayout[x, y] == null) { continue; }
+
+                Vector2Int pos = new Vector2Int(x, y);
+
+                Room_Object room = GM.EL.GetRoom(pos);
+                GameObject roomTile = this.mapLayout[x, y];
+                Room_Tile roomScript = roomTile.GetComponent<Room_Tile>();
+                roomScript.UpdateRoom(room);
+            }
+        }
     }
 }

@@ -11,7 +11,7 @@ public class Item_Room_Object : Room_Object
 
     private bool itemTaken = false;
 
-    public Item_Room_Object(Direction entranceDirection, int distance) : base(entranceDirection, distance) { }
+    public Item_Room_Object(Direction entranceDirection, int distance, Vector2Int pos) : base(entranceDirection, distance, pos) { }
 
     public Item GetItem()
     {
@@ -40,7 +40,7 @@ public class Item_Room_Object : Room_Object
     /// <returns>An Item room object</returns>
     public static Item_Room_Object ConvertToItemRoom(Room_Object room)
     {
-        Item_Room_Object newRoom = new Item_Room_Object(room.GetEntranceDirection(), room.GetDistance());
+        Item_Room_Object newRoom = new Item_Room_Object(room.GetEntranceDirection(), room.GetDistance(), room.GetPos());
         newRoom.SetItem(GameManager.instance.EI.ChooseNewItem());
         newRoom.connections = room.GetConnections();
         newRoom.roomType = room.GetRoomType();

@@ -13,7 +13,7 @@ public class Enemy_Room_Object : Room_Object
     private bool enemyIsDefeated = false;
     private bool demoBoss = false;
 
-    public Enemy_Room_Object(Direction entranceDirection, int distance) : base(entranceDirection, distance) { }
+    public Enemy_Room_Object(Direction entranceDirection, int distance, Vector2Int pos) : base(entranceDirection, distance, pos) { }
 
     public Enemy_Stats GetEnemy() {
         return this.enemy;
@@ -55,7 +55,7 @@ public class Enemy_Room_Object : Room_Object
     }
     public static Enemy_Room_Object ConvertToEnemyRoom(Room_Object room, Enemy enemy)
     {
-        Enemy_Room_Object newRoom = new Enemy_Room_Object(room.GetEntranceDirection(), room.GetDistance());
+        Enemy_Room_Object newRoom = new Enemy_Room_Object(room.GetEntranceDirection(), room.GetDistance(), room.GetPos());
         newRoom.connections = room.GetConnections();
         newRoom.roomType = room.GetRoomType();
         newRoom.enemy = Static_Object_Manager.instance.GetEnemy(enemy);
