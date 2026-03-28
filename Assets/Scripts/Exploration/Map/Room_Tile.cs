@@ -6,6 +6,9 @@ public class Room_Tile : ManagerBehavior
     [SerializeField]
     private SerializableDictionary<Direction, GameObject> doors = new SerializableDictionary<Direction, GameObject>();
 
+    [SerializeField]
+    private SpriteRenderer icon;
+
     private Room_Object room;
 
     private Vector2Int position;
@@ -30,6 +33,7 @@ public class Room_Tile : ManagerBehavior
         if (room.GetSeen())
         {
             GetComponent<SpriteRenderer>().sprite = Static_Object_Manager.instance.GetRoomIcon("LightRoom");
+            this.icon.sprite = room.GetRoomType().GetRoomIcon();
         } 
         else
         {

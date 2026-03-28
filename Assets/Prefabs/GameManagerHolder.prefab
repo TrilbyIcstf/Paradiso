@@ -422,6 +422,16 @@ MonoBehaviour:
       Value: {fileID: 6423806749927177598, guid: 791cc82933c1c4d4482a3080c5878b3a, type: 3}
     - Key: 2
       Value: {fileID: 7699978436774145253, guid: 5ed111976d7b63d47ad0c2e7a54252f7, type: 3}
+  roomIcons:
+    _serializableList:
+    - Key: DarkRoom
+      Value: {fileID: 4627122794221362472, guid: c0f0496b1977c81479cee43c6a69aa04, type: 3}
+    - Key: LightRoom
+      Value: {fileID: 968987423659505046, guid: 2eacdb76ac4c0694c8569f3a8aeafc60, type: 3}
+    - Key: Player
+      Value: {fileID: 0}
+    - Key: Enemy
+      Value: {fileID: 6532281649285282756, guid: 3900d569ce7e9864997e234d6fe0ffef, type: 3}
   <PowerIcon>k__BackingField: {fileID: -1344053862893166480, guid: 452bd712fc0d76842bf9fdf8c8023bb2, type: 3}
   <DefenseIcon>k__BackingField: {fileID: 7116004456955076645, guid: dcf3be40ba3092b4b820cd7ad8bb8ec8, type: 3}
 --- !u!114 &3555046578125482721

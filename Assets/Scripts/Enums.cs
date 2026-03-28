@@ -262,6 +262,22 @@ public enum RoomType
     Stairs
 }
 
+public static class RoomTypeMethods
+{
+    public static Sprite GetRoomIcon(this RoomType type)
+    {
+        switch(type)
+        {
+            case RoomType.Empty:
+                return null;
+            case RoomType.Enemy:
+                return GameManager.instance.SO.GetRoomIcon("Enemy");
+            default:
+                return null;
+        }
+    }
+}
+
 public enum Floor
 {
     Demo
