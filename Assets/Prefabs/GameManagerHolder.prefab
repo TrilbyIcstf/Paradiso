@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 3555046578125482733}
   - component: {fileID: 717222405218251421}
   - component: {fileID: 3558180179293404840}
+  - component: {fileID: 6396223013689918202}
   - component: {fileID: 2475389648954751715}
   - component: {fileID: 5976122729001831649}
   - component: {fileID: 3034169315892094207}
@@ -81,6 +82,7 @@ MonoBehaviour:
   CCE: {fileID: 3555046578125482720}
   EL: {fileID: 717222405218251421}
   ER: {fileID: 3558180179293404840}
+  EM: {fileID: 6396223013689918202}
   EP: {fileID: 2475389648954751715}
   EI: {fileID: 5976122729001831649}
   EU: {fileID: 3034169315892094207}
@@ -300,6 +302,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 857282c5467a15644ab0169e66888119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6396223013689918202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3555046578125482706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce10d29b1ff708443ae1c8995a61f3ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Exploration_Map_Manager
 --- !u!114 &2475389648954751715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -432,6 +446,10 @@ MonoBehaviour:
       Value: {fileID: 0}
     - Key: Enemy
       Value: {fileID: 6532281649285282756, guid: 3900d569ce7e9864997e234d6fe0ffef, type: 3}
+    - Key: Stairs
+      Value: {fileID: 74010456815711216, guid: 97b849377f4fa9c4ab1f7e218ace08a4, type: 3}
+    - Key: Item
+      Value: {fileID: 8158788333219632218, guid: 5256dac43e728b8428fdf9c1bab3ce5e, type: 3}
   <PowerIcon>k__BackingField: {fileID: -1344053862893166480, guid: 452bd712fc0d76842bf9fdf8c8023bb2, type: 3}
   <DefenseIcon>k__BackingField: {fileID: 7116004456955076645, guid: dcf3be40ba3092b4b820cd7ad8bb8ec8, type: 3}
 --- !u!114 &3555046578125482721

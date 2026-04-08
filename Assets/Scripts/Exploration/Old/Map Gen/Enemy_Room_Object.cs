@@ -19,6 +19,18 @@ public class Enemy_Room_Object : Room_Object
         return this.enemy;
     }
 
+    public override Sprite GetIcon()
+    {
+        if (enemyIsDefeated)
+        {
+            return null;
+        } 
+        else
+        {
+            return Static_Object_Manager.instance.GetRoomIcon("Enemy");
+        }
+    }
+
     public void SetEnemy(Enemy_Stats val)
     {
         this.enemy = val;

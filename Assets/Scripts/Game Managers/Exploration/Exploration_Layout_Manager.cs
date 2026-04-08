@@ -53,6 +53,12 @@ public class Exploration_Layout_Manager : ManagerBehavior
         this.stairsGenerated = false;
     }
 
+    public void NewFloor()
+    {
+        RandomizeFloor(5, 5);
+        GameManager.instance.TR.FadeTransition("Scenes/FloorMap");
+    }
+
     public void RandomizeFloor(int width, int height)
     {
         ResetFloorGenVars();
@@ -218,6 +224,23 @@ public class Exploration_Layout_Manager : ManagerBehavior
             GetRoom(connPos).SetSeen(true);
         }
         return GetCurrentRoom();
+    }
+
+    /// <summary>
+    /// Triggers the contents of a room (Battle, item, stairs, etc.)
+    /// </summary>
+    /// <param name="pos">Position of room</param>
+    public void TriggerRoom(Vector2Int pos)
+    {
+        RoomType type = GetRoom(pos).GetRoomType();
+        switch (type)
+        {
+            case RoomType.Stairs:
+                NewFloor();
+                break;
+            default:
+                break;
+        }
     }
 
     private RoomType DetermineRoomType(Vector2Int pos)

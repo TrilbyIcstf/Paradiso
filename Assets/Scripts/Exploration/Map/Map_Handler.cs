@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Map_Generation : ManagerBehavior
+public class Map_Handler : ManagerBehavior
 {
     private const float roomDistance = 2.5f;
 
@@ -48,6 +48,7 @@ public class Map_Generation : ManagerBehavior
     {
         GM.EL.MoveTo(pos);
         UpdateFloor();
+        GM.EL.TriggerRoom(pos);
     }
 
     public void UpdateFloor()

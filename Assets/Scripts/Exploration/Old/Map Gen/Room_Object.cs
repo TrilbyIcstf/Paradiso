@@ -74,7 +74,7 @@ public class Room_Object
         return this.seen;
     }
     
-    public Sprite GetIcon()
+    public virtual Sprite GetIcon()
     {
         return null;
     }

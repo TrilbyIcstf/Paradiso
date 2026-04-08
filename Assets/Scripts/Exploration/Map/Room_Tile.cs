@@ -33,7 +33,7 @@ public class Room_Tile : ManagerBehavior
         if (room.GetSeen())
         {
             GetComponent<SpriteRenderer>().sprite = Static_Object_Manager.instance.GetRoomIcon("LightRoom");
-            this.icon.sprite = room.GetRoomType().GetRoomIcon();
+            this.icon.sprite = room.GetIcon();
         } 
         else
         {

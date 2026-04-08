@@ -23,6 +23,18 @@ public class Item_Room_Object : Room_Object
         return this.itemTaken;
     }
 
+    public override Sprite GetIcon()
+    {
+        if (this.itemTaken)
+        {
+            return null;
+        }
+        else
+        {
+            return Static_Object_Manager.instance.GetRoomIcon("Item");
+        }
+    }
+
     public void SetItem(Item val)
     {
         this.containedItem = val;

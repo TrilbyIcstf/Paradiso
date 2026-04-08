@@ -9,6 +9,12 @@ public class Stairs_Room_Object : Room_Object
 {
     public Stairs_Room_Object(Direction entranceDirection, int distance, Vector2Int pos) : base(entranceDirection, distance, pos) { }
 
+    public override Sprite GetIcon()
+    {
+        
+        return Static_Object_Manager.instance.GetRoomIcon("Stairs");
+    }
+
     /// <summary>
     /// Converts a standard room to a stairs room
     /// </summary>
