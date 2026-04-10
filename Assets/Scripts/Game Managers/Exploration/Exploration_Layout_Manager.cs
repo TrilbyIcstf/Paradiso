@@ -232,11 +232,23 @@ public class Exploration_Layout_Manager : ManagerBehavior
     /// <param name="pos">Position of room</param>
     public void TriggerRoom(Vector2Int pos)
     {
-        RoomType type = GetRoom(pos).GetRoomType();
+        Room_Object room = GetRoom(pos);
+        RoomType type = room.GetRoomType();
         switch (type)
         {
             case RoomType.Stairs:
                 NewFloor();
+                break;
+            case RoomType.Enemy:
+                Enemy_Room_Object eRoom = (Enemy_Room_Object)room;
+                if (!eRoom.IsEnemyDefeated())
+                {
+                    GameManager.instance.TR.FadeTransition("Combat", true, () => {
+                        GM.CES.SetEnemy(eRoom.GetEnemy());
+                        GameManager.instance.TR.InitCombat();
+                        eRoom.SetEnemyDefeated(true);
+                    });
+                }
                 break;
             default:
                 break;
