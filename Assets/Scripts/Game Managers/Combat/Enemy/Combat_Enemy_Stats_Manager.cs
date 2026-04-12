@@ -53,6 +53,7 @@ public class Combat_Enemy_Stats_Manager : Stats_Manager
         this.state = this.enemy.GetBaseStats();
         this.maxHealth = this.state.GetMaxHealth();
         this.currentHealth = this.maxHealth;
+        GM.CUI.NotifyEnemyHealthUpdate(this.currentHealth, this.maxHealth);
         this.drawnCards = new List<Card_Base>();
     }
 

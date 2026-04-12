@@ -243,7 +243,7 @@ public class Exploration_Layout_Manager : ManagerBehavior
                 Enemy_Room_Object eRoom = (Enemy_Room_Object)room;
                 if (!eRoom.IsEnemyDefeated())
                 {
-                    GameManager.instance.TR.FadeTransition("Combat", true, () => {
+                    GameManager.instance.TR.FadeTransition("Combat", false, () => {
                         GM.CES.SetEnemy(eRoom.GetEnemy());
                         GameManager.instance.TR.InitCombat();
                         eRoom.SetEnemyDefeated(true);

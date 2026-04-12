@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 4092633562345277441}
   - component: {fileID: 6348782223014141364}
   - component: {fileID: 7703388822297629532}
-  - component: {fileID: 3768993428701986151}
+  - component: {fileID: 45438837624379418}
   m_Layer: 0
   m_Name: Map Tile
   m_TagString: Untagged
@@ -493,7 +493,7 @@ MonoBehaviour:
     - Key: 4
       Value: {fileID: 4549747852774090021}
   icon: {fileID: 8737865555807903904}
---- !u!61 &3768993428701986151
+--- !u!61 &45438837624379418
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -531,13 +531,13 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.939394, y: 1.939394}
+    oldSize: {x: 6.4, y: 6.4}
     newSize: {x: 0.64, y: 0.64}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.939394, y: 1.939394}
+  m_Size: {x: 6.4, y: 6.4}
   m_EdgeRadius: 0
 --- !u!1 &9018118394220550942
 GameObject:

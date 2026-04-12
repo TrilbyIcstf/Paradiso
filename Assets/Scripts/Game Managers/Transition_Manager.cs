@@ -103,22 +103,22 @@ public class Transition_Manager : ManagerBehavior
         GM.CPS.AddFreeCards(3);
     }
 
-    public void EndCombat(string sceneName = "Combat")
+    public void EndCombat(string sceneName = "FloorMap")
     {
         GM.PL.SetCurrentHealth((int)GM.CPS.GetCurrentHealth());
         GM.PL.ActivatePassiveItems(EffectTiming.CombatEnd, null);
         GM.ToggleCombatUpdates(false);
-        UnloadScene(sceneName, () => {
+        FadeTransition(sceneName, false, () => {
             GM.CPH.ResetHand();
             GM.CEH.ResetHand();
-            GM.ER.SetRoomActive(true);
+            //GM.ER.SetRoomActive(true);
         }, () => {
-            GM.ER.AddPopup(PopupType.Upgrade);
+            //GM.ER.AddPopup(PopupType.Upgrade);
             if (RandMeth.RollDie(5))
             {
-                GM.ER.AddPopup(PopupType.Upgrade);
+                //GM.ER.AddPopup(PopupType.Upgrade);
             }
-            GM.ER.NextPopup();
+            //GM.ER.NextPopup();
         });
     }
 }

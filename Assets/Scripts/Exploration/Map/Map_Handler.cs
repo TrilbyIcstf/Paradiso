@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Map_Handler : ManagerBehavior
 {
-    private const float roomDistance = 2.5f;
+    private const float roomDistance = 7f;
 
     private GameObject[,] mapLayout;
 
@@ -17,7 +17,7 @@ public class Map_Handler : ManagerBehavior
 
         this.mapLayout = new GameObject[width, height];
 
-        Vector2Int currentPos = GM.EL.GetStartingCoords();
+        Vector2Int currentPos = GM.EL.GetPos();
 
         for (int y = 0; y < height; y++)
         {

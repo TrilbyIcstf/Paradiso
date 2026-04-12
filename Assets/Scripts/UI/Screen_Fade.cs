@@ -17,7 +17,17 @@ public class Screen_Fade : MonoBehaviour
         GameManager.instance.SF = this;
         StartCoroutine(ScreenFade(false));
     }
-    
+
+    private void Update()
+    {
+        if (this.sr.color.a > 0)
+        {
+            Vector3 mainCameraPos = Camera.main.transform.position;
+            Vector3 pos = new Vector3(mainCameraPos.x, mainCameraPos.y, 0);
+            transform.position = pos;
+        }
+    }
+
     private void ScaleToScreen()
     {
         Camera mainCamera = Camera.main;
