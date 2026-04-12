@@ -36,7 +36,7 @@ public class Map_Handler : ManagerBehavior
                 float yPos = transform.position.y + (yDist * roomDistance);
                 Vector3 roomPos = new Vector3(xPos, yPos, 0);
 
-                GameObject tempTile = Instantiate(this.mapTile, roomPos, Quaternion.identity);
+                GameObject tempTile = Instantiate(this.mapTile, roomPos, Quaternion.identity, transform);
                 Room_Tile tempScript = tempTile.GetComponent<Room_Tile>();
                 tempScript.Setup(room);
                 this.mapLayout[pos.x, pos.y] = tempTile;
