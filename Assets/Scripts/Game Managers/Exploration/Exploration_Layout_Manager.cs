@@ -230,15 +230,18 @@ public class Exploration_Layout_Manager : ManagerBehavior
     /// Triggers the contents of a room (Battle, item, stairs, etc.)
     /// </summary>
     /// <param name="pos">Position of room</param>
-    public void TriggerRoom(Vector2Int pos)
+    /// <returns>True if the map needs to be updated afterwards.</returns>
+    public bool TriggerRoom(Vector2Int pos)
     {
         Room_Object room = GetRoom(pos);
         RoomType type = room.GetRoomType();
         switch (type)
         {
+            case RoomType.Empty:
+                return true;
             case RoomType.Stairs:
                 NewFloor();
-                break;
+                return false;
             case RoomType.Enemy:
                 Enemy_Room_Object eRoom = (Enemy_Room_Object)room;
                 if (!eRoom.IsEnemyDefeated())
@@ -249,10 +252,22 @@ public class Exploration_Layout_Manager : ManagerBehavior
                         eRoom.SetEnemyDefeated(true);
                     });
                 }
-                break;
+                return true;
+            case RoomType.Item:
+                Item_Room_Object iRoom = (Item_Room_Object)room;
+                if (!iRoom.IsItemTaken())
+                {
+                    Item_Base itemStats = Static_Object_Manager.instance.GetItem(iRoom.GetItem());
+                    GameManager.instance.PL.SetTentativeItem(itemStats);
+                    GameManager.instance.EM.GetUI().OnItemPickup(itemStats);
+                    iRoom.SetItemTaken(true);
+                }
+                return true;
             default:
                 break;
         }
+
+        return false;
     }
 
     private RoomType DetermineRoomType(Vector2Int pos)

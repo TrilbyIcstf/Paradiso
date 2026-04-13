@@ -14,7 +14,7 @@ public class Map_UI_Coordinator : ManagerBehavior
     public void OnItemPickup(Item_Base item)
     {
         this.itemPickupBox.SetTextBox(item);
-        GM.EP.SetMovementLock(true);
+        GM.EM.MovementLock = true;
     }
 
     public void OnAcceptItemPickup()
@@ -27,7 +27,7 @@ public class Map_UI_Coordinator : ManagerBehavior
         else
         {
             GM.PL.AddTentativeItem();
-            GM.EP.SetMovementLock(false);
+            GM.EM.MovementLock = false;
         }
     }
 
@@ -37,7 +37,7 @@ public class Map_UI_Coordinator : ManagerBehavior
 
         this.inventoryBox.OpenInventory();
 
-        GM.EP.SetMovementLock(true);
+        GM.EM.MovementLock = true;
     }
 
     public void CloseInventory()
@@ -46,7 +46,7 @@ public class Map_UI_Coordinator : ManagerBehavior
 
         this.inventoryBox.CloseInventory();
 
-        GM.EP.SetMovementLock(false);
+        GM.EM.MovementLock = false;
     }
 
     public void BaseUIVisibility(bool val)

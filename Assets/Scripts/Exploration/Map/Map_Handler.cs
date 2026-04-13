@@ -6,12 +6,17 @@ public class Map_Handler : ManagerBehavior
 
     private GameObject[,] mapLayout;
 
+    public Map_UI_Coordinator UI { get; private set; }
+
     [SerializeField]
     private GameObject mapTile;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        this.UI = GetComponent<Map_UI_Coordinator>();
+        GM.EM.CurrentFloor = this;
+
         int width = GM.EL.GetFloorWidth();
         int height = GM.EL.GetFloorHeight();
 
@@ -47,8 +52,10 @@ public class Map_Handler : ManagerBehavior
     public void MoveTo(Vector2Int pos)
     {
         GM.EL.MoveTo(pos);
-        UpdateFloor();
-        GM.EL.TriggerRoom(pos);
+        if (GM.EL.TriggerRoom(pos))
+        {
+            UpdateFloor();
+        }
     }
 
     public void UpdateFloor()
