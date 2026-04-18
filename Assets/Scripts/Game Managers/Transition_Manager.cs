@@ -111,14 +111,13 @@ public class Transition_Manager : ManagerBehavior
         FadeTransition(sceneName, false, () => {
             GM.CPH.ResetHand();
             GM.CEH.ResetHand();
-            //GM.ER.SetRoomActive(true);
         }, () => {
-            //GM.ER.AddPopup(PopupType.Upgrade);
+            GM.EM.AddPopup(PopupType.Upgrade);
             if (RandMeth.RollDie(5))
             {
-                //GM.ER.AddPopup(PopupType.Upgrade);
+                GM.EM.AddPopup(PopupType.Upgrade);
             }
-            //GM.ER.NextPopup();
+            GM.EM.NextPopup();
         });
     }
 }

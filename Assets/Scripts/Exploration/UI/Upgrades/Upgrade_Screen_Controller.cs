@@ -176,7 +176,7 @@ public class Upgrade_Screen_Controller : MonoBehaviour
         Destroy(gameObject);
         Card_Base selectedUpgrade = this.upgradeSlots[pos].GetCardUpgrade();
         GameManager.instance.PL.UpdateCard(selectedUpgrade.GetID(), selectedUpgrade);
-        GameManager.instance.ER.NextPopup();
+        GameManager.instance.EM.NextPopup();
     }
 }
 
