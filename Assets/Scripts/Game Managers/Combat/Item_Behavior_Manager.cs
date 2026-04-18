@@ -65,6 +65,11 @@ public class Item_Behavior_Manager : ManagerBehavior
             case Item.Bandage:
                 GM.PL.HealHealth(25);
                 break;
+            case Item.ScrollOfPaperCut:
+                {
+                    GM.CES.DealDamage(1.0f);
+                }
+                break;
             default:
                 break;
         }
@@ -135,6 +140,7 @@ public class Item_Behavior_Manager : ManagerBehavior
         {
             case Item.CrystalBall:
             case Item.Bandage:
+            case Item.ScrollOfPaperCut:
                 return true;
             case Item.Antiquifier:
                 return passParams.triggeredCard != null;

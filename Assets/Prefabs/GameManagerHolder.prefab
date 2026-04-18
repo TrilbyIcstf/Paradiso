@@ -387,6 +387,8 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: d24f5fddcd6bea740a4397e12456831e, type: 2}
     - Key: 11
       Value: {fileID: 11400000, guid: f40d903945649e6469363137604980c8, type: 2}
+    - Key: 12
+      Value: {fileID: 11400000, guid: 1b457e1ce844b0440824f82868d1061a, type: 2}
   enemies:
     _serializableList:
     - Key: 0
@@ -508,6 +510,8 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 5b831228b61902e4cb0997f53603eb2e, type: 2}
     - Key: 11
       Value: {fileID: 11400000, guid: 26d6b381041fdcc4c8d4342a2748e082, type: 2}
+    - Key: 12
+      Value: {fileID: 11400000, guid: 9c21b344974a11c46b190e48b11168bd, type: 2}
   elements:
     _serializableList:
     - Key: 0

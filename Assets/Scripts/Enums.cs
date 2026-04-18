@@ -119,7 +119,7 @@ public enum EffectTiming
 public enum Item
 {
     Default,
-    RunicHammer, // Active: Buffs card
+    RunicHammer, // Active: Buffs random card
     ManaRune, // Active: Draw card
     AGun, // Active: Gun
     PageRipper, // Active: Splits page
@@ -129,7 +129,8 @@ public enum Item
     CrystalBall, // Pickup: Increases max mana
     DiamondBall, // Pickup: Increases max mana
     ManaReservoir, // Active: Refills mana
-    ClairvoyantGem // Pickup: Increases mana regen
+    ClairvoyantGem, // Pickup: Increases mana regen
+    ScrollOfPaperCut, // Passive: Damage on draw
 }
 
 public static class ItemMethods { 
@@ -149,6 +150,7 @@ public static class ItemMethods {
             case Item.CrystalBall:
             case Item.DiamondBall:
             case Item.ClairvoyantGem:
+            case Item.ScrollOfPaperCut:
                 return false;
             default:
                 return false;

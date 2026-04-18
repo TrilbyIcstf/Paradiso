@@ -85,6 +85,7 @@ public class Combat_Player_Stats_Manager : Stats_Manager
         this.card.GetComponent<Active_Card>().SetStats(GM.CPD.DrawTopCard());
         GameObject newCard = Instantiate(this.card, deckPosition.position, deckPosition.rotation);
         GM.CPH.DrawToHand(newCard);
+        GM.PL.ActivatePassiveItems(EffectTiming.Draw, null);
 
         if (GM.CPD.DeckIsEmpty())
         {
