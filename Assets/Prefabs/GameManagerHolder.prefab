@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3555046578125482708}
   - component: {fileID: 3555046578125482709}
   - component: {fileID: 5069544072207160086}
+  - component: {fileID: 2960655864979099913}
   - component: {fileID: 8118102179937584171}
   - component: {fileID: 3555046578125482711}
   - component: {fileID: 591822116712437597}
@@ -69,6 +70,7 @@ MonoBehaviour:
   SO: {fileID: 3555046578125482734}
   TR: {fileID: 5069544072207160086}
   TU: {fileID: 8118102179937584171}
+  RU: {fileID: 2960655864979099913}
   PL: {fileID: 3555046578125482733}
   IB: {fileID: 7010220958928871138}
   CUI: {fileID: 3555046578125482711}
@@ -100,6 +102,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea93d560f94591f439d772ade29191e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2960655864979099913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3555046578125482706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20e6c290482cdbb44b4c54dc5fd94ee1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Run_Manager
 --- !u!114 &8118102179937584171
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b39a77543a5fecf43ad89c1b931702d1, type: 3}
   m_Name: Scroll of Paper Cut Script
   m_EditorClassIdentifier: Assembly-CSharp::Item_Description
-  item: 0
-  title: 
-  description: 
-  itemSprite: {fileID: 0}
+  item: 12
+  title: Scroll of Paper Cut
+  description: Deal a small amount of damage each time you draw a card.
+  itemSprite: {fileID: 21300000, guid: fb4f8b2e712afaa429037fc6d104f8c7, type: 3}

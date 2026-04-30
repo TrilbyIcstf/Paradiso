@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public Static_Object_Manager SO;
     public Transition_Manager TR;
     public Tutorial_Manager TU;
+    public Run_Manager RU;
 
     public Player_Manager PL;
     public Item_Behavior_Manager IB;
@@ -36,6 +37,8 @@ public class GameManager : MonoBehaviour
     public Exploration_Player_Manager EP;
     public Exploration_Item_Manager EI;
     public Exploration_Upgrade_Manager EU;
+
+
 
     public Screen_Fade SF;
 

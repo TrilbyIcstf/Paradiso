@@ -336,3 +336,13 @@ public enum PopupType
 {
     Upgrade
 }
+
+public enum FloorType
+{
+    Virtue, // Final floor? Less enemy gimicks, more raw power
+    Retribution, // Fire themed floor
+    Tranquility, // Water themed floor
+    Persistance, // Earth themed floor
+    Wistfulness, // Wind themed floor
+    Pergatorio, // Starting floor
+}

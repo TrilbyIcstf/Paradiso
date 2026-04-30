@@ -142,7 +142,7 @@ public class Exploration_Layout_Manager : ManagerBehavior
                 if (randSplit <= splitPercent)
                 {
                     shouldSplit = true;
-                    splitPercent -= 40;
+                    splitPercent *= 0.5f;
                 }
 
                 Direction nextDir = GetEmptyDirection(pos);

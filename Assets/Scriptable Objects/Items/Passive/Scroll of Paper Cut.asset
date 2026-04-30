@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Scroll of Paper Cut
   m_EditorClassIdentifier: 
   item: 12
-  itemName: Solidifier
-  sprite: {fileID: 21300000, guid: 261b6830cd375c44da6ee39040322b9e, type: 3}
+  itemName: Scroll of Paper Cut
+  sprite: {fileID: 21300000, guid: fb4f8b2e712afaa429037fc6d104f8c7, type: 3}
   timing: 1
