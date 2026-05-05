@@ -38,6 +38,7 @@ public class Item_Room_Object : Room_Object
     public void SetItem(Item val)
     {
         this.containedItem = val;
+        GameManager.instance.RU.AddItem(val);
     }
 
     public void SetItemTaken(bool val)

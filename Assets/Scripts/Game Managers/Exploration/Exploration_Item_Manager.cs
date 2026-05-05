@@ -8,11 +8,11 @@ public class Exploration_Item_Manager : ManagerBehavior
 
     public Item ChooseNewItem()
     {
-        List<Item> playerItems = GM.PL.GetItems().Select(i => i.GetItemType()).ToList();
-        List<Item> mapItems = GM.EL.GetFloorItems();
-        List<Item> discardedItems = GM.PL.GetDiscardedItems();
+        //List<Item> playerItems = GM.PL.GetItems().Select(i => i.GetItemType()).ToList();
+        //List<Item> mapItems = GM.EL.GetFloorItems();
+        //List<Item> discardedItems = GM.PL.GetDiscardedItems();
 
-        List<Item> existingItems = playerItems.Concat(mapItems).Concat(discardedItems).ToList();
+        List<Item> existingItems = GM.RU.RunItems;
 
         List<Item> viableItems = ItemMethods.GetItemRoomViableList();
         List<Item> remainingItems = viableItems.Except(existingItems).ToList();

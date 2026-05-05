@@ -5,6 +5,8 @@ using UnityEngine;
 public class Run_Manager : ManagerBehavior
 {
     public List<Exploration_Floor_Data> FloorList { get; private set; } = new List<Exploration_Floor_Data>();
+
+    public List<Item> RunItems { get; private set; } = new List<Item>();
     
     private Layout_Generator generator = new Layout_Generator();
 
@@ -15,6 +17,12 @@ public class Run_Manager : ManagerBehavior
             Exploration_Floor_Data floor = generator.GenerateBasicFloor(i);
 
             FloorList.Add(floor);
+            floor.DebugPrintLayout();
         }
+    }
+
+    public void AddItem(Item item)
+    {
+        this.RunItems.Add(item);
     }
 }

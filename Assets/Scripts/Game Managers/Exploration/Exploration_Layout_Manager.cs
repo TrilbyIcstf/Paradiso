@@ -99,7 +99,7 @@ public class Exploration_Layout_Manager : ManagerBehavior
                     mapRow += "X";
                 }
             }
-            Debug.Log(mapRow);
+            //Debug.Log(mapRow);
         }
     }
 
